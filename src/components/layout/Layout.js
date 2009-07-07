@@ -41,6 +41,7 @@ function Layout(props) {
   const [openSidebar, setOpenSidebar] = useState(true);
   const { globalState, globalDispatch } = useContext(Context);
   const [navKeyList, setNavKeyList] = useState({});
+  const [menu, setMenu] = useState(false)
 
 
   const handleDrawerOpen = () => {
@@ -130,6 +131,10 @@ function Layout(props) {
 
   }
 
+  const openMenu = () =>{
+    setMenu(!menu);
+  }
+
 
   return (
     <div>
@@ -158,7 +163,8 @@ function Layout(props) {
               <Typography variant="h6">Filter</Typography>
             </IconButton>
             {/* <Link className={classes.link} onClick={() => handleSidebarStatus()}><MenuOpenSharpIcon className={classes.sidetoggle} />&nbsp;Filter</Link> */}
-            <Link className={classes.link} to="/couponsmania">
+            <div className={classes.menu}>
+              <Link className={classes.link} to="/couponsmania">
               Home
             </Link>
 
@@ -172,6 +178,20 @@ function Layout(props) {
                         {rendercatAndsubcatDrop()}
                       </Grid>
                     </ul>
+
+                    <Grid  xl={12} style={{display:'flex'}}>
+        {/* <Paper className={classes.offerpaper1}> */}
+          <div className={classes.li} style={{marginLeft:'auto',display:'flex'}}>
+
+           <Link to='/couponsmania/AllCategories' className={classes.viewmore}>
+            <Typography variant='h6'   >View More </Typography><DoubleArrowIcon  className={classes.viewmoreicon}/>
+            </Link>
+
+          </div>
+        {/* </Paper> */}
+        
+      </Grid>
+
                   </Paper>
                 </div>
               </div>
@@ -306,6 +326,22 @@ function Layout(props) {
             <Link className={classes.link} to="/">
               Best offer
             </Link>
+            
+            
+           
+
+            
+            </div>
+            <IconButton
+              color="inherit"
+              aria-label="open menu"
+              edge="start"
+              className={menu ? classes.openmenubtn : classes.menubtn}
+              onClick={openMenu}
+            >
+              <MenuIcon/>
+              <Typography variant="h6">Menu</Typography>
+            </IconButton>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -318,7 +354,7 @@ function Layout(props) {
           }}
         >
           <div className={classes.drawerHeader}>
-          <Button variant="title" style={{marginRight:"auto"}}>Clear All</Button>
+          <Button variant="title" style={{marginRight:"auto"}} >Clear All</Button>
             <Typography variant="h6">Filter</Typography>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === "ltr" ? (
@@ -355,7 +391,7 @@ function Layout(props) {
           })}
         >
           <div className={classes.drawerHeader} />
-          <main style={{background:"#b8fdff",marginBottom:'8px'}}>{props.children}</main>
+          <main style={{background:"#b8fdff"}}>{props.children}</main>
         </main>
       </div>
 

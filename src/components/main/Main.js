@@ -158,7 +158,9 @@ function Main(props) {
   }
 
   return (
-    <Grid container spacing={2}>
+    <Grid>
+      <Button varient='button' style={{margin:'5px'}}>Clear All</Button>
+      <Grid container spacing={2}>
       {/*  render all coupons list */}
       {renderCouponsList()}
       <Grid xs={12} sm={12} md={12} lg={12} xl={12}>
@@ -173,6 +175,7 @@ function Main(props) {
              handleCopyClick = {(code)=>handleCopyClick(code)}
              copyMsg = {copyMsg}
              />
+    </Grid>
     </Grid>
   );
 }

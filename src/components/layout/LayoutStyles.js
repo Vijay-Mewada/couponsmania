@@ -88,7 +88,7 @@ root: {
     paddingLeft:"0px",
     paddingRight:"0px",
     paddingBottom:"0px",
-    marginTop:"4.8rem",
+    marginTop:"4.09rem",
     flexGrow: 1,
     padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
@@ -101,7 +101,7 @@ root: {
     },
   },
   contentShift: {
-    marginTop:"4.8rem",
+    marginTop:"4.09rem",
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
@@ -121,6 +121,33 @@ sidetoggle:{
     color:'#fff',
     margin:'auto 0px',
     padding : '0px'
+},
+menu:{
+  display:'flex',
+  [theme.breakpoints.down('xs')]: {
+    display: "none",
+  },
+},
+menubtn:{
+  display: "none",
+  marginLeft:"auto",
+  [theme.breakpoints.down('xs')]: {
+    display: "block",
+  },
+},
+openmenubtn:{
+  marginLeft:"auto",
+  display: "none",
+
+"& $menu": {
+  display:"block",
+  position:'relative'
+},
+  
+  [theme.breakpoints.down('xs')]: {
+    display: "block",
+  },
+
 },
 link : {
     padding:'5px 10px',

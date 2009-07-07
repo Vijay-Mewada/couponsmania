@@ -30,9 +30,9 @@ function GetCoupon(props) {
     : img;
 
     const handleCouponRedirectButton = (item)=>{
-      console.log('item.couponUrl',item.couponUrl);
       if(item && item.couponUrl && item.couponUrl !== ''){
-        window.open(item.couponUrl, "_blank", "");
+        window.open(item.couponUrl);
+        console.log('item.couponUrl',item.couponUrl);
       }
     }
 

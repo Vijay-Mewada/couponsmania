@@ -6,6 +6,8 @@ import { Grid } from "@material-ui/core";
 import UploadCoupon from "./pages/uploadcoupon/UploadCoupon";
 import GlobalStateProvider from "./store/GlobalStateProvider";
 import AllStores from "./pages/allstores/AllStores"
+import AllCategories from './pages/allcategories/AllCategories'
+import UpdateOrDeleteCoupon from './pages/updateordeletecoupon/UpdateOrDeleteCoupon'
 
 function App(props) {
   return (
@@ -16,6 +18,8 @@ function App(props) {
             <Route exact path="/couponsmania" component={Main} />
             <Route exact path="/couponsmania/UploadCoupon" component={UploadCoupon} />
             <Route exact path="/couponsmania/AllStores" component={AllStores} />
+            <Route exact path="/couponsmania/AllCategories" component={AllCategories} />
+            <Route exact path="/couponsmania/UpdateOrDeleteCoupon" component={UpdateOrDeleteCoupon} />
           </Switch>
         </Layout>
       </Router> 
