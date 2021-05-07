@@ -9,6 +9,7 @@ const FooterStyles = makeStyles((theme) => ({
   title: {
     display: 'none',
     margin: '-84px 0px 0px 136px',
+    color:"white",
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },

@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+/* .hover {
+  position: absolute;
+  z-index: 1000 !important;
+  font: 22px Arial;
+  display: inline-block;
+  text-align: center;
+  color: white;
+  background: red;  */
+  /* default color */
+
+  /* "to left" / "to right" - affects initial color */
+  /* background: linear-gradient(to left, salmon 50%, lightblue 50%) right;
+  background-size: 200%;
+  transition: .5s ease-out;
+}
+.hover:hover {
+  background-position: left;
+} */
