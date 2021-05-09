@@ -1,7 +1,7 @@
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
 import Layout from "./components/layout/Layout";
 import Main from "./components/main/Main";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 import UploadCoupon from "./pages/uploadcoupon/UploadCoupon";
 
