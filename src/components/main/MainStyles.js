@@ -8,7 +8,8 @@ const MainStyles = makeStyles ({
       },
       companylogo: {
         height: "100px",
-        width:"100px"
+        width:"100px",
+        margin:"auto"
       },
       coupanbtn:{
         backgroundColor:"#635b5b",

@@ -8,7 +8,6 @@ import UploadCoupon from "./pages/uploadcoupon/UploadCoupon";
 function App(props) {
   return (
     <Router>
-      
         <Layout>
         
         
