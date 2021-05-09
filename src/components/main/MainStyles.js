@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const AppStyle = makeStyles ({
+const MainStyles = makeStyles ({
     card: {
         margin:'20px',
         maxWidth: 345,
@@ -23,4 +23,4 @@ const AppStyle = makeStyles ({
         //   },
       
 });
-export { AppStyle };
+export { MainStyles };
