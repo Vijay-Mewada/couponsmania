@@ -15,7 +15,7 @@ import {
     KeyboardTimePicker,
     KeyboardDatePicker,
   } from '@material-ui/pickers';
-// import DateFnsUtils from '@date-io/date-fns';
+import DateFnsUtils from '@date-io/date-fns';
 
 function UploadCoupon(props) {
   const classes = UploadCouponStyles(props);
@@ -29,6 +29,7 @@ function UploadCoupon(props) {
 
   
   return (
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
     <Grid style={{display:'flex', margin:'25px'}}>
       <FormControl style={{margin:"auto"}}>
       <FormControl>
@@ -71,11 +72,11 @@ function UploadCoupon(props) {
         </FormControl>
 
         <FormControl variant="outlined">
-        <MuiPickersUtilsProvider>
+        
         <KeyboardDatePicker
           margin="normal"
           id="date-picker-dialog"
-          label="Date picker dialog"
+          label="Expiry Date of Offer"
           format="MM/dd/yyyy"
           value={selectedDate}
           onChange={handleDateChange}
@@ -83,12 +84,13 @@ function UploadCoupon(props) {
             'aria-label': 'change date',
           }}
         />
-        </MuiPickersUtilsProvider>
+      
         </FormControl>
 
 
       </FormControl>
     </Grid>
+    </MuiPickersUtilsProvider>
   );
 }
 
