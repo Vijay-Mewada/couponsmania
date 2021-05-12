@@ -17,6 +17,13 @@ const MainStyles = makeStyles ({
         color : "#fff",
         padding:'5px 10px'
 
+      },
+      spinloader : {
+        animationName: "spinning",
+        animationDuration: "3s",
+        animationIterationCount: "infinite",
+        /* linear | ease | ease-in | ease-out | ease-in-out */
+        animationTimingFunction: "linear",
       }
         // paper: {
         //     height: 140,

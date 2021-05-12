@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import {
   FormControl,
   Grid,
@@ -7,9 +8,9 @@ import {
   FormHelperText,
   TextField,
   TextareaAutosize,
+  Button,
 } from "@material-ui/core";
 import { UploadCouponStyles } from "./UploadCouponStyles";
-import React from "react";
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
@@ -29,6 +30,33 @@ function UploadCoupon(props) {
     setSelectedDate(date);
   };
 
+  const [selectedFile, setSelectedFile] = useState();
+  const [preview, setPreview] = useState();
+
+  // create a preview as a side effect, whenever selected file is changed
+  useEffect(() => {
+    if (!selectedFile) {
+      setPreview(undefined);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFile);
+    setPreview(objectUrl);
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile]);
+
+  const onSelectFile = (e) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedFile(undefined);
+      return;
+    }
+
+    // I've kept this example simple by using the first image instead of multiple
+    setSelectedFile(e.target.files[0]);
+  };
+
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Grid style={{ display: "flex", margin: "25px" }}>
@@ -36,10 +64,24 @@ function UploadCoupon(props) {
           <img
             src={Logo}
             alt="logo"
-            height="120px"
-            width="120px"
+            height="auto "
+            width="auto "
             style={{ margin: "auto" }}
           />
+
+          <FormControl style={{marginTop:"25px"}}>
+            <TextField
+              id="outlined-Discount Title-input"
+              label="Company Name"
+              type="Discount Title"
+              variant="outlined"
+            />
+            <FormHelperText id="my-helper-text">
+              Ex. Flat 50 off & 50% off
+            </FormHelperText>
+          </FormControl>
+          <br />
+
           <FormControl>
             <TextField
               id="outlined-Discount Title-input"
@@ -80,7 +122,7 @@ function UploadCoupon(props) {
               <option>User Specific</option>
             </Select>
           </FormControl>
-
+          <br/>
           <FormControl variant="outlined">
             <KeyboardDatePicker
               margin="normal"
@@ -93,13 +135,41 @@ function UploadCoupon(props) {
                 "aria-label": "change date",
               }}
             />
-            <input type="file" id="actual-btn" hidden />
+            {/* <input accept="image/*" type="file" id="actual-btn" hidden onChange={onChange} />
             <label className={classes.fileuploadbtn} for="actual-btn">
               Choose Company Logo (Image)
             </label>
+            <img src={this.state.file[0]} /> */}
+          </FormControl>
+          <br/>
+
+          <FormControl>
+            <Grid container className={classes.uploadform}>
+              <Grid
+                xs={6}
+                sm={6}
+                md={6}
+                lg={6}
+                xl={6}
+                style={{ margin: "auto" }}
+              >
+                <input type="file" onChange={onSelectFile} />
+              </Grid>
+              <Grid xs={6} sm={6} md={6} lg={6} xl={6}>
+                {selectedFile && (
+                  <img src={preview} className={classes.uploadimg} />
+                )}
+              </Grid>
+            </Grid>
             <FormHelperText id="my-helper-text">
               Ex. Logo of a Company which provides Coupon
             </FormHelperText>
+          </FormControl>
+<br/>
+          <FormControl>
+            <Button variant="outlined" className={classes.submitbtn}>
+              Submit
+            </Button>
           </FormControl>
         </FormControl>
       </Grid>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Moment from "moment";import { Grid } from "@material-ui/core";
+import Moment from "moment";import { Box, Grid } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -11,9 +11,11 @@ import { MainStyles } from "./MainStyles";
 import Amazon from "../../images/amazonlogo.jpg";
 import Flipkart from "../../images/flipartlogo.png";
 import Freecharge from "../../images/freechargelogo.png";
-import Jio from "../../images/jiologo.png";
+import Logo from "../../images/logo.gif";
 import PopularStore from "../popularstore/PopularStore";
 import {post, serverImageUrl} from '../../api/serverRequest'
+import CircularProgress from '@material-ui/core/CircularProgress';
+import PropTypes from 'prop-types';
 
 function Main(props) {
   const classes = MainStyles(props);
@@ -66,6 +68,7 @@ function Main(props) {
       let imagePath = itm.image_path && itm.image_path !== '' ? `${serverImageUrl}/${itm.image_path}` : Amazon
       return (
         <Grid xs={12} sm={6} md={6} lg={4} xl={3}>
+         
           <Card className={classes.card}>
             <CardActionArea>
               <Grid style={{ display: "flex" }}>
@@ -95,6 +98,7 @@ function Main(props) {
             </Button>
             </CardActions>
           </Card>
+          
         </Grid>
       );
     });
@@ -106,6 +110,11 @@ function Main(props) {
 
       <Grid xs={12} sm={12} md={12} lg={12} xl={12}>
         <PopularStore />
+        
+      <CircularProgress style={{height:"150px", width:'140px',backgroundImage:`url('https://vijay-mewada.github.io/couponsmania/static/media/logo.dad734dc.png')`,backgroundRepeat: "no-repeat",transform: `rotate(${361}deg)`,backgroundPosition: "center"}}>
+        <img src='https://vijay-mewada.github.io/couponsmania/static/media/logo.dad734dc.png' height='520px' width='520px' style={{position:"absolute"}}/>
+
+        </CircularProgress>        
       </Grid>
     </Grid>
   );
