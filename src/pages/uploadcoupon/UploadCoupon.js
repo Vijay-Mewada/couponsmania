@@ -10,6 +10,7 @@ import {
   TextareaAutosize,
   Button,
 } from "@material-ui/core";
+import Moment from "moment";
 import { UploadCouponStyles } from "./UploadCouponStyles";
 import {
   MuiPickersUtilsProvider,
@@ -18,20 +19,82 @@ import {
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import Logo from "../../images/logo.png";
+import { post, get } from "../../api/serverRequest";
 
 function UploadCoupon(props) {
   const classes = UploadCouponStyles(props);
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const [selectedFile, setSelectedFile] = useState('');
+  const [categoryList, setCategoryList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
+  const [preview, setPreview] = useState();
+  const [title, setTitle] = useState('');
+  const [company, setCompany] = useState('');
+  const [description, setDescription] = useState('');
+  const [category, setCategory] = useState('');
+  const [code, setCode] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const [selectedDate, setSelectedDate] = React.useState(
-    new Date("2014-08-18T21:11:54")
-  );
+  //  component didmount to get all category and companylist
+  useEffect(async () => {
+    //  set Category list to state
+    let categoryListResponse = await get("/coupon/getAllCategory");
+    if (categoryListResponse && categoryListResponse.data && categoryListResponse.data.content) {
+      setCategoryList(categoryListResponse.data.content)
+    }
+    //  set company list to state
+    let companyListResponse = await get("/coupon/getAllCompany");
+    if (companyListResponse && companyListResponse.data && companyListResponse.data.content) {
+      setCompanyList(companyListResponse.data.content)
+    }
+  }, [])
+
 
   const handleDateChange = (date) => {
-    setSelectedDate(date);
+    console.log(date);
+    if(date >= new Date()){
+      setSelectedDate(date);
+    }else{
+      alert("Date should not be less than todays date")
+      setErrorMessage("Date should not be greater than today's date")
+    }
   };
 
-  const [selectedFile, setSelectedFile] = useState();
-  const [preview, setPreview] = useState();
+  const handleFormSubmit = async () => {  
+
+    var validityDate = Moment(selectedDate).format("YYYY-MM-DD")    
+    if (selectedDate && category && company) {
+      var form_data = new FormData();
+      var data = {
+        title : title,
+        code,
+        description,
+        companyId : company,
+        categoryId : category,
+        validity : validityDate
+
+      }
+      // form_data.append('title', title)
+      // form_data.append('code', code)
+      // form_data.append('categoryId', category)
+      // form_data.append('description', description)
+      // form_data.append('companyId', company)
+      // form_data.append('validity', validityDate)
+      let response = await post("/coupon/addCoupon", data);
+      if(response && response.data && response.data.is_success){
+        setSelectedDate(new Date())
+        setSelectedFile('')
+        setPreview()
+        setTitle('')
+        setCompany('')
+        setDescription('')
+        setCategory('')
+        setCode('')
+        setErrorMessage('')
+      }
+    }
+  }
+
 
   // create a preview as a side effect, whenever selected file is changed
   useEffect(() => {
@@ -39,7 +102,6 @@ function UploadCoupon(props) {
       setPreview(undefined);
       return;
     }
-
     const objectUrl = URL.createObjectURL(selectedFile);
     setPreview(objectUrl);
 
@@ -52,7 +114,6 @@ function UploadCoupon(props) {
       setSelectedFile(undefined);
       return;
     }
-
     // I've kept this example simple by using the first image instead of multiple
     setSelectedFile(e.target.files[0]);
   };
@@ -69,15 +130,36 @@ function UploadCoupon(props) {
             style={{ margin: "auto" }}
           />
 
-          <FormControl style={{marginTop:"25px"}}>
+          <FormControl variant="outlined">
+            <InputLabel htmlFor="outlined-age-native-simple">
+              Company Name
+            </InputLabel>
+            <Select
+              native
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+              label="companyName"
+            >
+              <option aria-label="None" value="" />
+              {companyList && companyList.map((item,ind) => {
+                return <option id={ind} value = {item.id}> {item.name}</option>
+              })}
+              {/* <option> For All User</option>
+              <option>User Specific</option> */}
+            </Select>
+          </FormControl>
+          <br />
+          <FormControl style={{ marginTop: "25px" }}>
             <TextField
               id="outlined-Discount Title-input"
-              label="Company Name"
-              type="Discount Title"
+              label="Coupon Code"
+              type="coupon code"
               variant="outlined"
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
             />
             <FormHelperText id="my-helper-text">
-              Ex. Flat 50 off & 50% off
+              Ex. code50, off786, usb_90...
             </FormHelperText>
           </FormControl>
           <br />
@@ -88,6 +170,8 @@ function UploadCoupon(props) {
               label="Discount Title"
               type="Discount Title"
               variant="outlined"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
             />
             <FormHelperText id="my-helper-text">
               Ex. Flat 50 off & 50% off
@@ -99,6 +183,8 @@ function UploadCoupon(props) {
               className={classes.txtarea}
               placeholder="Discription of a offer"
               rowsMin={5}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
             />
             <FormHelperText id="my-helper-text">
               Ex. Upto Rs. 50 Amazon Pay Cashback on Payments done via Amazon
@@ -113,16 +199,19 @@ function UploadCoupon(props) {
             </InputLabel>
             <Select
               native
-              //   value={state.age}
-              //   onChange={handleChange}
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
               label="offertype"
             >
               <option aria-label="None" value="" />
-              <option> For All User</option>
-              <option>User Specific</option>
+              {categoryList && categoryList.map((item, ind) => {
+                return <option id={ind} value = {item.id}> {item.name}</option>
+              })}
+              {/* <option> For All User</option>
+              <option>User Specific</option> */}
             </Select>
           </FormControl>
-          <br/>
+          <br />
           <FormControl variant="outlined">
             <KeyboardDatePicker
               margin="normal"
@@ -141,9 +230,9 @@ function UploadCoupon(props) {
             </label>
             <img src={this.state.file[0]} /> */}
           </FormControl>
-          <br/>
+          <br />
 
-          <FormControl>
+          {/* <FormControl>
             <Grid container className={classes.uploadform}>
               <Grid
                 xs={6}
@@ -164,10 +253,10 @@ function UploadCoupon(props) {
             <FormHelperText id="my-helper-text">
               Ex. Logo of a Company which provides Coupon
             </FormHelperText>
-          </FormControl>
-<br/>
+          </FormControl> */}
+          {/* <br /> */}
           <FormControl>
-            <Button variant="outlined" className={classes.submitbtn}>
+            <Button variant="outlined" className={classes.submitbtn} onClick={() => handleFormSubmit()}>
               Submit
             </Button>
           </FormControl>
