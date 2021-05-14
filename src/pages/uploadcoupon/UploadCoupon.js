@@ -9,6 +9,13 @@ import {
   TextField,
   TextareaAutosize,
   Button,
+  Paper,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Typography
 } from "@material-ui/core";
 import Moment from "moment";
 import { UploadCouponStyles } from "./UploadCouponStyles";
@@ -23,6 +30,7 @@ import { post, get } from "../../api/serverRequest";
 
 function UploadCoupon(props) {
   const classes = UploadCouponStyles(props);
+  const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = React.useState(new Date());
   const [selectedFile, setSelectedFile] = useState('');
   const [categoryList, setCategoryList] = useState([]);
@@ -48,6 +56,14 @@ function UploadCoupon(props) {
       setCompanyList(companyListResponse.data.content)
     }
   }, [])
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
 
   const handleDateChange = (date) => {
@@ -120,14 +136,15 @@ function UploadCoupon(props) {
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <Grid style={{ display: "flex", margin: "25px" }}>
+      <Grid className={classes.main}>
+      <Paper className={classes.paper}>
         <FormControl style={{ margin: "auto" }}>
           <img
             src={Logo}
             alt="logo"
             height="auto "
             width="auto "
-            style={{ margin: "auto" }}
+            style={{ margin: "25px auto" }}
           />
 
           <FormControl variant="outlined">
@@ -149,7 +166,7 @@ function UploadCoupon(props) {
             </Select>
           </FormControl>
           <br />
-          <FormControl style={{ marginTop: "25px" }}>
+          <FormControl >
             <TextField
               id="outlined-Discount Title-input"
               label="Coupon Code"
@@ -259,9 +276,82 @@ function UploadCoupon(props) {
             <Button variant="outlined" className={classes.submitbtn} onClick={() => handleFormSubmit()}>
               Submit
             </Button>
+          </FormControl><br/>
+          <FormControl>
+            <Typography variant='title' style={{textAlign:'center'}}>
+              Company not found ? &nbsp;
+              <Button color='primary' variant='outlined' onClick={handleClickOpen}>Add</Button>
+              </Typography>
+
+
+              <Dialog
+              
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title" className={classes.dialogbox}>{"Add Company Details."}</DialogTitle>
+        <DialogContent>
+
+          <FormControl style={{width:"100%",marginBottom:"10px"}}>
+          <TextField
+              id="outlined-Discount Title-input"
+              label="Company Name"
+              type="Company Name"
+              variant="outlined"
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              
+            />
+            <FormHelperText id="my-helper-text">
+              Ex. Amazon, Flipkart, Freecharge...
+            </FormHelperText>
+          </FormControl><br/>
+         
+
+        <FormControl style={{width:"100%"}}>
+            <Grid container className={classes.uploadform}>
+              <Grid
+                xs={6}
+                sm={6}
+                md={6}
+                lg={6}
+                xl={6}
+                style={{ margin: "auto" }}
+              >
+                <input type="file" onChange={onSelectFile} />
+              </Grid>
+              <Grid xs={6} sm={6} md={6} lg={6} xl={6}>
+                {selectedFile && (
+                  <img src={preview} className={classes.uploadimg} />
+                )}
+              </Grid>
+            </Grid>
+            <FormHelperText id="my-helper-text">
+              Ex. Logo of a Company which provides Coupon
+            </FormHelperText>
           </FormControl>
+
+
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Submit
+          </Button>
+          <Button onClick={handleClose} color="primary" autoFocus>
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+          </FormControl>
+
+
         </FormControl>
+        </Paper>
       </Grid>
+    
     </MuiPickersUtilsProvider>
   );
 }
