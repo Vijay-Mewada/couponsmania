@@ -55,8 +55,8 @@ function UploadCoupon(props) {
     if(date >= new Date()){
       setSelectedDate(date);
     }else{
-      alert("Date should not be less than todays date")
-      setErrorMessage("Date should not be greater than today's date")
+      alert("Date should not be less than today's date")
+      setErrorMessage("Date should not be less than today's date")
     }
   };
 
