@@ -15,7 +15,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import Moment from "moment";
 import { UploadCouponStyles } from "./UploadCouponStyles";
@@ -27,40 +27,49 @@ import {
 import DateFnsUtils from "@date-io/date-fns";
 import Logo from "../../images/logo.png";
 import { post, get } from "../../api/serverRequest";
+import AddIcon from '@material-ui/icons/Add';
 
 function UploadCoupon(props) {
   const classes = UploadCouponStyles(props);
   const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = React.useState(new Date());
-  const [selectedFile, setSelectedFile] = useState('');
+  const [selectedFile, setSelectedFile] = useState("");
   const [categoryList, setCategoryList] = useState([]);
   const [companyList, setCompanyList] = useState([]);
   const [preview, setPreview] = useState();
-  const [title, setTitle] = useState('');
-  const [companyId, setCompanyId] = useState('');
-  const [description, setDescription] = useState('');
-  const [categoryId, setCategoryId] = useState('');
-  const [code, setCode] = useState('');
-  const [companyName, setCompanyName] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [title, setTitle] = useState("");
+  const [companyId, setCompanyId] = useState("");
+  const [description, setDescription] = useState("");
+  const [categoryId, setCategoryId] = useState("");
+  const [code, setCode] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   //  component didmount to get all category and companylist
   useEffect(async () => {
     //  set Category list to state
     let categoryListResponse = await get("/coupon/getAllCategory");
-    if (categoryListResponse && categoryListResponse.data && categoryListResponse.data.content) {
-      setCategoryList(categoryListResponse.data.content)
+    if (
+      categoryListResponse &&
+      categoryListResponse.data &&
+      categoryListResponse.data.content
+    ) {
+      setCategoryList(categoryListResponse.data.content);
     }
     //  set company list to state
-    getAllCompanyList()
-  }, [])
+    getAllCompanyList();
+  }, []);
 
-  const getAllCompanyList = async()=>{
+  const getAllCompanyList = async () => {
     let companyListResponse = await get("/coupon/getAllCompany");
-    if (companyListResponse && companyListResponse.data && companyListResponse.data.content) {
-      setCompanyList(companyListResponse.data.content)
+    if (
+      companyListResponse &&
+      companyListResponse.data &&
+      companyListResponse.data.content
+    ) {
+      setCompanyList(companyListResponse.data.content);
     }
-  }
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -70,35 +79,38 @@ function UploadCoupon(props) {
     setOpen(false);
   };
 
-
   const handleDateChange = (date) => {
     console.log(date);
     if (date >= new Date()) {
       setSelectedDate(date);
     } else {
-      alert("Date should not be less than today's date")
-      setErrorMessage("Date should not be less than today's date")
+      alert("Date should not be less than today's date");
+      setErrorMessage("Date should not be less than today's date");
     }
   };
 
-  // handle company form submit 
-  const handleCompanyDataSubmit = async() => {
-
+  // handle company form submit
+  const handleCompanyDataSubmit = async () => {
     var form_data = new FormData();
-    form_data.append('company', companyName)
-    form_data.append('image', selectedFile)
+    form_data.append("company", companyName);
+    form_data.append("image", selectedFile);
     let response = await post("/coupon/addCompany", form_data);
-    console.log( response.data)
-    if(response && response.data && response.data.content && response.data.content[0] && response.data.content[0].insertId){
-      setCompanyId(response.data.content[0].insertId)
-      getAllCompanyList()
-      handleClose()
+    console.log(response.data);
+    if (
+      response &&
+      response.data &&
+      response.data.content &&
+      response.data.content[0] &&
+      response.data.content[0].insertId
+    ) {
+      setCompanyId(response.data.content[0].insertId);
+      getAllCompanyList();
+      handleClose();
     }
-    
-  }
+  };
 
   const handleFormSubmit = async () => {
-    var validityDate = Moment(selectedDate).format("YYYY-MM-DD")
+    var validityDate = Moment(selectedDate).format("YYYY-MM-DD");
     if (selectedDate && categoryId && companyId) {
       var data = {
         title: title,
@@ -106,25 +118,23 @@ function UploadCoupon(props) {
         description,
         companyId: companyId,
         categoryId: categoryId,
-        validity: validityDate
-
-      }
+        validity: validityDate,
+      };
       let response = await post("/coupon/addCoupon", data);
       if (response && response.data && response.data.is_success) {
-        setSelectedDate(new Date())
-        setSelectedFile('')
-        setPreview()
-        setTitle('')
-        setCompanyId('')
-        setDescription('')
-        setCategoryId('')
-        setCode('')
-        setErrorMessage('')
-        setCompanyName('')
+        setSelectedDate(new Date());
+        setSelectedFile("");
+        setPreview();
+        setTitle("");
+        setCompanyId("");
+        setDescription("");
+        setCategoryId("");
+        setCode("");
+        setErrorMessage("");
+        setCompanyName("");
       }
     }
-  }
-
+  };
 
   // create a preview as a side effect, whenever selected file is changed
   useEffect(() => {
@@ -161,26 +171,66 @@ function UploadCoupon(props) {
               style={{ margin: "25px auto" }}
             />
 
-            <FormControl variant="outlined">
-              <InputLabel htmlFor="outlined-age-native-simple">
-                Company Name
-            </InputLabel>
-              <Select
-                native
-                value={companyId}
-                onChange={(e) => setCompanyId(e.target.value)}
-                label="companyName"
+            <Grid container >
+              <Grid
+                xs={6}
+                sm={6}
+                md={6}
+                lg={11}
+                xl={10}
+                style={{ margin: "auto" }}
               >
-                <option aria-label="None" value="" />
-                {companyList && companyList.map((item, ind) => {
-                  return <option id={ind} value={item.id}> {item.name}</option>
-                })}
-                {/* <option> For All User</option>
+                <FormControl variant="outlined" style={{width:"95%"}}>
+                  <InputLabel htmlFor="outlined-age-native-simple">
+                    Company Name
+                  </InputLabel>
+                  <Select
+                    native
+                    value={companyId}
+                    onChange={(e) => setCompanyId(e.target.value)}
+                    label="companyName"
+                  >
+                    <option aria-label="None" value="" />
+                    {companyList &&
+                      companyList.map((item, ind) => {
+                        return (
+                          <option id={ind} value={item.id}>
+                            
+                            {item.name}
+                          </option>
+                        );
+                      })}
+                    {/* <option> For All User</option>
               <option>User Specific</option> */}
-              </Select>
-            </FormControl>
+                  </Select>
+                </FormControl>
+                <FormHelperText id="my-helper-text" style={{position:"absolute"}}>
+                In Case Company not Found Click on Add Button
+              </FormHelperText>
+              </Grid>
+
+              <Grid
+                xs={6}
+                sm={6}
+                md={6}
+                lg={1}
+                xl={2}
+                style={{ margin: "auto" }}
+              >
+                <FormControl variant="outlined">
+                  <Button
+                    color="primary"
+                    variant="outlined"
+                    onClick={handleClickOpen}
+                  >
+                    <AddIcon className={classes.addbtn} />
+                  </Button>
+                </FormControl>
+              </Grid>
+            </Grid>
+            <br/>
             <br />
-            <FormControl >
+            <FormControl>
               <TextField
                 id="outlined-Discount Title-input"
                 label="Coupon Code"
@@ -191,7 +241,7 @@ function UploadCoupon(props) {
               />
               <FormHelperText id="my-helper-text">
                 Ex. code50, off786, usb_90...
-            </FormHelperText>
+              </FormHelperText>
             </FormControl>
             <br />
 
@@ -206,7 +256,7 @@ function UploadCoupon(props) {
               />
               <FormHelperText id="my-helper-text">
                 Ex. Flat 50 off & 50% off
-            </FormHelperText>
+              </FormHelperText>
             </FormControl>
             <br />
             <FormControl variant="outlined">
@@ -220,29 +270,74 @@ function UploadCoupon(props) {
               <FormHelperText id="my-helper-text">
                 Ex. Upto Rs. 50 Amazon Pay Cashback on Payments done via Amazon
                 Pay UPI (New User)
-            </FormHelperText>
+              </FormHelperText>
             </FormControl>
             <br />
 
-            <FormControl variant="outlined">
+
+            <Grid container >
+              <Grid
+                xs={6}
+                sm={6}
+                md={6}
+                lg={11}
+                xl={10}
+                style={{ margin: "auto" }}
+              >
+               
+            <FormControl variant="outlined" style={{width:"95%"}}>
               <InputLabel htmlFor="outlined-age-native-simple">
-                Offer Type
-            </InputLabel>
+              Categories
+              </InputLabel>
               <Select
                 native
                 value={categoryId}
                 onChange={(e) => setCategoryId(e.target.value)}
-                label="offertype"
+                label="Categories"
               >
                 <option aria-label="None" value="" />
-                {categoryList && categoryList.map((item, ind) => {
-                  return <option id={ind} value={item.id}> {item.name}</option>
-                })}
+                {categoryList &&
+                  categoryList.map((item, ind) => {
+                    return (
+                      <option id={ind} value={item.id}>
+                        
+                        {item.name}
+                      </option>
+                    );
+                  })}
                 {/* <option> For All User</option>
               <option>User Specific</option> */}
               </Select>
             </FormControl>
+            <FormHelperText id="my-helper-text" style={{position:"absolute"}}>
+                In Case Categories not Found Click on Add Button
+              </FormHelperText>
+              </Grid>
             <br />
+
+            <Grid
+                xs={6}
+                sm={6}
+                md={6}
+                lg={1}
+                xl={2}
+                style={{ margin: "auto" }}
+              >
+                <FormControl variant="outlined">
+                  <Button
+                    color="primary"
+                    variant="outlined"
+                    onClick={handleClickOpen}
+                  >
+                    <AddIcon className={classes.addbtn} />
+                  </Button>
+                </FormControl>
+              </Grid>
+            </Grid>
+            <br/>
+            
+
+
             <FormControl variant="outlined">
               <KeyboardDatePicker
                 margin="normal"
@@ -287,27 +382,40 @@ function UploadCoupon(props) {
           </FormControl> */}
             {/* <br /> */}
             <FormControl>
-              <Button variant="outlined" className={classes.submitbtn} onClick={() => handleFormSubmit()}>
+              <Button
+                variant="outlined"
+                className={classes.submitbtn}
+                onClick={() => handleFormSubmit()}
+              >
                 Submit
-            </Button>
-            </FormControl><br />
+              </Button>
+            </FormControl>
+            <br />
             <FormControl>
-              <Typography variant='title' style={{ textAlign: 'center' }}>
+              {/* <Typography variant="title" style={{ textAlign: "center" }}>
                 Company not found ? &nbsp;
-              <Button color='primary' variant='outlined' onClick={handleClickOpen}>Add</Button>
-              </Typography>
-
+                <Button
+                  color="primary"
+                  variant="outlined"
+                  onClick={handleClickOpen}
+                >
+                  Add
+                </Button>
+              </Typography> */}
 
               <Dialog
-
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
               >
-                <DialogTitle id="alert-dialog-title" className={classes.dialogbox}>{"Add Company Details."}</DialogTitle>
+                <DialogTitle
+                  id="alert-dialog-title"
+                  className={classes.dialogbox}
+                >
+                  {"Add Company Details."}
+                </DialogTitle>
                 <DialogContent>
-
                   <FormControl style={{ width: "100%", marginBottom: "10px" }}>
                     <TextField
                       id="outlined-Discount Title-input"
@@ -316,13 +424,12 @@ function UploadCoupon(props) {
                       variant="outlined"
                       value={companyName}
                       onChange={(e) => setCompanyName(e.target.value)}
-
                     />
                     <FormHelperText id="my-helper-text">
                       Ex. Amazon, Flipkart, Freecharge...
-            </FormHelperText>
-                  </FormControl><br />
-
+                    </FormHelperText>
+                  </FormControl>
+                  <br />
 
                   <FormControl style={{ width: "100%" }}>
                     <Grid container className={classes.uploadform}>
@@ -344,28 +451,25 @@ function UploadCoupon(props) {
                     </Grid>
                     <FormHelperText id="my-helper-text">
                       Ex. Logo of a Company which provides Coupon
-            </FormHelperText>
+                    </FormHelperText>
                   </FormControl>
-
-
                 </DialogContent>
                 <DialogActions>
-                  <Button onClick={()=>handleCompanyDataSubmit()} color="primary">
+                  <Button
+                    onClick={() => handleCompanyDataSubmit()}
+                    color="primary"
+                  >
                     Submit
-          </Button>
+                  </Button>
                   <Button onClick={handleClose} color="primary" autoFocus>
                     Cancel
-          </Button>
+                  </Button>
                 </DialogActions>
               </Dialog>
-
             </FormControl>
-
-
           </FormControl>
         </Paper>
       </Grid>
-
     </MuiPickersUtilsProvider>
   );
 }

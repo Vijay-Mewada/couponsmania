@@ -46,5 +46,8 @@ const UploadCouponStyles = makeStyles({
   dialogbox:{
     minWidth:"550px"
   },
+  addbtn:{
+    padding:"9px 15px"
+  },
 });
 export { UploadCouponStyles };
