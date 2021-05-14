@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import Moment from "moment";
 import { Box, Grid } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
@@ -17,10 +17,12 @@ import PopularStore from "../popularstore/PopularStore";
 import { post, get, serverImageUrl } from '../../api/serverRequest'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import PropTypes from 'prop-types';
+import Context from "../../store/context";
 
 function Main(props) {
   const classes = MainStyles(props);
   const [couponsList, setCouponsList] = useState([]);
+  const {globalState, globalDispatch} = useContext(Context)
 
 
   // componentdidmountto
@@ -28,11 +30,16 @@ function Main(props) {
     let res = await get("/coupon/getAllCoupon");
     if (res.data && res.data.content && res.data.content.length) {
       setCouponsList(res.data.content)
+      let data = res.data.content
+      // set global state to set coupons list for global use
+      globalDispatch({ type: 'ADD_COUPONS', payload: data })
     }
   }, []);
 
   const renderCouponsList = () => {
-    return couponsList && couponsList.map((itm, ind) => {
+    console.log('globalState at main', globalState)
+    return globalState.couponsList && globalState.couponsList.map((itm, ind) => {
+    // return couponsList && couponsList.map((itm, ind) => {
       // append image with server image url to show or show default url
       let imagePath = itm.image && itm.image !== '' ? `${serverImageUrl}/${itm.image}` : Amazon
       return (

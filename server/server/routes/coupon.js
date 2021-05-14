@@ -51,6 +51,8 @@ router.get("/getpopularCompany",companyController.get_popular_companies);
 router.post("/addCoupon", couponController.add_coupons)
 // get all coupons
 router.get("/getAllCoupon", couponController.get_all_coupons)
+// get all coupons by category 
+router.post("/getCouponsByCategory", couponController.get_coupons_by_category)
 // ****************** coupons routes******************//
 
 

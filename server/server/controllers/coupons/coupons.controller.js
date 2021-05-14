@@ -58,10 +58,29 @@ get_coupons_by_id = (req, res) => {
 
 // controller to get coupons by category
 get_coupons_by_category = (req, res) => {
+console.log('body-----', req.body)
+    db.query(
+        `SELECT * FROM coupons INNER JOIN companies on coupons.company = companies.id WHERE category IN (${req.body.categoryIds})`,
+        (err, result) => {
+            // user does not exists
+            if (err) {
+                res.status(200).send({
+                    message: err,
+                    content: [],
+                    is_success: false,
+                });
+                // throw err;
+            } else {
+                let coupon = [result];
 
-    //  write query here
-
-    res.send('get by category');
+                return res.status(200).json({
+                    message: "filtered coupon list",
+                    content: coupon[0],
+                    is_success: true,
+                });
+            }
+        }
+    );
 };
 
 // controller toget coupons by company

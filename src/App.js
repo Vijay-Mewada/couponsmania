@@ -4,19 +4,20 @@ import Layout from "./components/layout/Layout";
 import Main from "./components/main/Main";
 import { Grid } from "@material-ui/core";
 import UploadCoupon from "./pages/uploadcoupon/UploadCoupon";
+import GlobalStateProvider from "./store/GlobalStateProvider";
 
 function App(props) {
   return (
-    <Router>
+    <GlobalStateProvider>
+      <Router>
         <Layout>
-        
-        
-      <Switch>
-        <Route exact path="/couponsmania" component={Main} />
-        <Route exact path="/UploadCoupon" component={UploadCoupon} />
-      </Switch>
-      </Layout>
-    </Router>
+          <Switch>
+            <Route exact path="/couponsmania" component={Main} />
+            <Route exact path="/UploadCoupon" component={UploadCoupon} />
+          </Switch>
+        </Layout>
+      </Router> 
+    </GlobalStateProvider>
   );
 }
 
