@@ -1,8 +1,9 @@
 import axios from "axios";
 // const baseUrl = "https://oninecoponsapp.herokuapp.com/api";// live url
-export const serverUrl = 'https://oninecoponsapp.herokuapp.com'
-export const serverImageUrl = 'https://oninecoponsapp.herokuapp.com/images'
-// const serverUrl = "http://127.0.0.1:8000/";
+export const serverImageUrl = 'http://127.0.0.1:8000/images'
+// export const serverImageUrl = 'https://oninecoponsapp.herokuapp.com/images'
+// export const serverUrl = 'https://oninecoponsapp.herokuapp.com'
+const serverUrl = "http://127.0.0.1:8000";
 const baseUrl = `${serverUrl}/api`;
 
 export const get = async (url) => {
