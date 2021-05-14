@@ -23,7 +23,7 @@ add_company = (req, res) => {
                     let data = [result];
                     res.status(200).json({
                         message: 'company added successfully',
-                        content: [data],
+                        content: data,
                         is_success: true,
                     });
 
