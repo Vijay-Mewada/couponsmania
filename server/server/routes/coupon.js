@@ -1,5 +1,6 @@
 var express = require("express");
 var db = require("../config/dbConnection");
+var deleFileMiddleware = require("../middleware/deleteImage.middleware");
 var path = require("path");
 const multer = require("multer");
 const fs = require("fs");
@@ -50,7 +51,7 @@ router.get("/getpopularCompany",companyController.get_popular_companies);
 // add new coupon
 router.post("/addCoupon", couponController.add_coupons)
 // get all coupons
-router.get("/getAllCoupon", couponController.get_all_coupons)
+router.get("/getAllCoupon", deleFileMiddleware, couponController.get_all_coupons)
 // get all coupons by category 
 router.post("/getCouponsByCategory", couponController.get_coupons_by_category)
 // ****************** coupons routes******************//
