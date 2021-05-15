@@ -1,5 +1,5 @@
 import { Grid, AppBar, Toolbar, IconButton, Typography, InputBase, Badge , MenuItem, Menu } from '@material-ui/core'
-import React from 'react';
+import React, { useState, useEffect, useContext } from "react";
 import { HeaderStyles } from './HeaderStyles'
 import SearchIcon from '@material-ui/icons/Search';
 // import MenuIcon from '@material-ui/icons/Menu';
@@ -8,9 +8,39 @@ import { FormControl, NativeSelect } from '@material-ui/core';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import TwitterIcon from '@material-ui/icons/Twitter';
+import { get, post } from "../../api/serverRequest";
+import Context from "../../store/context";
+
+
 
 function Header(props) {
     const classes = HeaderStyles(props);
+    const { globalState, globalDispatch } = useContext(Context)
+    const [searchInput, setSearchInput] = useState([]);
+
+
+      // call every time the checkbox change (cgecked or not checked)
+  useEffect(async () => {
+    // get coupons on based on category checked
+    if (searchInput && searchInput.length) {
+      let res = await post("/coupon/getCouponsBySearch", { searchParams: searchInput });
+      if (res && res.data && res.data.content) {
+        let data = res.data.content
+      // set global state to set coupons list for global use
+      globalDispatch({ type: 'ADD_COUPONS', payload: data })
+      }
+    }
+    //  get all coupons in case none of the category checkbox selected
+    else if(searchInput.length == 0){
+      let res = await get("/coupon/getAllCoupon");
+    if (res.data && res.data.content && res.data.content.length) {
+      let data = res.data.content
+      // set global state to set coupons list for global use
+      globalDispatch({ type: 'ADD_COUPONS', payload: data })
+    }
+    }
+  }, [searchInput])
+
     return (
         <Grid>
             <AppBar position="static" style={{background:"#635b5b"}}>
@@ -55,6 +85,8 @@ function Header(props) {
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
+              value = {searchInput}
+              onChange = {(e)=>setSearchInput(e.target.value)}
             />
              <Grid className={classes.searchIcon}>
               <SearchIcon/>

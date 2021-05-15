@@ -11,7 +11,6 @@ const deleFileMiddleware = (req, res, next) => {
             (err, result) => {
                 // user does not exists
                 if (err) {
-                    console.log('error',err);
                     res.status(200).send({
                         message: err,
                         content: [],

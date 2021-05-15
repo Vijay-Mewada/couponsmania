@@ -54,6 +54,8 @@ router.post("/addCoupon", couponController.add_coupons)
 router.get("/getAllCoupon", deleFileMiddleware, couponController.get_all_coupons)
 // get all coupons by category 
 router.post("/getCouponsByCategory", couponController.get_coupons_by_category)
+// get searched coupons 
+router.post("/getCouponsBySearch", couponController.get_coupons_by_search)
 // ****************** coupons routes******************//
 
 

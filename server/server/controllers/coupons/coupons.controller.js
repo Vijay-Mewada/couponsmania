@@ -58,9 +58,15 @@ get_coupons_by_id = (req, res) => {
 
 // controller to get coupons by category
 get_coupons_by_category = (req, res) => {
-console.log('body-----', req.body)
     db.query(
-        `SELECT * FROM coupons INNER JOIN companies on coupons.company = companies.id WHERE category IN (${req.body.categoryIds})`,
+        `SELECT coupons.id, coupons.title, coupons.code, 
+        coupons.description, coupons.validity, 
+        companies.image, category.id as category_id, 
+        category.name as category_name, companies.id as company_id, 
+        companies.name as company_name
+         FROM coupons INNER JOIN companies on coupons.company = companies.id 
+        INNER JOIN category on coupons.category = category.id 
+        WHERE category IN (${req.body.categoryIds})`,
         (err, result) => {
             // user does not exists
             if (err) {
@@ -94,8 +100,13 @@ get_coupons_by_company = (req, res) => {
 // controller to get ALl coupons
 get_all_coupons = (req, res) => {
     db.query(
-        `SELECT coupons.id, coupons.title, coupons.code, coupons.description, coupons.validity, companies.image, category.id as category_id, category.name as category_name, companies.id as company_id, companies.name as company_name  FROM coupons
-        INNER JOIN category ON coupons.category=category.id INNER JOIN companies on coupons.company = companies.id;`,
+        `SELECT coupons.id, coupons.title, coupons.code, 
+        coupons.description, coupons.validity, 
+        companies.image, category.id as category_id, 
+        category.name as category_name, companies.id as company_id, 
+        companies.name as company_name  FROM coupons
+        INNER JOIN category ON coupons.category=category.id 
+        INNER JOIN companies on coupons.company = companies.id;`,
         (err, result) => {
             // user does not exists
             if (err) {
@@ -118,6 +129,38 @@ get_all_coupons = (req, res) => {
     );
 };
 
+get_coupons_by_search = (req, res)=>{
+    db.query(
+        `SELECT coupons.id, coupons.title, coupons.code, 
+        coupons.description, coupons.validity, companies.image, 
+        category.id as category_id, category.name as category_name,
+         companies.id as company_id, companies.name as company_name
+        FROM coupons
+        INNER JOIN companies on coupons.company = companies.id 
+        INNER JOIN category on coupons.category = category.id
+        WHERE coupons.title LIKE '${req.body.searchParams}' OR companies.name LIKE '%${req.body.searchParams}%'`,
+        (err, result) => {
+            // user does not exists
+            if (err) {
+                res.status(200).send({
+                    message: err,
+                    content: [],
+                    is_success: false,
+                });
+                // throw err;
+            } else {
+                let coupon = [result];
+
+                return res.status(200).json({
+                    message: "filtered coupon list",
+                    content: coupon[0],
+                    is_success: true,
+                });
+            }
+        }
+    );
+}
+
 
 module.exports = {
     get_all_coupons,
@@ -125,5 +168,6 @@ module.exports = {
     update_coupons,
     get_coupons_by_category,
     get_coupons_by_company,
-    get_coupons_by_id
+    get_coupons_by_id,
+    get_coupons_by_search
 }
