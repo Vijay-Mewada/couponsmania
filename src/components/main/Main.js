@@ -43,7 +43,8 @@ function Main(props) {
       // append image with server image url to show or show default url
       let imagePath = itm.image && itm.image !== '' ? `${serverImageUrl}/${itm.image}` : Amazon
       return (
-        <Grid xs={12} sm={6} md={6} lg={4} xl={3}>
+        // <Grid container>
+        <Grid xs={12} sm={6} md={6} lg={4} xl={2}>
           <Card className={classes.card}>
             <CardActionArea>
               <Grid style={{ display: "flex" }}>
@@ -56,13 +57,14 @@ function Main(props) {
 
               <hr style={{ color: "rgba(0, 0, 0, 0.1)" }} />
               <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
+                <Typography gutterBottom variant="h5" component="h2" className={classes.companyname}>
                   {itm.company_name}
+                  {/* {itm.title} */}
                 </Typography>
                 <Typography gutterBottom variant="h6" component="h2">
                   {itm.category_name}
                 </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
+                <Typography variant="body2" color="textSecondary" component="p" className={classes.description}>
                   {itm.description}
                 </Typography>
               </CardContent>
@@ -75,6 +77,8 @@ function Main(props) {
           </Card>
 
         </Grid>
+    
+        
       );
     });
   };
