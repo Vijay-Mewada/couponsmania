@@ -1,5 +1,4 @@
 var express = require("express");
-var db = require("../config/dbConnection");
 const multer = require("multer");
 const upload = multer({ dest: __dirname + "/uploads/images" });
 
