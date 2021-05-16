@@ -41,25 +41,29 @@ function UploadCoupon(props) {
   const [companyId, setCompanyId] = useState("");
   const [description, setDescription] = useState("");
   const [categoryId, setCategoryId] = useState("");
+  const [subcategoryId, setSubcategoryId] = useState("");
+  const [subcategoryList, setsubcategoryList] = useState([]);
   const [code, setCode] = useState("");
   const [companyName, setCompanyName] = useState("");
+  const [categoryName, setCategoryName] = useState("");
+  const [subcategoryName, setSubcategoryName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [popupType, setPopupType] = useState("");
 
   //  component didmount to get all category and companylist
   useEffect(async () => {
-    //  set Category list to state
-    let categoryListResponse = await get("/coupon/getAllCategory");
-    if (
-      categoryListResponse &&
-      categoryListResponse.data &&
-      categoryListResponse.data.content
-    ) {
-      setCategoryList(categoryListResponse.data.content);
-    }
     //  set company list to state
     getAllCompanyList();
+
+    //  set Category list to state
+    getAllCategoryList();
+
+    //  set sub-category list to state
+    getAllSubcategoryList();
+
   }, []);
 
+  // get all company list from db
   const getAllCompanyList = async () => {
     let companyListResponse = await get("/coupon/getAllCompany");
     if (
@@ -71,11 +75,37 @@ function UploadCoupon(props) {
     }
   };
 
-  const handleClickOpen = () => {
+  // get all category list from db
+  const getAllCategoryList = async () => {
+    let categoryListResponse = await get("/coupon/getAllCategory");
+    if (
+      categoryListResponse &&
+      categoryListResponse.data &&
+      categoryListResponse.data.content
+    ) {
+      setCategoryList(categoryListResponse.data.content);
+    }
+  };
+
+  // get all sub category list from db
+  const getAllSubcategoryList = async () => {
+    let subcategoryListResponse = await get("/coupon/getAllSubcategory");
+    if (
+      subcategoryListResponse &&
+      subcategoryListResponse.data &&
+      subcategoryListResponse.data.content
+    ) {
+      setsubcategoryList(subcategoryListResponse.data.content);
+    }
+  };
+
+  const handleClickOpen = (type) => {
+    setPopupType(type)
     setOpen(true);
   };
 
   const handleClose = () => {
+    setPopupType('')
     setOpen(false);
   };
 
@@ -90,28 +120,73 @@ function UploadCoupon(props) {
   };
 
   // handle company form submit
-  const handleCompanyDataSubmit = async () => {
-    var form_data = new FormData();
-    form_data.append("company", companyName);
-    form_data.append("image", selectedFile);
-    let response = await post("/coupon/addCompany", form_data);
-    console.log(response.data);
-    if (
-      response &&
-      response.data &&
-      response.data.content &&
-      response.data.content[0] &&
-      response.data.content[0].insertId
-    ) {
-      setCompanyId(response.data.content[0].insertId);
-      getAllCompanyList();
-      handleClose();
+  const handlePopupFormSubmit = async (type) => {
+
+    switch (type) {
+      case 'company':
+        var form_data = new FormData();
+        form_data.append("company", companyName);
+        form_data.append("image", selectedFile);
+        let response = await post("/coupon/addCompany", form_data);
+        console.log(response.data);
+        if (
+          response &&
+          response.data &&
+          response.data.content &&
+          response.data.content[0] &&
+          response.data.content[0].insertId
+        )
+          setCompanyId(response.data.content[0].insertId);
+        getAllCompanyList();
+        handleClose();
+        break;
+
+      case 'category':
+        var categoryData = {
+          category: categoryName
+        }
+        let catResponse = await post("/coupon/addcategory", categoryData);
+        console.log(catResponse.data);
+        if (
+          catResponse &&
+          catResponse.data &&
+          catResponse.data.content &&
+          catResponse.data.content[0] &&
+          catResponse.data.content[0].insertId
+        )
+          setCategoryId(catResponse.data.content[0].insertId);
+        getAllCategoryList();
+        handleClose();
+        break;
+
+        case 'subcategory':
+        var subcategoryData = {
+          subcategory : subcategoryName,
+          categoryId: categoryId
+        }
+        let subcatResponse = await post("/coupon/addSubcategory", subcategoryData);
+        console.log(subcatResponse.data);
+        if (
+          subcatResponse &&
+          subcatResponse.data &&
+          subcatResponse.data.content &&
+          subcatResponse.data.content[0] &&
+          subcatResponse.data.content[0].insertId
+        )
+          setSubcategoryId(subcatResponse.data.content[0].insertId);
+        getAllSubcategoryList();
+        handleClose();
+        break;
+
+      default:
+        break;
     }
   };
 
   const handleFormSubmit = async () => {
     var validityDate = Moment(selectedDate).format("YYYY-MM-DD");
-    if (selectedDate && categoryId && companyId) {
+    if (selectedDate && categoryId && companyId && subcategoryId && selectedDate !=='' && 
+    categoryId !=='' && companyId  !=='' && subcategoryId !=='') {
       var data = {
         title: title,
         code,
@@ -119,6 +194,7 @@ function UploadCoupon(props) {
         companyId: companyId,
         categoryId: categoryId,
         validity: validityDate,
+        subcategoryId
       };
       let response = await post("/coupon/addCoupon", data);
       if (response && response.data && response.data.is_success) {
@@ -127,11 +203,14 @@ function UploadCoupon(props) {
         setPreview();
         setTitle("");
         setCompanyId("");
+        setCompanyName("");
         setDescription("");
-        setCategoryId("");
         setCode("");
         setErrorMessage("");
-        setCompanyName("");
+        setCategoryId("");
+        setCategoryName("");
+        setSubcategoryName("");
+        setSubcategoryId("");
       }
     }
   };
@@ -180,7 +259,7 @@ function UploadCoupon(props) {
                 xl={10}
                 style={{ margin: "auto" }}
               >
-                <FormControl variant="outlined" style={{width:"95%"}}>
+                <FormControl variant="outlined" style={{ width: "95%" }}>
                   <InputLabel htmlFor="outlined-age-native-simple">
                     Company Name
                   </InputLabel>
@@ -195,7 +274,7 @@ function UploadCoupon(props) {
                       companyList.map((item, ind) => {
                         return (
                           <option id={ind} value={item.id}>
-                            
+
                             {item.name}
                           </option>
                         );
@@ -204,8 +283,8 @@ function UploadCoupon(props) {
               <option>User Specific</option> */}
                   </Select>
                 </FormControl>
-                <FormHelperText id="my-helper-text" style={{position:"absolute"}}>
-                In Case Company not Found Click on Add Button
+                <FormHelperText id="my-helper-text" style={{ position: "absolute" }}>
+                  In Case Company not Found Click on Add Button
               </FormHelperText>
               </Grid>
 
@@ -221,14 +300,14 @@ function UploadCoupon(props) {
                   <Button
                     color="primary"
                     variant="outlined"
-                    onClick={handleClickOpen}
+                    onClick={() => handleClickOpen('company')}
                   >
                     <AddIcon className={classes.addbtn} />
                   </Button>
                 </FormControl>
               </Grid>
             </Grid>
-            <br/>
+            <br />
             <br />
             <FormControl>
               <TextField
@@ -274,7 +353,7 @@ function UploadCoupon(props) {
             </FormControl>
             <br />
 
-
+            {/* dropdown for category  */}
             <Grid container >
               <Grid
                 xs={6}
@@ -284,38 +363,38 @@ function UploadCoupon(props) {
                 xl={10}
                 style={{ margin: "auto" }}
               >
-               
-            <FormControl variant="outlined" style={{width:"95%"}}>
-              <InputLabel htmlFor="outlined-age-native-simple">
-              Categories
+
+                <FormControl variant="outlined" style={{ width: "95%" }}>
+                  <InputLabel htmlFor="outlined-age-native-simple">
+                    Categories
               </InputLabel>
-              <Select
-                native
-                value={categoryId}
-                onChange={(e) => setCategoryId(e.target.value)}
-                label="Categories"
-              >
-                <option aria-label="None" value="" />
-                {categoryList &&
-                  categoryList.map((item, ind) => {
-                    return (
-                      <option id={ind} value={item.id}>
-                        
-                        {item.name}
-                      </option>
-                    );
-                  })}
-                {/* <option> For All User</option>
+                  <Select
+                    native
+                    value={categoryId}
+                    onChange={(e) => setCategoryId(e.target.value)}
+                    label="Categories"
+                  >
+                    <option aria-label="None" value="" />
+                    {categoryList &&
+                      categoryList.map((item, ind) => {
+                        return (
+                          <option id={ind} value={item.id}>
+
+                            {item.name}
+                          </option>
+                        );
+                      })}
+                    {/* <option> For All User</option>
               <option>User Specific</option> */}
-              </Select>
-            </FormControl>
-            <FormHelperText id="my-helper-text" style={{position:"absolute"}}>
-                In Case Categories not Found Click on Add Button
+                  </Select>
+                </FormControl>
+                <FormHelperText id="my-helper-text" style={{ position: "absolute" }}>
+                  In Case Categories not Found Click on Add Button
               </FormHelperText>
               </Grid>
-            <br />
-
-            <Grid
+              <br />
+              <br />
+              <Grid
                 xs={6}
                 sm={6}
                 md={6}
@@ -327,15 +406,74 @@ function UploadCoupon(props) {
                   <Button
                     color="primary"
                     variant="outlined"
-                    onClick={handleClickOpen}
+                    onClick={() => handleClickOpen('category')}
                   >
                     <AddIcon className={classes.addbtn} />
                   </Button>
                 </FormControl>
               </Grid>
             </Grid>
-            <br/>
-            
+            <br />
+
+            {/* dropdown for subcategory */}
+            <Grid container >
+              <Grid
+                xs={6}
+                sm={6}
+                md={6}
+                lg={11}
+                xl={10}
+                style={{ margin: "auto" }}
+              >
+
+                <FormControl variant="outlined" style={{ width: "95%" }}>
+                  <InputLabel htmlFor="outlined-age-native-simple">
+                    sub-categories
+              </InputLabel>
+                  <Select
+                    native
+                    value={subcategoryId}
+                    onChange={(e) => setSubcategoryId(e.target.value)}
+                    label="subcategories"
+                  >
+                    <option aria-label="None" value="" />
+                    {subcategoryList &&
+                      subcategoryList.map((item, ind) => {
+                        return (
+                          <option id={ind} value={item.id}>
+                            {item.name}
+                          </option>
+                        );
+                      })}
+                    {/* <option> For All User</option>
+              <option>User Specific</option> */}
+                  </Select>
+                </FormControl>
+                <FormHelperText id="my-helper-text" style={{ position: "absolute" }}>
+                  In Case sub-categories not Found Click on Add Button
+              </FormHelperText>
+              </Grid>
+              <br />
+              <Grid
+                xs={6}
+                sm={6}
+                md={6}
+                lg={1}
+                xl={2}
+                style={{ margin: "auto" }}
+              >
+                <FormControl variant="outlined">
+                  <Button
+                    color="primary"
+                    variant="outlined"
+                    onClick={() => handleClickOpen('subcategory')}
+                  >
+                    <AddIcon className={classes.addbtn} />
+                  </Button>
+                </FormControl>
+              </Grid>
+            </Grid>
+            <br />
 
 
             <FormControl variant="outlined">
@@ -350,37 +488,9 @@ function UploadCoupon(props) {
                   "aria-label": "change date",
                 }}
               />
-              {/* <input accept="image/*" type="file" id="actual-btn" hidden onChange={onChange} />
-            <label className={classes.fileuploadbtn} for="actual-btn">
-              Choose Company Logo (Image)
-            </label>
-            <img src={this.state.file[0]} /> */}
+
             </FormControl>
             <br />
-
-            {/* <FormControl>
-            <Grid container className={classes.uploadform}>
-              <Grid
-                xs={6}
-                sm={6}
-                md={6}
-                lg={6}
-                xl={6}
-                style={{ margin: "auto" }}
-              >
-                <input type="file" onChange={onSelectFile} />
-              </Grid>
-              <Grid xs={6} sm={6} md={6} lg={6} xl={6}>
-                {selectedFile && (
-                  <img src={preview} className={classes.uploadimg} />
-                )}
-              </Grid>
-            </Grid>
-            <FormHelperText id="my-helper-text">
-              Ex. Logo of a Company which provides Coupon
-            </FormHelperText>
-          </FormControl> */}
-            {/* <br /> */}
             <FormControl>
               <Button
                 variant="outlined"
@@ -391,18 +501,10 @@ function UploadCoupon(props) {
               </Button>
             </FormControl>
             <br />
-            <FormControl>
-              {/* <Typography variant="title" style={{ textAlign: "center" }}>
-                Company not found ? &nbsp;
-                <Button
-                  color="primary"
-                  variant="outlined"
-                  onClick={handleClickOpen}
-                >
-                  Add
-                </Button>
-              </Typography> */}
 
+
+            {/* ************************ popup *************************************/}
+            <FormControl>
               <Dialog
                 open={open}
                 onClose={handleClose}
@@ -413,17 +515,17 @@ function UploadCoupon(props) {
                   id="alert-dialog-title"
                   className={classes.dialogbox}
                 >
-                  {"Add Company Details."}
+                  {`Add ${popupType} Details.`}
                 </DialogTitle>
                 <DialogContent>
                   <FormControl style={{ width: "100%", marginBottom: "10px" }}>
                     <TextField
                       id="outlined-Discount Title-input"
-                      label="Company Name"
-                      type="Company Name"
+                      label={`${popupType} Name`}
+                      type={`${popupType} Name`}
                       variant="outlined"
-                      value={companyName}
-                      onChange={(e) => setCompanyName(e.target.value)}
+                      value={popupType == 'company' ? companyName : popupType == 'category' ? categoryName : popupType == 'subcategory' ? subcategoryName : ''}
+                      onChange={(e) => popupType == 'company' ? setCompanyName(e.target.value) : popupType == 'category' ? setCategoryName(e.target.value) : popupType == 'subcategory' ? setSubcategoryName(e.target.value) : setCompanyName(e.target.value)}
                     />
                     <FormHelperText id="my-helper-text">
                       Ex. Amazon, Flipkart, Freecharge...
@@ -431,32 +533,68 @@ function UploadCoupon(props) {
                   </FormControl>
                   <br />
 
+                  {/* drop dowwn for subcategory */}
+
                   <FormControl style={{ width: "100%" }}>
-                    <Grid container className={classes.uploadform}>
-                      <Grid
-                        xs={6}
-                        sm={6}
-                        md={6}
-                        lg={6}
-                        xl={6}
-                        style={{ margin: "auto" }}
-                      >
-                        <input type="file" onChange={onSelectFile} />
-                      </Grid>
-                      <Grid xs={6} sm={6} md={6} lg={6} xl={6}>
-                        {selectedFile && (
-                          <img src={preview} className={classes.uploadimg} />
-                        )}
-                      </Grid>
-                    </Grid>
-                    <FormHelperText id="my-helper-text">
-                      Ex. Logo of a Company which provides Coupon
+                    {/* show dropdown field in case of subcategory and category  */}
+                    {popupType == 'subcategory' ?
+                      <FormControl variant="outlined" style={{ width: "100%", marginBottom: "10px" }}>
+                        <InputLabel htmlFor="outlined-age-native-simple">
+                          {popupType == 'subcategory' ? 'Select Category' : ''}
+                        </InputLabel>
+                        <Select
+                          native
+                          value={popupType == 'category' ? companyId : popupType == 'subcategory' ? categoryId : ''}
+                          onChange={(e) => popupType == 'category' ? setCompanyId(e.target.value) : popupType == 'subcategory' ? setCategoryId(e.target.value) : setCategoryId(e.target.value)}
+                          label={popupType == 'category' ? 'Select Company' : popupType == 'subcategory' ? 'Select Category' : ''}
+                        >
+                          <option aria-label="None" value="" />
+                          {popupType == 'subcategory' ? categoryList &&
+                            categoryList.map((item, ind) => {
+                              return (
+                                <option id={ind} value={item.id}>
+                                  {item.name}
+                                </option>
+                              );
+                            }) : <option id={1} value={1}>
+                            {'No data found'}
+                          </option>}
+                        </Select>
+                      </FormControl>
+                      : null}
+
+
+                    {/* show upload image box only in case of company toupload company image  */}
+                    {popupType == 'company' ?
+                      <React.Fragment>
+                        <Grid container className={classes.uploadform}>
+                          <Grid
+                            xs={6}
+                            sm={6}
+                            md={6}
+                            lg={6}
+                            xl={6}
+                            style={{ margin: "auto" }}
+                          >
+                            <input type="file" onChange={onSelectFile} />
+                          </Grid>
+                          <Grid xs={6} sm={6} md={6} lg={6} xl={6}>
+                            {selectedFile && (
+                              <img src={preview} className={classes.uploadimg} />
+                            )}
+                          </Grid>
+                        </Grid>
+                        <FormHelperText id="my-helper-text">
+                          Ex. Logo of a Company which provides Coupon
                     </FormHelperText>
+                      </React.Fragment>
+                      : null}
+
                   </FormControl>
                 </DialogContent>
                 <DialogActions>
                   <Button
-                    onClick={() => handleCompanyDataSubmit()}
+                    onClick={() => handlePopupFormSubmit(popupType)}
                     color="primary"
                   >
                     Submit

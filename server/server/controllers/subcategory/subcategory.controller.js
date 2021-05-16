@@ -1,7 +1,7 @@
 var pool = require("../../config/dbConnection");
 
 // controller to add new category
-add_category = (req, res, next) => {
+add_subcategory = (req, res, next) => {
     try {
         pool.getConnection(function (err, connection) {
             if (err) {
@@ -13,12 +13,12 @@ add_category = (req, res, next) => {
             }
             else {
                 connection.query(
-                    `INSERT INTO category (name) SELECT * FROM (SELECT '${req.body.category}') AS tmp
-            WHERE NOT EXISTS ( SELECT name FROM category WHERE name = '${req.body.category}') LIMIT 1`,
+                    `INSERT INTO subcategory (name,categoryId) SELECT * FROM (SELECT '${req.body.subcategory}', ${req.body.categoryId}) AS tmp
+            WHERE NOT EXISTS ( SELECT name FROM category WHERE name = '${req.body.subcategory}') LIMIT 1`,
                     (err, result) => {
                         if (err) {
                             res.status(200).send({
-                                message: 'category not created !',
+                                message: 'subcategory not created !',
                                 content: [],
                                 error: err,
                                 is_success: false,
@@ -27,7 +27,7 @@ add_category = (req, res, next) => {
                         } else {
                             let data = [result];
                             res.status(200).json({
-                                message: 'category added successfully',
+                                message: 'subcategory added successfully',
                                 content: data,
                                 is_success: true,
                             });
@@ -48,7 +48,7 @@ add_category = (req, res, next) => {
 };
 
 // controller to update new category
-update_category = (req, res) => {
+update_subcategory = (req, res) => {
 
     //  write query here
 
@@ -56,7 +56,7 @@ update_category = (req, res) => {
 };
 
 // controller to getcate byt id
-get_category_by_id = (req, res) => {
+get_subcategory_by_id = (req, res) => {
 
     //  write query here
 
@@ -64,7 +64,7 @@ get_category_by_id = (req, res) => {
 };
 
 // controller to get ALl category
-get_all_category = (req, res) => {
+get_all_subcategory = (req, res) => {
     pool.getConnection(function (err, connection) {
         if (err) {
             res.status(200).send({
@@ -74,7 +74,7 @@ get_all_category = (req, res) => {
             })
         }
         else {
-            connection.query(`SELECT * FROM category`, (err, result) => {
+            connection.query(`SELECT * FROM subcategory`, (err, result) => {
                 // db.query(`SELECT * FROM onlinecoupons`, (err, result) => {
                 // user does not exists
                 if (err) {
@@ -86,7 +86,7 @@ get_all_category = (req, res) => {
                 } else {
                     let coupon = [result];
                     res.status(200).json({
-                        message: "Category list",
+                        message: "subCategory list",
                         content: coupon[0],
                         is_success: true,
                     });
@@ -98,8 +98,8 @@ get_all_category = (req, res) => {
 };
 
 module.exports = {
-    add_category,
-    get_all_category,
-    get_category_by_id,
-    update_category
+    add_subcategory,
+    get_all_subcategory,
+    get_subcategory_by_id,
+    update_subcategory
 }
