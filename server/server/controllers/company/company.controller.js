@@ -103,8 +103,8 @@ get_popular_companies = (req, res) => {
       connection.query(
         `SELECT companies.id, companies.name, companies.image ,COUNT(*) AS coupons_counter 
         FROM coupons
-        INNER JOIN companies on coupons.company = companies.id  
-        GROUP BY company 
+        INNER JOIN companies on coupons.companyId = companies.id  
+        GROUP BY companyId 
         ORDER BY coupons_counter DESC
         LIMIT 5`,
         (err, result) => {
