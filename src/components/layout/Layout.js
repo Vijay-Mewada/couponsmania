@@ -16,8 +16,11 @@ function Layout(props) {
           <Grid xs={6} sm={3} md={3} lg={3} xl={2} className={classes.layout}>
           <Sidebar />
           </Grid>
-          <Grid xs={6} sm={9} md={9} lg={9} xl={10} style={{backgroundColor: "#cafaf8"}}>
+          <Grid xs={6} sm={9} md={9} lg={9} xl={9} style={{backgroundColor: "#cafaf8"}}>
           <main >{props.children}</main>
+          </Grid>
+          <Grid xs={6} sm={9} md={9} lg={9} xl={1} style={{backgroundColor: "#cafaf8"}}>
+
           </Grid>
       </Grid>
 

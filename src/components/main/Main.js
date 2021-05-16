@@ -15,9 +15,9 @@ import Freecharge from "../../images/freechargelogo.png";
 import Logo from "../../images/logo.gif";
 import PopularStore from "../popularstore/PopularStore";
 import { post, get, serverImageUrl } from '../../api/serverRequest'
-import CircularProgress from '@material-ui/core/CircularProgress';
 import PropTypes from 'prop-types';
 import Context from "../../store/context";
+import Loader from '../loader/Loader';
 
 function Main(props) {
   const classes = MainStyles(props);
@@ -88,9 +88,7 @@ function Main(props) {
       {renderCouponsList()}
       <Grid xs={12} sm={12} md={12} lg={12} xl={12}>
         <PopularStore />
-        <CircularProgress style={{ height: "150px", width: '140px', backgroundImage: `url('https://vijay-mewada.github.io/couponsmania/static/media/logo.dad734dc.png')`, backgroundRepeat: "no-repeat", transform: `rotate(${361}deg)`, backgroundPosition: "center" }}>
-          <img src='https://vijay-mewada.github.io/couponsmania/static/media/logo.dad734dc.png' height='520px' width='520px' style={{ position: "absolute" }} />
-        </CircularProgress>
+        <Loader/>
       </Grid>
     </Grid>
   );
