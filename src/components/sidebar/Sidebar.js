@@ -9,11 +9,12 @@ import Context from "../../store/context";
 
 function Sidebar(props) {
   const classes = SidebarStyles(props);
+  // get global state implement via context API
   const { globalState, globalDispatch } = useContext(Context)
   const [checkBoxStatus, setCheckBoxStatus] = useState(false);
   const [categoryList, setcategoryList] = useState([]);
   const [categoryIds, setCategoryIds] = useState([]);
-  const [open, setOpen] = useState(true);
+  const [openSidebar, setOpenSidebar] = useState(true);
 
   const handleChange = (event) => {
     if (event.target.checked == true && event.target.value) {
@@ -80,7 +81,8 @@ function Sidebar(props) {
   return (
     <Grid>
       <Grid xs={12} sm={12} md={12} lg={12} xl={12} >
-        <Card className={open ? classes.card : classes.navigationclose} >
+        {/* get isSidebarOPen status from globalState the sets from navigation */}
+        <Card className={globalState && globalState.isSidebarOpen ? classes.card : classes.navigationclose} >
           <Typography variant="h6">Categories</Typography>
 
           {/*  render category filter on side bar */}
