@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Background from "../../images/uploadcouponback.png"
 const UploadCouponStyles = makeStyles({
   main:{
-    height:"100vh",
+    height:"auto",
     backgroundImage:`url(${Background})`,
     backgroundSize:"cover",
     display: "flex", 
@@ -14,7 +14,7 @@ const UploadCouponStyles = makeStyles({
   paper: {
     height:"fit-content",
     padding:"30px",
-    margin:'auto',
+    margin:'25px auto',
     // border:"2px solid #635b5b",
   },
   txtarea: {

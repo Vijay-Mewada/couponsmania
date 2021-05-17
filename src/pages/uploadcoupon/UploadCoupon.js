@@ -391,6 +391,7 @@ function UploadCoupon(props) {
                 <FormHelperText id="my-helper-text" style={{ position: "absolute" }}>
                   In Case Categories not Found Click on Add Button
               </FormHelperText>
+              
               </Grid>
               <br />
               <br />
@@ -413,7 +414,7 @@ function UploadCoupon(props) {
                 </FormControl>
               </Grid>
             </Grid>
-            <br />
+            <br /> <br />
 
             {/* dropdown for subcategory */}
             <Grid container >

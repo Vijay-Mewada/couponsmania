@@ -13,6 +13,7 @@ function Sidebar(props) {
   const [checkBoxStatus, setCheckBoxStatus] = useState(false);
   const [categoryList, setcategoryList] = useState([]);
   const [categoryIds, setCategoryIds] = useState([]);
+  const [open, setOpen] = useState(true);
 
   const handleChange = (event) => {
     if (event.target.checked == true && event.target.value) {
@@ -78,8 +79,8 @@ function Sidebar(props) {
 
   return (
     <Grid>
-      <Grid xs={12} sm={12} md={12} lg={12} xl={12}>
-        <Card className={classes.card}>
+      <Grid xs={12} sm={12} md={12} lg={12} xl={12} >
+        <Card className={open ? classes.card : classes.navigationclose} >
           <Typography variant="h6">Categories</Typography>
 
           {/*  render category filter on side bar */}
