@@ -24,17 +24,19 @@ function PopularStore(props) {
     return companyList && companyList.map((item, ind) => {
       let imagePath = item.image && item.image !== '' ? `${serverImageUrl}/${item.image}` : Amazon
 
-      return <Grid item xl={2}>
+      return <Grid container>
+        <Grid item xl={2}>
         <Paper className={classes.paper}>
-          <Typography variant="title" className={classes.couponavailable}>{item.coupons_counter} <br /> Coupons Available</Typography>
+          <Typography variant="h6" className={classes.couponavailable}>{item.coupons_counter} <br /> Coupons Available</Typography>
           <img src={imagePath} className={classes.brand} alt="brand" />
         </Paper>
+      </Grid>
       </Grid>
     })
   }
   return (
-    <Grid className={classes.root}>
-      <Typography variant="h4">
+    <Grid xl={12} className={classes.root}>
+      <Typography variant="h4" style={{textAlign:"center"}}>
         <span className={classes.headingtitle}>POPULAR</span> STORE
       </Typography>
       <Grid item container spacing={2}>

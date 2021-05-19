@@ -7,14 +7,15 @@ const PopularStoreStyles = makeStyles((theme) => ({
   },
   headingtitle:{
       fontWeight:"600",
-      color:"#635b5b"
+      color:"#635b5b",
+      textAlign:'center'
 
   },
   paper: {
       zIndex:"10",
       margin:"10px",
     display: "flex",
-    height: 175,
+    height: 200,
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
@@ -38,7 +39,8 @@ const PopularStoreStyles = makeStyles((theme) => ({
           fontSize:"20px",
           color:"white",
           textAlign:"center",
-          display:'block',
+          display:'flex',
+          margin:"auto"
           
         
         }
@@ -48,7 +50,8 @@ const PopularStoreStyles = makeStyles((theme) => ({
 
   },
   couponavailable :{
-    display:"none"
+    display:"none",
+   
   },
 
  
