@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, useTheme } from "@material-ui/core";
 
 const PopularStoreStyles = makeStyles((theme) => ({
   root: {

@@ -43,7 +43,7 @@ function Header(props) {
 
     return (
         <Grid>
-            <AppBar position="static" style={{background:"#635b5b"}}>
+            <AppBar position="fixed" style={{background:"#635b5b"}}>
         <Toolbar>
           {/* <IconButton
             edge="start"
