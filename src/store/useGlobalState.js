@@ -11,10 +11,12 @@ const reducer = (state, action) => {
             };
         case 'ADD_COUPONS':
             return {
+                ...state,
                 couponsList: action.payload
             }
         case 'SET_SIDEBAR_STATUS':
             return {
+                ...state,
                 isSidebarOpen: action.payload
             }
 
@@ -31,5 +33,6 @@ const useGlobalState = () => {
         })
     return { globalState, globalDispatch }
 };
+
 
 export default useGlobalState;

@@ -118,6 +118,107 @@ get_coupons_by_category = (req, res) => {
         }
     });
 };
+// controller to get coupons by sub-category
+get_coupons_by_subcategory = (req, res) => {
+    pool.getConnection(function (err, connection) {
+        if (err) {
+            res.status(200).send({
+                message: err,
+                content: [],
+                is_success: false
+            })
+        }
+        else {
+            connection.query(
+                `SELECT coupons.id, coupons.title, coupons.code, 
+                coupons.description, coupons.validity, 
+                companies.image, category.id as category_id, 
+                category.name as category_name, 
+                companies.id as company_id, 
+                companies.name as company_name,
+                subcategory.id as subcategory_id,
+                subcategory.name as subcategory_name
+                FROM coupons INNER JOIN 
+                companies on coupons.companyId = companies.id 
+                INNER JOIN category on coupons.categoryId = category.id 
+                INNER JOIN subcategory on coupons.subcategoryId = subcategory.id 
+                WHERE coupons.subcategoryId IN (${req.body.subcategoryIds})`,
+                (err, result) => {
+                    // user does not exists
+                    if (err) {
+                        res.status(200).send({
+                            message: err,
+                            content: [],
+                            is_success: false,
+                        });
+                        // throw err;
+                    } else {
+                        let coupon = [result];
+
+                        res.status(200).json({
+                            message: "filtered coupon list",
+                            content: coupon[0],
+                            is_success: true,
+                        });
+                        connection.release();
+                    }
+                }
+            );
+        }
+    });
+};
+// controller to get coupons by cat and subcat
+get_coupons_by_cat_and_subcat = (req, res) => {
+    var catId = req.body.categoryIds && req.body.categoryIds.length ? req.body.categoryIds : 0
+    var subCatId = req.body.subcategoryIds && req.body.subcategoryIds.length ? req.body.subcategoryIds : 0
+    pool.getConnection(function (err, connection) {
+        if (err) {
+            res.status(200).send({
+                message: err,
+                content: [],
+                is_success: false
+            })
+        }
+        else {
+            connection.query(
+                `SELECT coupons.id, coupons.title, coupons.code, 
+                coupons.description, coupons.validity, 
+                companies.image, category.id as category_id, 
+                category.name as category_name, 
+                companies.id as company_id, 
+                companies.name as company_name,
+                subcategory.id as subcategory_id,
+                subcategory.name as subcategory_name
+                FROM coupons INNER JOIN 
+                companies on coupons.companyId = companies.id 
+                INNER JOIN category on coupons.categoryId = category.id 
+                INNER JOIN subcategory on coupons.subcategoryId = subcategory.id 
+                WHERE coupons.subcategoryId IN (${subCatId}) 
+                AND coupons.categoryId in (${catId})`,
+                (err, result) => {
+                    // user does not exists
+                    if (err) {
+                        res.status(200).send({
+                            message: err,
+                            content: [],
+                            is_success: false,
+                        });
+                        // throw err;
+                    } else {
+                        let coupon = [result];
+
+                        res.status(200).json({
+                            message: "filtered coupon list",
+                            content: coupon[0],
+                            is_success: true,
+                        });
+                        connection.release();
+                    }
+                }
+            );
+        }
+    });
+};
 
 // controller toget coupons by company
 get_coupons_by_company = (req, res) => {
@@ -233,5 +334,7 @@ module.exports = {
     get_coupons_by_category,
     get_coupons_by_company,
     get_coupons_by_id,
-    get_coupons_by_search
+    get_coupons_by_search,
+    get_coupons_by_subcategory,
+    get_coupons_by_cat_and_subcat
 }
