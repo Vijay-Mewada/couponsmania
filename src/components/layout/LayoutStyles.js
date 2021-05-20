@@ -104,10 +104,107 @@ link : {
     display:"flex",
     color:'#fff',
     textDecoration:'none',
-    "&:hover":{
-        border:"1px solid white"
+    cursor:"pointer",
+    '&:hover': {
+        border:"1px solid white",
+        borderRadius:'3px'
     }
-}
+},
+
+dropdownlist:{
+  display:"none",
+  position:"absolute",
+  zIndex:'10',
+  color:'black',
+  boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)",
+  backgroundColor:"#fff",
+  // padding:"10px",
+  margin:"27px -50px"
+
+},
+ul:{
+  listStyle:"none",
+  margin:"auto",
+  marginLeft:"-40px",
+  fontSize:"1.3rem",
+  
+ 
+},
+hr:{
+  borderRight:'1px solid black',
+  height:"9.30rem",
+  position:"absolute"
+
+},
+li:{
+  display:"flex",
+  padding:"10px",
+  width:"17rem",
+
+  "&:hover":{
+    backgroundColor:"black",
+    color:'white',
+    "& $subcategory":{
+      display:"inline-block"
+    }
+  }
+},
+leftarrowicon:{
+  margin:'auto 0px auto auto'
+},
+
+
+dropdownlink: {
+  padding:'5px 10px',
+    display:"flex",
+    color:'#fff',
+    textDecoration:'none',
+    cursor:"pointer",
+
+
+'&:hover': {
+    
+  border:"1px solid white",
+  borderRadius:'3px',
+  borderBottom:'1px solid red',
+
+    "& $dropdownlist": {
+      display:"block"
+    
+    },
+    // "& $couponavailable": {
+    //   position:"absolute",
+    //   fontSize:"20px",
+    //   color:"white",
+    //   textAlign:"center",
+    //   display:'flex',
+    //   margin:"auto"
+      
+    
+    // }
+},
+
+
+
+},
+category:{
+  "&:hover":{
+    backgroundColor:"black",
+    color:'white',
+    "& $subcategory":{
+      display:"inline-block"
+    }
+  }
+},
+subcategory:{
+ position:"absolute",
+ margin:"0px 10px",
+ top:"0",
+  // marginLeft:"15.7rem",
+ display:"none",
+ color:"black"
+},
+
 
 
 }));

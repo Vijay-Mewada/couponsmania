@@ -13,7 +13,7 @@ function App(props) {
         <Layout>
           <Switch>
             <Route exact path="/couponsmania" component={Main} />
-            <Route exact path="/UploadCoupon" component={UploadCoupon} />
+            <Route exact path="/couponsmania/UploadCoupon" component={UploadCoupon} />
           </Switch>
         </Layout>
       </Router> 
