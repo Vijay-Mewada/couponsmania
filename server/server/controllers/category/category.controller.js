@@ -96,10 +96,50 @@ get_all_category = (req, res) => {
         }
     })
 };
+// controller to get ALl category and subcategory
+get_all_cat_subcat = (req, res) => {
+    pool.getConnection(function (err, connection) {
+        if (err) {
+            res.status(200).send({
+                message: err,
+                content: [],
+                is_success: false
+            })
+        }
+        else {
+            connection.query(`SELECT category.id as category_id,
+            category.name as category_name, 
+            subcategory.id as subcategory_id,
+            subcategory.name as subcategory_name,
+            subcategory.categoryId as subcategory_catId
+             FROM category
+            INNER JOIN subcategory ON category.id = subcategory.categoryId WHERE category.id = subcategory.categoryId`, (err, result) => {
+                // db.query(`SELECT * FROM onlinecoupons`, (err, result) => {
+                // user does not exists
+                if (err) {
+                    res.status(200).send({
+                        message: err,
+                        content: [],
+                        is_success: false,
+                    });
+                } else {
+                    let coupon = [result];
+                    res.status(200).json({
+                        message: "Category list",
+                        content: coupon[0],
+                        is_success: true,
+                    });
+                    connection.release();
+                }
+            });
+        }
+    })
+};
 
 module.exports = {
     add_category,
     get_all_category,
     get_category_by_id,
-    update_category
+    update_category,
+    get_all_cat_subcat
 }
