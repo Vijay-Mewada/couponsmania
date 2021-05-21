@@ -61,6 +61,8 @@ function Sidebar(props) {
         let data = response.data.content
         // set global state to set coupons list for global use
         globalDispatch({ type: 'ADD_COUPONS', payload: data })
+        globalDispatch({ type: 'SET_LOADER_STATE', payload: false })
+
       }
     }
 
@@ -74,15 +76,21 @@ function Sidebar(props) {
         let data = response.data.content
         // set global state to set coupons list for global use
         globalDispatch({ type: 'ADD_COUPONS', payload: data })
+        globalDispatch({ type: 'SET_LOADER_STATE', payload: false })
+
       }
     }
     //  get all coupons in case none of the category checkbox selected
     else if (categoryIds.length == 0 && subcategoryIds.length == 0 && checkBoxStatus == false) {
+      globalDispatch({ type: 'SET_LOADER_STATE', payload: true })
+
        response = await get("/coupon/getAllCoupon");
       if (response.data && response.data.content && response.data.content.length) {
         let data = response.data.content
         // set global state to set coupons list for global use
         globalDispatch({ type: 'ADD_COUPONS', payload: data })
+        globalDispatch({ type: 'SET_LOADER_STATE', payload: false })
+
       }
     }
   }, [categoryIds, subcategoryIds])

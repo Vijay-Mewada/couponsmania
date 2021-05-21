@@ -34,6 +34,8 @@ router.get("/", (req, res) => {
 router.post("/addCategory",categoryController.add_category);
 // get all category
 router.get("/getAllCategory", categoryController.get_all_category)
+//  get all category and subcategory
+router.get("/getAllCategoryAndSubcat", categoryController.get_all_cat_subcat)
 // ********************  Category *******************//
 
 // ********1********* subCategory routes ****************//

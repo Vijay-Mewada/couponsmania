@@ -9,10 +9,9 @@ function Loader(props) {
     return (
         <Grid >
             <Paper className={classes.main}  >
-             <CircularProgress style={{ height: "150px", width: '140px', margin:'auto' ,backgroundImage:`url(${Background})`, backgroundRepeat: "no-repeat", transform: `rotate(${361}deg)`, backgroundPosition: "center" }}>
-          
-        </CircularProgress>
-        </Paper>
+                <CircularProgress style={{ height: "150px", width: '140px', margin: 'auto', backgroundImage: `url(${Background})`, backgroundRepeat: "no-repeat", transform: `rotate(${361}deg)`, backgroundPosition: "center" }}>
+                </CircularProgress>
+            </Paper>
         </Grid>
     )
 }

@@ -19,6 +19,11 @@ const reducer = (state, action) => {
                 ...state,
                 isSidebarOpen: action.payload
             }
+        case 'SET_LOADER_STATE':
+            return {
+                ...state,
+                isLoading: action.payload
+            }
 
         default:
             return state
@@ -29,7 +34,8 @@ const useGlobalState = () => {
     const [globalState, globalDispatch] = useReducer(reducer,
         {
             couponsList: [],
-            isSidebarOpen : false
+            isSidebarOpen : false,
+            isLoading : true
         })
     return { globalState, globalDispatch }
 };
