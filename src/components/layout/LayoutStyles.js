@@ -111,6 +111,75 @@ link : {
     }
 },
 
+// dropdownlist:{
+//   display:"none",
+//   position:"absolute",
+//   zIndex:'10',
+//   color:'black',
+//   boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)",
+//   backgroundColor:"#fff",
+//   // padding:"10px",
+//   margin:"27px -50px"
+
+// },
+// ul:{
+//   listStyle:"none",
+//   margin:"auto",
+//   marginLeft:"-40px",
+//   fontSize:"1.3rem",
+  
+ 
+// },
+// hr:{
+//   borderRight:'1px solid black',
+//   height:"9.30rem",
+//   position:"absolute"
+
+// },
+// categoryli:{
+//   display:"flex",
+//   padding:"10px",
+//   width:"17rem",
+
+//       //  extra
+//   textAligh:"center",
+//   color:"red",
+//   margin:'auto 15px ',
+//   fontSize:'1.2rem',
+//   fontWeight:"600",
+//   "&:hover":{
+//     // backgroundColor:"black",
+//     // color:'white',
+//     textDecoration:'underline',
+//     "& $subcategory":{
+//       display:"inline-block"
+//     }
+//   }
+// },
+// leftarrowicon:{
+//   margin:'auto 0px auto auto'
+// },
+
+
+// dropdownlink: {
+//   padding:'5px 10px',
+//     display:"flex",
+//     color:'#fff',
+//     textDecoration:'none',
+//     cursor:"pointer",
+
+
+// '&:hover': {
+    
+//   border:"1px solid white",
+//   borderRadius:'3px',
+//   borderBottom:'1px solid red',
+
+//     "& $dropdownlist": {
+//       display:"block"
+    
+//     },
+
 dropdownlist:{
   display:"none",
   position:"absolute",
@@ -136,17 +205,33 @@ hr:{
   position:"absolute"
 
 },
-li:{
+categoryli:{
   display:"flex",
   padding:"10px",
   width:"17rem",
 
+      //  extra
+  textAligh:"center",
+  color:"red",
+  margin:'auto 15px ',
+  fontSize:'1rem',
+  fontWeight:"600",
   "&:hover":{
-    backgroundColor:"black",
-    color:'white',
+    // backgroundColor:"black",
+    // color:'white',
+    textDecoration:'underline',
     "& $subcategory":{
       display:"inline-block"
     }
+  }
+},
+subcategoryli:{
+  textAligh:"center",
+  margin:'auto 21px',
+  padding:"2px",
+  fontSize:'1rem',
+  "&:hover":{
+    color:'red',
   }
 },
 leftarrowicon:{
@@ -172,6 +257,8 @@ dropdownlink: {
       display:"block"
     
     },
+
+
     // "& $couponavailable": {
     //   position:"absolute",
     //   fontSize:"20px",

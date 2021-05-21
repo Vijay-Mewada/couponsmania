@@ -26,7 +26,7 @@ import MailIcon from "@material-ui/icons/Mail";
 import MenuOpenSharpIcon from "@material-ui/icons/MenuOpenSharp";
 import { Link } from "react-router-dom";
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-
+import Amazon from '../../images/amazonlogo.jpg'
 const drawerWidth = 240;
 function Layout(props) {
   const classes = LayoutStyles(props);
@@ -73,23 +73,71 @@ function Layout(props) {
               Home
             </Link>
             
-            {/* <div className={classes.dropdown}>
+            <div className={classes.dropdown}>
             <div className={classes.dropdownlink}>Categories
             <div className={classes.dropdownlist}>
-            <Paper>
+            <Paper style={{width:"40rem"}}>
             <ul className={classes.ul}>
-               <div className={classes.category}>
-             <li className={classes.li}>Recharge <ArrowRightIcon className={classes.leftarrowicon} /> </li>
-             <Paper className={classes.subcategory}>
+               {/* <div className={classes.category}> */}
+               <Grid container spacing={0}>
+            <Grid xl={4}>
+              
+            <li className={classes.categoryli}>Recharge </li>
+             <li className={classes.subcategoryli}>Mobile Recharge</li>
+             <li className={classes.subcategoryli}>DTH Recharge</li>
+             <li className={classes.subcategoryli}>Bill Payment</li>
+            </Grid>
+             {/* <Paper className={classes.subcategory}>
                <li>Mobile Recharge</li>
-             </Paper>
+             </Paper> */}
              
-             </div>
+             {/* </div> */}
 
-              <li className={classes.li}>Shopping  <ArrowRightIcon className={classes.leftarrowicon} /></li>
-              <li className={classes.li}>Travel  <ArrowRightIcon className={classes.leftarrowicon} /></li>
-              <li className={classes.li}>Games  <ArrowRightIcon className={classes.leftarrowicon} /></li>
-              <li className={classes.li}>Computer & Accessary  <ArrowRightIcon className={classes.leftarrowicon} /></li>
+              <Grid xl={4}>
+              <li className={classes.categoryli}>Shopping</li>
+              <li className={classes.subcategoryli}>Mobile Recharge</li>
+             <li className={classes.subcategoryli}>DTH Recharge</li>
+             <li className={classes.subcategoryli}>Bill Payment</li>
+              </Grid>
+
+            <Grid xl={4}>
+            <li className={classes.categoryli}>Travel</li>
+              <li className={classes.subcategoryli}>Train Ticket</li>
+             <li className={classes.subcategoryli}>Bus Ticket</li>
+             <li className={classes.subcategoryli}>Flight ticket</li>
+             <li className={classes.subcategoryli}>Cabs</li>
+             <li className={classes.subcategoryli}>Hotel</li>
+            </Grid>
+
+
+              <Grid xl={4}>
+                <li className={classes.categoryli}>Games</li>
+
+              <li className={classes.subcategoryli}>Train Ticket</li>
+             <li className={classes.subcategoryli}>Bus Ticket</li>
+             <li className={classes.subcategoryli}>Flight ticket</li>
+             <li className={classes.subcategoryli}>Cabs</li>
+             <li className={classes.subcategoryli}>Hotel</li>
+              </Grid>
+              <Grid xl={4}>
+              <li className={classes.categoryli}>Computer & Accessary</li>
+              <li className={classes.subcategoryli}>Bus Ticket</li>
+             <li className={classes.subcategoryli}>Flight ticket</li>
+             <li className={classes.subcategoryli}>Cabs</li>
+             <li className={classes.subcategoryli}>Hotel</li>
+              </Grid>
+
+              <Grid xl={4}>
+                <li className={classes.categoryli}>Games</li>
+
+              <li className={classes.subcategoryli}>Train Ticket</li>
+             <li className={classes.subcategoryli}>Bus Ticket</li>
+             <li className={classes.subcategoryli}>Flight ticket</li>
+             <li className={classes.subcategoryli}>Cabs</li>
+             <li className={classes.subcategoryli}>Hotel</li>
+              </Grid>
+              </Grid>
+              
             
              </ul>
              <hr style={{height:"105px",margin:"auto",width:"0px"}}/>
@@ -97,10 +145,10 @@ function Layout(props) {
 
             </div>
             </div>
-            </div> */}
+            </div>
 
 
-<div className={classes.dropdown}>
+{/* <div className={classes.dropdown}>
             <div className={classes.dropdownlink}>Categories
             <div className={classes.dropdownlist}>
             <Paper>
@@ -177,13 +225,49 @@ function Layout(props) {
             </div>
             </div>
             </div> 
+ */}
 
-
-
+                                                      {/* TOP STORE */}
             
-            <Link className={classes.link} to="/">
-              Top Store
-            </Link>
+            <div className={classes.dropdown}>
+            <div className={classes.dropdownlink}>Top Store
+            <div className={classes.dropdownlist}>
+            <Paper>
+            <ul className={classes.ul}>
+            <div className={classes.category}>
+            <Grid container style={{width:'35rem'}}>
+            <Grid xl={4}>
+            <div className={classes.li}><img src={Amazon} alt="amazon offer store" height="55rem" width="55rem" /><Typography variant='h6'>Amazon <br/> <span >50 Offers Available</span></Typography>  <ArrowRightIcon className={classes.leftarrowicon} /></div>
+            
+             </Grid>
+             
+             <Grid xl={4} style={{backgroundColor:"white",display:"flex"}}>
+             <div className={classes.hr}></div>
+             <li className={classes.li}><img src={Amazon} alt="amazon offer store" height="55rem" width="55rem" /><Typography variant='h6'>Amazon</Typography> <br/><br/> <Typography variant='subtitle2'>50 Offers Available</Typography>  <ArrowRightIcon className={classes.leftarrowicon} /></li>
+            
+             </Grid>
+
+             <Grid xl={4}>
+             <div className={classes.hr}></div>
+            <li className={classes.li}><img src={Amazon} alt="amazon offer store" height="55rem" width="55rem" /><Typography variant='h6'>Amazon</Typography> <br/><br/> <Typography variant='subtitle2'>50 Offers Available</Typography>  <ArrowRightIcon className={classes.leftarrowicon} /></li>
+            
+             </Grid>
+            </Grid>
+             
+             </div>
+
+             </ul>
+             
+             </Paper>
+
+            </div>
+            </div>
+            </div>
+
+
+
+
+
             <Link className={classes.link} to="/">
               Best offer
             </Link>
