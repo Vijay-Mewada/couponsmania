@@ -33,6 +33,7 @@ function Main(props) {
       let data = res.data.content
       // set global state to set coupons list for global use
       globalDispatch({ type: 'ADD_COUPONS', payload: data })
+      globalDispatch({ type: 'SET_LOADER_STATE', payload: false })
     }
   }, []);
 
@@ -75,10 +76,7 @@ function Main(props) {
             </Button>
             </CardActions>
           </Card>
-
         </Grid>
-    
-        
       );
     });
   };
@@ -88,7 +86,7 @@ function Main(props) {
       {renderCouponsList()}
       <Grid xs={12} sm={12} md={12} lg={12} xl={12}>
         <PopularStore />
-        <Loader/>
+        { globalState.isLoading  == true ? <Loader/>: null}
       </Grid>
     </Grid>
   );
