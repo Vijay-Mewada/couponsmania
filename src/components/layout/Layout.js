@@ -27,6 +27,7 @@ import MenuOpenSharpIcon from "@material-ui/icons/MenuOpenSharp";
 import { Link } from "react-router-dom";
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import Amazon from '../../images/amazonlogo.jpg'
+import Flipkart from '../../images/flipartlogo.png'
 const drawerWidth = 240;
 function Layout(props) {
   const classes = LayoutStyles(props);
@@ -76,7 +77,7 @@ function Layout(props) {
             <div className={classes.dropdown}>
             <div className={classes.dropdownlink}>Categories
             <div className={classes.dropdownlist}>
-            <Paper style={{width:"40rem"}}>
+            <Paper style={{width:"40rem",padding:"10px"}}>
             <ul className={classes.ul}>
                {/* <div className={classes.category}> */}
                <Grid container spacing={0}>
@@ -140,7 +141,7 @@ function Layout(props) {
               
             
              </ul>
-             <hr style={{height:"105px",margin:"auto",width:"0px"}}/>
+          
              </Paper>
 
             </div>
@@ -232,29 +233,35 @@ function Layout(props) {
             <div className={classes.dropdown}>
             <div className={classes.dropdownlink}>Top Store
             <div className={classes.dropdownlist}>
-            <Paper>
+            <Paper style={{width:"40rem",padding:"20px"}}>
             <ul className={classes.ul}>
-            <div className={classes.category}>
-            <Grid container style={{width:'35rem'}}>
+            {/* <div className={classes.category}> */}
+            <Grid container>
             <Grid xl={4}>
-            <div className={classes.li}><img src={Amazon} alt="amazon offer store" height="55rem" width="55rem" /><Typography variant='h6'>Amazon <br/> <span >50 Offers Available</span></Typography>  <ArrowRightIcon className={classes.leftarrowicon} /></div>
+           <Paper className={classes.offerpaper}>
+           <div className={classes.li}><img src={Amazon} alt="amazon offer store" className={classes.companyimg}/>&emsp;<Typography variant='h6'>Amazon <br/> 
+            <span className={classes.offeravailable} >50 Offers Available</span></Typography></div>
+           </Paper>
             
              </Grid>
              
-             <Grid xl={4} style={{backgroundColor:"white",display:"flex"}}>
-             <div className={classes.hr}></div>
-             <li className={classes.li}><img src={Amazon} alt="amazon offer store" height="55rem" width="55rem" /><Typography variant='h6'>Amazon</Typography> <br/><br/> <Typography variant='subtitle2'>50 Offers Available</Typography>  <ArrowRightIcon className={classes.leftarrowicon} /></li>
-            
+             <Grid xl={4}>
+             <Paper className={classes.offerpaper}>
+             <div className={classes.li}><img src={Flipkart} alt="amazon offer store" className={classes.companyimg}/>&emsp;<Typography variant='h6'>Flipkart <br/> 
+            <span className={classes.offeravailable} >50 Offers Available</span></Typography></div>
+             </Paper>
              </Grid>
 
              <Grid xl={4}>
-             <div className={classes.hr}></div>
-            <li className={classes.li}><img src={Amazon} alt="amazon offer store" height="55rem" width="55rem" /><Typography variant='h6'>Amazon</Typography> <br/><br/> <Typography variant='subtitle2'>50 Offers Available</Typography>  <ArrowRightIcon className={classes.leftarrowicon} /></li>
-            
+         
+             <Paper className={classes.offerpaper}>
+             <div className={classes.li}><img src={Amazon} alt="amazon offer store" className={classes.companyimg}/>&emsp;<Typography variant='h6'>Amazon <br/> 
+            <span className={classes.offeravailable} >50 Offers Available</span></Typography></div>
+             </Paper>
              </Grid>
             </Grid>
              
-             </div>
+             {/* </div> */}
 
              </ul>
              

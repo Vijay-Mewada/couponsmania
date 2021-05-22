@@ -193,9 +193,9 @@ dropdownlist:{
 },
 ul:{
   listStyle:"none",
-  margin:"auto",
-  marginLeft:"-40px",
-  fontSize:"1.3rem",
+  // margin:"auto",
+   marginLeft:"-40px",
+  // fontSize:"1.3rem",
   
  
 },
@@ -291,7 +291,25 @@ subcategory:{
  display:"none",
  color:"black"
 },
+li:{
+  display:"flex",
 
+},
+companyimg:{
+  height:"2.5rem",
+  width:"2.5rem",
+  margin:"auto 0px auto 10px"
+},
+offeravailable:{
+  fontSize:'0.8rem'
+},
+offerpaper:{
+  margin:"10px",
+  "&:hover":{
+    transform: "scale(1.1)",
+ 
+  }
+},
 
 
 }));
