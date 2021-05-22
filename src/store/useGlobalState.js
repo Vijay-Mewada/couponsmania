@@ -24,6 +24,11 @@ const reducer = (state, action) => {
                 ...state,
                 isLoading: action.payload
             }
+        case 'ADD_POPULAR_COMPANIES':
+            return {
+                ...state,
+                popularCompanies: action.payload
+            }
 
         default:
             return state
@@ -35,7 +40,8 @@ const useGlobalState = () => {
         {
             couponsList: [],
             isSidebarOpen : false,
-            isLoading : true
+            isLoading : true,
+            popularCompanies : []
         })
     return { globalState, globalDispatch }
 };

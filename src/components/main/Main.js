@@ -38,7 +38,6 @@ function Main(props) {
   }, []);
 
   const renderCouponsList = () => {
-    console.log('globalState at main', globalState)
     return globalState.couponsList && globalState.couponsList.map((itm, ind) => {
     // return couponsList && couponsList.map((itm, ind) => {
       // append image with server image url to show or show default url

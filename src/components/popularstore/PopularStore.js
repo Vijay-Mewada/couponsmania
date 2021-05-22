@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Grid, Paper, Typography } from "@material-ui/core";
 import Amazon from "../../images/amazonlogo.jpg";
 import Flipkart from "../../images/flipartlogo.png";
@@ -6,16 +6,20 @@ import Jiologo from "../../images/jiologo.png";
 import Freecharge from "../../images/freechargelogo.png";
 import { PopularStoreStyles } from "./PopularStoreStyles";
 import { get, serverImageUrl } from '../../api/serverRequest';
+import Context from '../../store/context';
 
 function PopularStore(props) {
   const classes = PopularStoreStyles(props);
   const [companyList, setCompanyList ] = useState([])
+  const { globalState, globalDispatch } = useContext(Context);
+
 
   // componentdidmount
   useEffect(async () => {
     let popularCompanyList = await get("/coupon/getpopularCompany");
     if (popularCompanyList.data && popularCompanyList.data.content && popularCompanyList.data.content.length) {
       setCompanyList(popularCompanyList.data.content)
+      globalDispatch({ type: 'ADD_POPULAR_COMPANIES', payload: popularCompanyList.data.content })
     }
   }, []);
 

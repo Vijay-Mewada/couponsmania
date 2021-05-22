@@ -1,5 +1,5 @@
 import { Grid, Paper } from "@material-ui/core";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Footer from "../footer/Footer";
 import Header from "../header/Header";
 import Sidebar from "../sidebar/Sidebar";
@@ -28,6 +28,7 @@ import { Link } from "react-router-dom";
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import Amazon from '../../images/amazonlogo.jpg'
 import Flipkart from '../../images/flipartlogo.png'
+import { get, post, serverImageUrl } from "../../api/serverRequest";
 const drawerWidth = 240;
 function Layout(props) {
   const classes = LayoutStyles(props);
@@ -35,6 +36,8 @@ function Layout(props) {
   const [open, setOpen] = React.useState(false);
   const [openSidebar, setOpenSidebar] = useState(true);
   const { globalState, globalDispatch } = useContext(Context);
+  const [navKeyList, setNavKeyList] = useState({});
+
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -43,6 +46,73 @@ function Layout(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+
+  useEffect(async () => {
+    let cateRes = await get("/coupon/getAllCategoryAndSubcat");
+
+    if (cateRes.data.content) {
+      var catData = cateRes.data.content
+      var data = catData.reduce((prev, t, index, arr) => {
+        if (typeof prev[t.category_name] === 'undefined') {
+          prev[t.category_name] = [];
+        }
+        prev[t.category_name].push(t);
+        return prev;
+      }, {});
+    }
+    setNavKeyList(data)
+
+  }, [])
+
+
+  const handleSubcatDropdownClick = async (item)=>{
+    // get coupons on based on subcategory clicked on nav dropdown
+    if (item && item.category_id && item.subcategory_id) {
+      let params = {
+        subcategoryIds: [item.subcategory_id],
+        categoryIds: [item.category_id]
+      }
+      let response = await post("/coupon/getCouponsByCatAndSubCat", params);
+      if (response && response.data && response.data.content) {
+        let data = response.data.content
+        // set global state to set coupons list for global use
+        globalDispatch({ type: 'ADD_COUPONS', payload: data })
+      }
+    }
+
+
+  }
+  const rendercatAndsubcatDrop = () => {
+    const categoryKey = Object.keys(navKeyList)
+    return categoryKey && categoryKey.map((cateKey, index) => {
+      return <Grid key={index} xl={4}>
+        <li className={classes.categoryli}>{cateKey} </li>
+        {navKeyList && navKeyList[cateKey].map((subcat, ind) => {
+          return <li key = {ind} className={classes.subcategoryli} onClick = {()=>handleSubcatDropdownClick(subcat)}> {subcat.subcategory_name}</li>
+        })}
+      </Grid>
+    })
+  }
+
+  const renderTopCompanies = () => {
+
+    return globalState && globalState.popularCompanies && globalState.popularCompanies.map((item, ind) => {
+      let imagePath = item.image && item.image !== '' ? `${serverImageUrl}/${item.image}` : Amazon
+      return <Grid key={ind} xl={4}>
+        <Paper className={classes.offerpaper}>
+          <div className={classes.li}>
+            <img src={imagePath} alt="amazon offer store" className={classes.companyimg} />&emsp;
+            <Typography variant='h6'>{item.name} <br />
+                <span className={classes.offeravailable} >{item.coupons_counter} Offers Available</span>
+              </Typography>
+          </div>
+        </Paper>
+      </Grid>
+    })
+
+  }
+
 
   return (
     <Grid>
@@ -73,83 +143,24 @@ function Layout(props) {
             <Link className={classes.link} to="/couponsmania">
               Home
             </Link>
-            
+
             <div className={classes.dropdown}>
-            <div className={classes.dropdownlink}>Categories
+              <div className={classes.dropdownlink}>Categories
             <div className={classes.dropdownlist}>
-            <Paper style={{width:"40rem",padding:"10px"}}>
-            <ul className={classes.ul}>
-               {/* <div className={classes.category}> */}
-               <Grid container spacing={0}>
-            <Grid xl={4}>
-              
-            <li className={classes.categoryli}>Recharge </li>
-             <li className={classes.subcategoryli}>Mobile Recharge</li>
-             <li className={classes.subcategoryli}>DTH Recharge</li>
-             <li className={classes.subcategoryli}>Bill Payment</li>
-            </Grid>
-             {/* <Paper className={classes.subcategory}>
-               <li>Mobile Recharge</li>
-             </Paper> */}
-             
-             {/* </div> */}
-
-              <Grid xl={4}>
-              <li className={classes.categoryli}>Shopping</li>
-              <li className={classes.subcategoryli}>Mobile Recharge</li>
-             <li className={classes.subcategoryli}>DTH Recharge</li>
-             <li className={classes.subcategoryli}>Bill Payment</li>
-              </Grid>
-
-            <Grid xl={4}>
-            <li className={classes.categoryli}>Travel</li>
-              <li className={classes.subcategoryli}>Train Ticket</li>
-             <li className={classes.subcategoryli}>Bus Ticket</li>
-             <li className={classes.subcategoryli}>Flight ticket</li>
-             <li className={classes.subcategoryli}>Cabs</li>
-             <li className={classes.subcategoryli}>Hotel</li>
-            </Grid>
-
-
-              <Grid xl={4}>
-                <li className={classes.categoryli}>Games</li>
-
-              <li className={classes.subcategoryli}>Train Ticket</li>
-             <li className={classes.subcategoryli}>Bus Ticket</li>
-             <li className={classes.subcategoryli}>Flight ticket</li>
-             <li className={classes.subcategoryli}>Cabs</li>
-             <li className={classes.subcategoryli}>Hotel</li>
-              </Grid>
-              <Grid xl={4}>
-              <li className={classes.categoryli}>Computer & Accessary</li>
-              <li className={classes.subcategoryli}>Bus Ticket</li>
-             <li className={classes.subcategoryli}>Flight ticket</li>
-             <li className={classes.subcategoryli}>Cabs</li>
-             <li className={classes.subcategoryli}>Hotel</li>
-              </Grid>
-
-              <Grid xl={4}>
-                <li className={classes.categoryli}>Games</li>
-
-              <li className={classes.subcategoryli}>Train Ticket</li>
-             <li className={classes.subcategoryli}>Bus Ticket</li>
-             <li className={classes.subcategoryli}>Flight ticket</li>
-             <li className={classes.subcategoryli}>Cabs</li>
-             <li className={classes.subcategoryli}>Hotel</li>
-              </Grid>
-              </Grid>
-              
-            
-             </ul>
-          
-             </Paper>
-
-            </div>
-            </div>
+                  <Paper style={{ width: "40rem", padding: "10px" }}>
+                    <ul className={classes.ul}>
+                      {/* <div className={classes.category}> */}
+                      <Grid container spacing={0}>
+                        {rendercatAndsubcatDrop()}
+                      </Grid>
+                    </ul>
+                  </Paper>
+                </div>
+              </div>
             </div>
 
 
-{/* <div className={classes.dropdown}>
+            {/* <div className={classes.dropdown}>
             <div className={classes.dropdownlink}>Categories
             <div className={classes.dropdownlist}>
             <Paper>
@@ -228,47 +239,26 @@ function Layout(props) {
             </div> 
  */}
 
-                                                      {/* TOP STORE */}
-            
+            {/* TOP STORE */}
+
             <div className={classes.dropdown}>
-            <div className={classes.dropdownlink}>Top Store
+              <div className={classes.dropdownlink}>Top Store
             <div className={classes.dropdownlist}>
-            <Paper style={{width:"40rem",padding:"20px"}}>
-            <ul className={classes.ul}>
-            {/* <div className={classes.category}> */}
-            <Grid container>
-            <Grid xl={4}>
-           <Paper className={classes.offerpaper}>
-           <div className={classes.li}><img src={Amazon} alt="amazon offer store" className={classes.companyimg}/>&emsp;<Typography variant='h6'>Amazon <br/> 
-            <span className={classes.offeravailable} >50 Offers Available</span></Typography></div>
-           </Paper>
-            
-             </Grid>
-             
-             <Grid xl={4}>
-             <Paper className={classes.offerpaper}>
-             <div className={classes.li}><img src={Flipkart} alt="amazon offer store" className={classes.companyimg}/>&emsp;<Typography variant='h6'>Flipkart <br/> 
-            <span className={classes.offeravailable} >50 Offers Available</span></Typography></div>
-             </Paper>
-             </Grid>
+                  <Paper style={{ width: "40rem", padding: "20px" }}>
+                    <ul className={classes.ul}>
+                      {/* <div className={classes.category}> */}
+                      <Grid container>
+                        {renderTopCompanies()}
+                      </Grid>
 
-             <Grid xl={4}>
-         
-             <Paper className={classes.offerpaper}>
-             <div className={classes.li}><img src={Amazon} alt="amazon offer store" className={classes.companyimg}/>&emsp;<Typography variant='h6'>Amazon <br/> 
-            <span className={classes.offeravailable} >50 Offers Available</span></Typography></div>
-             </Paper>
-             </Grid>
-            </Grid>
-             
-             {/* </div> */}
+                      {/* </div> */}
 
-             </ul>
-             
-             </Paper>
+                    </ul>
 
-            </div>
-            </div>
+                  </Paper>
+
+                </div>
+              </div>
             </div>
 
 
