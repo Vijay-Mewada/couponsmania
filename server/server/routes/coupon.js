@@ -69,6 +69,8 @@ router.post("/getCouponsBySubcategory", couponController.get_coupons_by_subcateg
 router.post("/getCouponsBySearch", couponController.get_coupons_by_search)
 // get coupons by category and subcategory
 router.post("/getCouponsByCatAndSubCat", couponController.get_coupons_by_cat_and_subcat)
+// get coupons by company
+router.post("/getCouponsByCompany", couponController.get_coupons_by_company) 
 // ****************** coupons routes******************//
 
 module.exports = router;

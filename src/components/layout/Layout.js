@@ -50,7 +50,6 @@ function Layout(props) {
 
   useEffect(async () => {
     let cateRes = await get("/coupon/getAllCategoryAndSubcat");
-
     if (cateRes.data.content) {
       var catData = cateRes.data.content
       var data = catData.reduce((prev, t, index, arr) => {
@@ -64,6 +63,20 @@ function Layout(props) {
     setNavKeyList(data)
 
   }, [])
+
+  const handlePopularStoreClick = async (item) => {
+    if (item && item.id) {
+      globalDispatch({ type: 'SET_LOADER_STATE', payload: true })
+      let response = await post("/coupon/getCouponsByCompany", {companyId : item.id});
+      if (response.data && response.data.content && response.data.content.length) {
+        globalDispatch({ type: 'ADD_COUPONS', payload: response.data.content })
+        globalDispatch({ type: 'SET_LOADER_STATE', payload: false })
+
+      }
+
+    }
+
+  }
 
 
   const handleSubcatDropdownClick = async (item)=>{
@@ -96,11 +109,10 @@ function Layout(props) {
   }
 
   const renderTopCompanies = () => {
-
     return globalState && globalState.popularCompanies && globalState.popularCompanies.map((item, ind) => {
       let imagePath = item.image && item.image !== '' ? `${serverImageUrl}/${item.image}` : Amazon
       return <Grid key={ind} xl={4}>
-        <Paper className={classes.offerpaper}>
+        <Paper className={classes.offerpaper} onClick = {()=>{handlePopularStoreClick(item)}}>
           <div className={classes.li}>
             <img src={imagePath} alt="amazon offer store" className={classes.companyimg} />&emsp;
             <Typography variant='h6'>{item.name} <br />
