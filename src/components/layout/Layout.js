@@ -59,8 +59,8 @@ function Layout(props) {
         prev[t.category_name].push(t);
         return prev;
       }, {});
+      setNavKeyList(data)
     }
-    setNavKeyList(data)
 
   }, [])
 
