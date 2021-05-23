@@ -50,7 +50,7 @@ function Layout(props) {
 
   useEffect(async () => {
     let cateRes = await get("/coupon/getAllCategoryAndSubcat");
-    if (cateRes.data.content) {
+    if (cateRes && cateRes.data && cateRes.data.content) {
       var catData = cateRes.data.content
       var data = catData.reduce((prev, t, index, arr) => {
         if (typeof prev[t.category_name] === 'undefined') {
@@ -59,8 +59,8 @@ function Layout(props) {
         prev[t.category_name].push(t);
         return prev;
       }, {});
+      setNavKeyList(data)
     }
-    setNavKeyList(data)
 
   }, [])
 
