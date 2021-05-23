@@ -143,20 +143,30 @@ function Main(props) {
         </DialogTitle>
         <DialogContent dividers>
         <Typography variant='h4' className={classes.companyname1}>{itm.description}</Typography><br/>
-          <Typography title='title'>{itm.code}
-            <Button color='primary'>Copy</Button>
-          </Typography>
-          <Typography gutterBottom>
+        <div className={classes.codebordr}>
+        <Grid xs={6} style={{display:'flex'}}>
+              <Typography variant='tile' className={classes.couponcode}>{itm.code}</Typography>
+              </Grid>
+              <Grid xs={6} className={classes.dialog}>
+              <Button variant='primary' className={classes.codebtn}>Copy Code</Button>
+              </Grid>
+              </div>
+
+              {/* </div>
+          <div className={classes.codebordr}><Typography title='copy code' className={classes.couponcode}>{itm.code}&emsp;&nbsp;
+            <Button variant='primary' className={classes.codebtn}>Copy</Button>
+          </Typography></div> */}
+          {/* <Typography gutterBottom>
             Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
             scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
             auctor fringilla.
-          </Typography>
+          </Typography> */}
         </DialogContent>
-        <DialogActions>
+        {/* <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
             Save changes
           </Button>
-        </DialogActions>
+        </DialogActions> */}
       </Dialog>
 
           </Grid>

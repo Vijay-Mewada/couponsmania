@@ -95,6 +95,24 @@ import PropTypes from 'prop-types';
         textAlign:"center",
         margin:"auto",
       },
+      codebordr:{
+        display:'flex',
+        border:"1px solid lightgray",
+        width:'17rem',
+        margin:'20px auto',
+        borderRadius:'5px',
+      },
+      couponcode:{
+        margin:"auto",
+        fontWeight:'600',
+        padding:'0px 0px 0px 20px',
+      },
+      codebtn:{
+        marginLeft:'auto',
+        background:'red',
+        padding:'12px 15px',
+        color: "#fff",
+      },
         // paper: {
         //     height: 140,
         //     width: 100,
