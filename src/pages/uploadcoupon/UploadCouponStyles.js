@@ -2,6 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Background from "../../images/uploadcouponback.png"
 const UploadCouponStyles = makeStyles({
   main:{
+    marginTop:"-0.7rem",
     height:"auto",
     backgroundImage:`url(${Background})`,
     backgroundSize:"cover",
@@ -47,7 +48,9 @@ const UploadCouponStyles = makeStyles({
     minWidth:"550px"
   },
   addbtn:{
-    padding:"9px 15px"
+    height:"2.6rem",
+    width:"3.5rem"
+    // padding:"9px 15px"
   },
 });
 export { UploadCouponStyles };

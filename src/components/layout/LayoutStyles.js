@@ -68,6 +68,9 @@ root: {
     justifyContent: 'flex-end',
   },
   content: {
+    paddingLeft:"0px",
+    paddingRight:"0px",
+    paddingBottom:"0px",
     marginTop:"4.8rem",
     flexGrow: 1,
     padding: theme.spacing(3),

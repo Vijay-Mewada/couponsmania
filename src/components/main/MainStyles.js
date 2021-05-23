@@ -1,6 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 
-const MainStyles = makeStyles ({
+
+
+  const MainStyles = makeStyles ({
     card: {
         margin:'20px',
         maxWidth: 345,
@@ -24,6 +27,7 @@ const MainStyles = makeStyles ({
         overflow: "hidden",
     whiteSpace: "nowrap",
     textOverflow: "ellipsis",
+    textAlign:"center"
     // '&:hover': {
     //   whiteSpace: "normal",
     // }
@@ -37,10 +41,21 @@ const MainStyles = makeStyles ({
     // }
       },
       coupanbtn:{
-        backgroundColor:"#635b5b",
+        // backgroundColor:"#635b5b",
         margin:'auto',
         color : "#fff",
-        padding:'5px 10px'
+        fontWeight:"600",
+        padding:'5px 10px',
+        border:"1px dotted red",
+        minWidth:"10rem",
+        background:"#635b5b",
+        "&:hover":{
+          background:"#635b5b",
+          "& $corner":{
+            height:"30px",
+            width:"30px"
+          }
+        }
 
       },
       spinloader : {
@@ -49,7 +64,37 @@ const MainStyles = makeStyles ({
         animationIterationCount: "infinite",
         /* linear | ease | ease-in | ease-out | ease-in-out */
         animationTimingFunction: "linear",
-      }
+      },
+      corner:{
+      
+        width: "18px",
+        height: "18px",
+        background: "linear-gradient(to left bottom, #d6dadc 48%, #454545 50%)",
+        left: "auto",
+        right: "0",
+        top: '0',
+        borderTopRightRadius: "3px",
+        borderBottomLeftRadius: "3px",
+        transform: "none",
+        overflow: "hidden",
+        position: "absolute",
+        zIndex: "9",
+        transition: "all .3s ease-out",
+        
+      },
+      dialog:{
+        display:"flex"
+      },
+
+      couponcodeimage:{
+        margin:"auto",
+        width:'150px',
+        height:"150px"
+      },
+      companyname1:{
+        textAlign:"center",
+        margin:"auto",
+      },
         // paper: {
         //     height: 140,
         //     width: 100,

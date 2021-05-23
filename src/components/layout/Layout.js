@@ -328,7 +328,7 @@ function Layout(props) {
           })}
         >
           <div className={classes.drawerHeader} />
-          <main>{props.children}</main>
+          <main style={{background:"#b8fdff"}}>{props.children}</main>
         </main>
       </div>
 
