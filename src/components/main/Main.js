@@ -23,6 +23,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { CancelScheduleSendOutlined } from "@material-ui/icons";
+import CloseIcon from '@material-ui/icons/Close';
 
 function Main(props) {
   const classes = MainStyles(props);
@@ -71,6 +72,7 @@ function Main(props) {
                     src={imagePath}
                     alt="company logo"
                   />
+                 
                 </Grid>
 
                 <hr style={{ color: "rgba(0, 0, 0, 0.1)" }} />
@@ -100,7 +102,7 @@ function Main(props) {
               <CardActions>
                 <Button size="small" className={classes.coupanbtn} onClick={handleClickOpen}>
               <div style={{position:"absolute",backgroundColor:"#635b5b"}}>Get Coupon</div>
-                {itm.code}
+              Get Coupon
                 <div className={classes.corner}></div>
             </Button>
             
@@ -131,8 +133,11 @@ function Main(props) {
             <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} >
         <DialogTitle id="customized-dialog-title" onClose={handleClose} >
         <div className={classes.dialog}>
-          <img src={imagePath} alt='Coupon Code' className={classes.couponcodeimage} /><br/></div>
+          <img src={imagePath} alt='Coupon Code' className={classes.couponcodeimage} /><br/>
+          <CloseIcon className={classes.closeicon} onClick={handleClose}/>
+          </div>
           <div className={classes.dialog}>
+          
          <Typography variant='title' className={classes.companyname1}>{itm.company_name}</Typography><br/>
          </div>
          {/* <div className={classes.dialog}>
@@ -143,15 +148,19 @@ function Main(props) {
         </DialogTitle>
         <DialogContent dividers>
         <Typography variant='h4' className={classes.companyname1}>{itm.description}</Typography><br/>
+        <div className={classes.dialog}>
         <div className={classes.codebordr}>
         <Grid xs={6} style={{display:'flex'}}>
-              <Typography variant='tile' className={classes.couponcode}>{itm.code}</Typography>
+              <Typography variant='tile'  className={classes.couponcode}>{itm.code}</Typography>
               </Grid>
               <Grid xs={6} className={classes.dialog}>
               <Button variant='primary' className={classes.codebtn}>Copy Code</Button>
+              
               </Grid>
+              
+              </div>&emsp;&emsp;
+              <Button className={classes.redirectbtn}>GO</Button>
               </div>
-
               {/* </div>
           <div className={classes.codebordr}><Typography title='copy code' className={classes.couponcode}>{itm.code}&emsp;&nbsp;
             <Button variant='primary' className={classes.codebtn}>Copy</Button>
@@ -180,7 +189,7 @@ function Main(props) {
       {renderCouponsList()}
       <Grid xs={12} sm={12} md={12} lg={12} xl={12}>
         <PopularStore />
-        {globalState.isLoading == true ? <Loader /> : null}
+        {globalState.isLoading == true ? <Loader/> : null}
       </Grid>
     </Grid>
   );

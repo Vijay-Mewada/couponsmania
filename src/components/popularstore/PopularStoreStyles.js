@@ -16,6 +16,7 @@ const PopularStoreStyles = makeStyles((theme) => ({
       margin:"10px",
     display: "flex",
     height: 200,
+    width:220,
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,

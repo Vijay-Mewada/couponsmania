@@ -117,7 +117,24 @@ import PropTypes from 'prop-types';
         //     height: 140,
         //     width: 100,
         //   },
-      
+      redirectbtn:{
+        position:'absolute',
+        right:"5.8rem",
+        display:'flex',
+        marginTop:"1.2rem",
+        borderRadius:"9999px",
+        height:"50px",
+        background:"green",
+        color:"#fff",
+        fontWeight:'600'
+      },
+      closeicon:{
+        "&:hover":{
+          color:'red',
+          cursor:"pointer",
+          background:"lightgray"
+        }
+      }
 
 });
 export { MainStyles };

@@ -15,7 +15,14 @@ card: {
   },
 rechargectgry : {
     textAlign:"left",
-    marginLeft:"35px"
+    marginLeft:"0px"
+},
+spanclear:{
+  fontSize:"0.8rem",
+  textAlign:"right",
+  "&:hover":{
+    cursor:"pointer"
+  }
 }
 });
 export { SidebarStyles };
