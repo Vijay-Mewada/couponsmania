@@ -5,12 +5,12 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var mysql = require("mysql");
 var http = require("http");
+require("dotenv").config();
 
 var couponRouter = require("./server/routes/coupon");
 // var couponRouter = require("./server/routes/demoCoupon"); // for demo
 
 var app = express();
-
 //  mysql db connection
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -60,6 +60,6 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.json({message : 'something went wrong', error : err});
 });
-app.listen(process.env.PORT || 8000, () => console.log(`Server has started.`));
+app.listen(process.env.PORT || 8000, () => console.log(`Server has started at ${process.env.PORT}`));
 
 module.exports = app;
