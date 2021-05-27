@@ -53,6 +53,8 @@ router.post("/addCompany", upload.single("image") ,companyController.add_company
 router.get("/getAllCompany",companyController.get_all_company);
 // get most 10 used company list
 router.get("/getpopularCompany",companyController.get_popular_companies);
+// get most 10 used company list
+router.post("/deleteCompanyById",companyController.delete_company_by_id);
 // ****************** company routes******************//
 
 

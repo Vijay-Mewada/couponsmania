@@ -29,13 +29,24 @@ function Main(props) {
   const classes = MainStyles(props);
   const [couponsList, setCouponsList] = useState([]);
   const { globalState, globalDispatch } = useContext(Context);
-  const [open, setOpen] = React.useState(false);
+  const [isCouponsPopupOpen, setIsCouponsPopupOpen] = React.useState(false);
+  const [selectedCoupon, setSelectedCoupon] = useState({});
+  // const [selectedDesc, setSelectedDesc] = useState('');
+  // const [selectedCode, setSelectedCode] = useState('');
+  // const [selectedImage, setSelectedImage] = useState('');
 
-  const handleClickOpen = () => {
-    setOpen(true);
+
+  const handleClickOpen = (item) => {
+    if (item && item.id) {
+      setSelectedCoupon(item)
+      setIsCouponsPopupOpen(true);
+    }
+    
+    
   };
   const handleClose = () => {
-    setOpen(false);
+    setIsCouponsPopupOpen(false);
+    setSelectedCoupon({})
   };
 
 
@@ -72,7 +83,7 @@ function Main(props) {
                     src={imagePath}
                     alt="company logo"
                   />
-                 
+
                 </Grid>
 
                 <hr style={{ color: "rgba(0, 0, 0, 0.1)" }} />
@@ -100,13 +111,18 @@ function Main(props) {
                 </CardContent>
               </CardActionArea>
               <CardActions>
+<<<<<<< HEAD
                 <Button size="small" className={classes.coupanbtn} onClick={handleClickOpen}>
               <div style={{position:"absolute",backgroundColor:"#635b5b"}}></div>
+=======
+                <Button size="small" className={classes.coupanbtn} onClick={() => handleClickOpen(itm)}>
+                  <div style={{ position: "absolute", backgroundColor: "#635b5b" }}>Get Coupon</div>
+>>>>>>> 32c7c403d3b6f34582eb57f75601be1ccaa1ac9a
               Get Coupon
                 <div className={classes.corner}></div>
-            </Button>
-            
-{/* 
+                </Button>
+
+                {/* 
                 <div
                   class="offer-get-code-link cpnbtn"
                   onclick="CD.c.util.logUserAction('offer-click', null, '3JoZMaavss')"
@@ -128,56 +144,61 @@ function Main(props) {
             </Card>
 
 
-                            {/* Coupon Code Popup */}
+            {/****************************  Coupon Code Popup ******************************/}
+            {
+              //  render popup in case it is open
+              selectedCoupon && selectedCoupon.id ?
+                <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={isCouponsPopupOpen} >
+                  <DialogTitle id="customized-dialog-title" onClose={handleClose} >
+                    <div className={classes.dialog}>
+                      <img src={`${serverImageUrl}/${selectedCoupon.image}`} alt='Coupon Code' className={classes.couponcodeimage} /><br />
+                      <CloseIcon className={classes.closeicon} onClick={handleClose} />
+                    </div>
+                    <div className={classes.dialog}>
 
-            <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} >
-        <DialogTitle id="customized-dialog-title" onClose={handleClose} >
-        <div className={classes.dialog}>
-          <img src={imagePath} alt='Coupon Code' className={classes.couponcodeimage} /><br/>
-          <CloseIcon className={classes.closeicon} onClick={handleClose}/>
-          </div>
-          <div className={classes.dialog}>
-          
-         <Typography variant='title' className={classes.companyname1}>{itm.company_name}</Typography><br/>
-         </div>
-         {/* <div className={classes.dialog}>
-         <Typography variant='title' className={classes.companyname1}>{itm.title}</Typography><br/>
+                      <Typography variant='title' className={classes.companyname1}>{selectedCoupon.company_name}</Typography><br />
+                    </div>
+                    {/* <div className={classes.dialog}>
+         <Typography variant='title' className={classes.companyname1}>{selectedCoupon.title}</Typography><br/>
          </div> */}
 
 
-        </DialogTitle>
-        <DialogContent dividers>
-        <Typography variant='h4' className={classes.companyname1}>{itm.description}</Typography><br/>
-        <div className={classes.dialog}>
-        <div className={classes.codebordr}>
-        <Grid xs={6} style={{display:'flex'}}>
-              <Typography variant='tile'  className={classes.couponcode}>{itm.code}</Typography>
-              </Grid>
-              <Grid xs={6} className={classes.dialog}>
-              <Button variant='primary' className={classes.codebtn}>Copy Code</Button>
-              
-              </Grid>
-              
-              </div>&emsp;&emsp;
+                  </DialogTitle>
+                  <DialogContent dividers>
+                    <Typography variant='h4' className={classes.companyname1}>{selectedCoupon.description}</Typography><br />
+                    <div className={classes.dialog}>
+                      <div className={classes.codebordr}>
+                        <Grid xs={6} style={{ display: 'flex' }}>
+                          <Typography variant='tile' className={classes.couponcode}>{selectedCoupon.code}</Typography>
+                        </Grid>
+                        <Grid xs={6} className={classes.dialog}>
+                          <Button variant='primary' className={classes.codebtn}>Copy Code</Button>
+
+                        </Grid>
+
+                      </div>&emsp;&emsp;
               <Button className={classes.redirectbtn}>GO</Button>
-              </div>
-              {/* </div>
+                    </div>
+                    {/* </div>
           <div className={classes.codebordr}><Typography title='copy code' className={classes.couponcode}>{itm.code}&emsp;&nbsp;
             <Button variant='primary' className={classes.codebtn}>Copy</Button>
           </Typography></div> */}
-          {/* <Typography gutterBottom>
+                    {/* <Typography gutterBottom>
             Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
             scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
             auctor fringilla.
           </Typography> */}
-        </DialogContent>
-        {/* <DialogActions>
+                  </DialogContent>
+                  {/* <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
             Save changes
           </Button>
         </DialogActions> */}
-      </Dialog>
+                </Dialog>
 
+                :
+                null
+            }
           </Grid>
         );
       })

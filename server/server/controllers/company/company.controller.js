@@ -88,6 +88,48 @@ get_all_company = (req, res) => {
     }
   });
 };
+// controller to delete  company by id
+delete_company_by_id = (req, res) => {
+
+  pool.getConnection(function (err, connection) {
+    if (err) {
+      res.status(200).send({
+        message: err,
+        content: [],
+        is_success: false
+      })
+    }
+    else {
+      connection.query(
+        `DELETE coupons, companies FROM coupons 
+        INNER JOIN companies
+         WHERE coupons.companyId = ${req.body.companyId} AND
+          companies.id = ${req.body.companyId}`,
+        // `SELECT * FROM onlinecoupons where category = '${req.body.category}'`,
+        (err, result) => {
+          // user does not exists
+          if (err) {
+            res.status(200).send({
+              message: err,
+              content: [],
+              is_success: false,
+            });
+            // throw err;
+          } else {
+            let coupon = [result];
+            console.log(' delete com- ', coupon)
+             res.status(200).json({
+              message: "Deleted company",
+              content: coupon[0],
+              is_success: true,
+            });
+            connection.release();
+          }
+        }
+      );
+    }
+  });
+};
 
 get_popular_companies = (req, res) => {
 
@@ -135,5 +177,6 @@ get_popular_companies = (req, res) => {
 module.exports = {
   add_company,
   get_all_company,
-  get_popular_companies
+  get_popular_companies,
+  delete_company_by_id
 }
