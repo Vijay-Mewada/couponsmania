@@ -111,13 +111,8 @@ function Main(props) {
                 </CardContent>
               </CardActionArea>
               <CardActions>
-<<<<<<< HEAD
-                <Button size="small" className={classes.coupanbtn} onClick={handleClickOpen}>
-              <div style={{position:"absolute",backgroundColor:"#635b5b"}}></div>
-=======
                 <Button size="small" className={classes.coupanbtn} onClick={() => handleClickOpen(itm)}>
                   <div style={{ position: "absolute", backgroundColor: "#635b5b" }}>Get Coupon</div>
->>>>>>> 32c7c403d3b6f34582eb57f75601be1ccaa1ac9a
               Get Coupon
                 <div className={classes.corner}></div>
                 </Button>
