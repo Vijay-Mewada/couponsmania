@@ -54,7 +54,15 @@ import PropTypes from 'prop-types';
           "& $corner":{
             height:"30px",
             width:"30px"
-          }
+          },
+         
+            "& $description": {
+              whiteSpace: "normal",
+            },
+            "& $companyname": {
+              whiteSpace: "normal",
+         
+        }
         }
 
       },
@@ -80,7 +88,14 @@ import PropTypes from 'prop-types';
         position: "absolute",
         zIndex: "9",
         transition: "all .3s ease-out",
-        
+        '&:hover' :{
+          "& $description": {
+            whiteSpace: "normal",
+          },
+          "& $companyname": {
+            whiteSpace: "normal",
+        }
+      }
       },
       dialog:{
         display:"flex"

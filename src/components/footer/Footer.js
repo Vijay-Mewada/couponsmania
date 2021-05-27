@@ -2,10 +2,15 @@ import { Grid, Typography } from '@material-ui/core';
 import React from 'react'
 import { FooterStyles } from './FooterStyles'
 import Logo from '../../images/logo.png' 
+import { Link } from 'react-router-dom'
+import PhoneIcon from '@material-ui/icons/Phone';
+import EmailIcon from '@material-ui/icons/Email';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+
 function Footer(props) {
     const classes = FooterStyles(props);
     return (
-        <Grid className={classes.root}>
+        <Grid container className={classes.root}>
             <Grid lg={4} xl={4} sm={12} md={4}>
             <img src={Logo} alt='logo'/>
             <Typography className={classes.title} variant="h6" noWrap>
@@ -14,11 +19,27 @@ function Footer(props) {
           <Typography className={classes.title1} variant="h6" noWrap>
             ania
           </Typography>
+          <Link to='/couponsmania/uploadcoupon'>Home</Link><br/>
+          <Link to='/couponsmania/uploadcoupon'>About Us</Link><br/>
+          <Link to='/couponsmania/uploadcoupon'>Contact Us</Link><br/>
+          <Link to='/couponsmania/uploadcoupon'>Contact Us</Link><br/>
             </Grid>
             <Grid lg={4} xl={4} sm={12} md={4}>
-              
+            <Typography variant="h6" noWrap>
+            Contact
+          </Typography>
+         <PhoneIcon /> +919074993859<br/>
+         &emsp;&emsp;+919685891345<br/>
+         <EmailIcon/> Vijaymewada2012@gmail.com<br/>
+         <LocationOnIcon/>Khajuri Sadak, Bhopal
             </Grid>
-            <Grid lg={4} xl={4} sm={12} md={4}></Grid>
+            <Grid lg={4} xl={4} sm={12} md={4}>
+            <Typography variant="h6" noWrap>Browse Offers</Typography>
+            <Link to='/couponsmania/uploadcoupon'>Stores</Link><br/>
+          <Link to='/couponsmania/uploadcoupon'>Categories</Link><br/>
+          <Link to='/couponsmania/uploadcoupon'>Contact Us</Link><br/>
+          <Link to='/couponsmania/uploadcoupon'>Contact Us</Link><br/>
+            </Grid>
         </Grid>
     )
 }

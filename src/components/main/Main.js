@@ -101,7 +101,7 @@ function Main(props) {
               </CardActionArea>
               <CardActions>
                 <Button size="small" className={classes.coupanbtn} onClick={handleClickOpen}>
-              <div style={{position:"absolute",backgroundColor:"#635b5b"}}>Get Coupon</div>
+              <div style={{position:"absolute",backgroundColor:"#635b5b"}}></div>
               Get Coupon
                 <div className={classes.corner}></div>
             </Button>
@@ -189,7 +189,7 @@ function Main(props) {
       {renderCouponsList()}
       <Grid xs={12} sm={12} md={12} lg={12} xl={12}>
         <PopularStore />
-        {globalState.isLoading == true ? <Loader/> : null}
+        {globalState.isLoading == true ? <Loader /> : null}
       </Grid>
     </Grid>
   );
