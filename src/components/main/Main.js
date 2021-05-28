@@ -38,27 +38,19 @@ function Main(props) {
   // const [selectedImage, setSelectedImage] = useState('');
 
 
-  // const handleClickOpen = (item) => {
-  //   if (item && item.id) {
-  //     setSelectedCoupon(item)
-  //     setIsCouponsPopupOpen(true);
-  //   }
+  const handleClickOpen = (item) => {
+    if (item && item.id) {
+      setSelectedCoupon(item)
+      setIsCouponsPopupOpen(true);
+    }
     
     
-  // };
-  // const handleClose = () => {
-  //   setIsCouponsPopupOpen(false);
-  //   setSelectedCoupon({})
-  // };
-
-  const handleClickOpen = () => {
-    setOpen(true);
+  };
+  const handleClose = () => {
+    setIsCouponsPopupOpen(false);
+    setSelectedCoupon({})
   };
 
-  const handleClose = (value) => {
-    setOpen(false);
-    // setSelectedValue(value);
-  };
 
 
   // componentdidmountto
@@ -148,10 +140,6 @@ function Main(props) {
                 </div> */}
               </CardActions>
             </Card>
-
-
-            {/****************************  Coupon Code Popup ******************************/}
-            <GetCoupon open={open} onClose={handleClose} className={classes.cardpaper} />
           </Grid>
         );
       })
@@ -165,6 +153,12 @@ function Main(props) {
         <PopularStore />
         {globalState.isLoading == true ? <Loader /> : null}
       </Grid>
+       {/****************************  Coupon Code Popup ******************************/}
+       <GetCoupon isCouponsPopupOpen={isCouponsPopupOpen} 
+            handleClose={()=>handleClose()}
+             className={classes.cardpaper} 
+             selectedCoupon = {selectedCoupon}
+             />
     </Grid>
   );
 }
