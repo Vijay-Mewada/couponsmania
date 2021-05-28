@@ -22,5 +22,12 @@ const FooterStyles = makeStyles((theme) => ({
     display: 'block',
   },
 },
+footlink:{
+  color:"#fff",
+  textDecoration:"none",
+  fontSize:"1rem",
+  fontWeight:'600',
+  
+},
 }));
 export { FooterStyles };

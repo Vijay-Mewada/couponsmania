@@ -19,10 +19,10 @@ function Footer(props) {
           <Typography className={classes.title1} variant="h6" noWrap>
             ania
           </Typography>
-          <Link to='/couponsmania/uploadcoupon'>Home</Link><br/>
-          <Link to='/couponsmania/uploadcoupon'>About Us</Link><br/>
-          <Link to='/couponsmania/uploadcoupon'>Contact Us</Link><br/>
-          <Link to='/couponsmania/uploadcoupon'>Contact Us</Link><br/>
+          <Link className={classes.footlink} to='/couponsmania/uploadcoupon'>Home</Link><br/>
+          <Link className={classes.footlink} to='/couponsmania/uploadcoupon'>About Us</Link><br/>
+          <Link className={classes.footlink} to='/couponsmania/uploadcoupon'>Contact Us</Link><br/>
+          <Link className={classes.footlink} to='/couponsmania/uploadcoupon'>Contact Us</Link><br/>
             </Grid>
             <Grid lg={4} xl={4} sm={12} md={4}>
             <Typography variant="h6" noWrap>
@@ -35,10 +35,15 @@ function Footer(props) {
             </Grid>
             <Grid lg={4} xl={4} sm={12} md={4}>
             <Typography variant="h6" noWrap>Browse Offers</Typography>
-            <Link to='/couponsmania/uploadcoupon'>Stores</Link><br/>
-          <Link to='/couponsmania/uploadcoupon'>Categories</Link><br/>
-          <Link to='/couponsmania/uploadcoupon'>Contact Us</Link><br/>
-          <Link to='/couponsmania/uploadcoupon'>Contact Us</Link><br/>
+            <Link className={classes.footlink} to='/couponsmania/uploadcoupon'>Stores</Link><br/>
+          <Link className={classes.footlink} to='/couponsmania/uploadcoupon'>Categories</Link><br/>
+          <Link className={classes.footlink} to='/couponsmania/uploadcoupon'>Contact Us</Link><br/>
+          <Link className={classes.footlink} to='/couponsmania/uploadcoupon'>Contact Us</Link><br/>
+            </Grid>
+            <Grid lg={12} xl={12} sm={12} md={12}>
+            <hr/>
+              <Typography variant='subtitle2' style={{textAlign:"center"}}>All rights reserved. &copy; Couponsmania.in</Typography>
+
             </Grid>
         </Grid>
     )

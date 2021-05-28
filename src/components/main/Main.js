@@ -24,6 +24,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { CancelScheduleSendOutlined } from "@material-ui/icons";
 import CloseIcon from '@material-ui/icons/Close';
+import GetCoupon from "../getcouponpopup/GetCoupon";
 
 function Main(props) {
   const classes = MainStyles(props);
@@ -31,22 +32,32 @@ function Main(props) {
   const { globalState, globalDispatch } = useContext(Context);
   const [isCouponsPopupOpen, setIsCouponsPopupOpen] = React.useState(false);
   const [selectedCoupon, setSelectedCoupon] = useState({});
+  const [open, setOpen] = React.useState(false);
   // const [selectedDesc, setSelectedDesc] = useState('');
   // const [selectedCode, setSelectedCode] = useState('');
   // const [selectedImage, setSelectedImage] = useState('');
 
 
-  const handleClickOpen = (item) => {
-    if (item && item.id) {
-      setSelectedCoupon(item)
-      setIsCouponsPopupOpen(true);
-    }
+  // const handleClickOpen = (item) => {
+  //   if (item && item.id) {
+  //     setSelectedCoupon(item)
+  //     setIsCouponsPopupOpen(true);
+  //   }
     
     
+  // };
+  // const handleClose = () => {
+  //   setIsCouponsPopupOpen(false);
+  //   setSelectedCoupon({})
+  // };
+
+  const handleClickOpen = () => {
+    setOpen(true);
   };
-  const handleClose = () => {
-    setIsCouponsPopupOpen(false);
-    setSelectedCoupon({})
+
+  const handleClose = (value) => {
+    setOpen(false);
+    // setSelectedValue(value);
   };
 
 
@@ -140,60 +151,7 @@ function Main(props) {
 
 
             {/****************************  Coupon Code Popup ******************************/}
-            {
-              //  render popup in case it is open
-              selectedCoupon && selectedCoupon.id ?
-                <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={isCouponsPopupOpen} >
-                  <DialogTitle id="customized-dialog-title" onClose={handleClose} >
-                    <div className={classes.dialog}>
-                      <img src={`${serverImageUrl}/${selectedCoupon.image}`} alt='Coupon Code' className={classes.couponcodeimage} /><br />
-                      <CloseIcon className={classes.closeicon} onClick={handleClose} />
-                    </div>
-                    <div className={classes.dialog}>
-
-                      <Typography variant='title' className={classes.companyname1}>{selectedCoupon.company_name}</Typography><br />
-                    </div>
-                    {/* <div className={classes.dialog}>
-         <Typography variant='title' className={classes.companyname1}>{selectedCoupon.title}</Typography><br/>
-         </div> */}
-
-
-                  </DialogTitle>
-                  <DialogContent dividers>
-                    <Typography variant='h4' className={classes.companyname1}>{selectedCoupon.description}</Typography><br />
-                    <div className={classes.dialog}>
-                      <div className={classes.codebordr}>
-                        <Grid xs={6} style={{ display: 'flex' }}>
-                          <Typography variant='tile' className={classes.couponcode}>{selectedCoupon.code}</Typography>
-                        </Grid>
-                        <Grid xs={6} className={classes.dialog}>
-                          <Button variant='primary' className={classes.codebtn}>Copy Code</Button>
-
-                        </Grid>
-
-                      </div>&emsp;&emsp;
-              <Button className={classes.redirectbtn}>GO</Button>
-                    </div>
-                    {/* </div>
-          <div className={classes.codebordr}><Typography title='copy code' className={classes.couponcode}>{itm.code}&emsp;&nbsp;
-            <Button variant='primary' className={classes.codebtn}>Copy</Button>
-          </Typography></div> */}
-                    {/* <Typography gutterBottom>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-            scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-            auctor fringilla.
-          </Typography> */}
-                  </DialogContent>
-                  {/* <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
-            Save changes
-          </Button>
-        </DialogActions> */}
-                </Dialog>
-
-                :
-                null
-            }
+            <GetCoupon open={open} onClose={handleClose} className={classes.cardpaper} />
           </Grid>
         );
       })
