@@ -1,28 +1,29 @@
 {
   "files": {
-    "main.css": "/couponsmania/static/css/main.9d5b29c0.chunk.css",
-    "main.js": "/couponsmania/static/js/main.fd671e3d.chunk.js",
-    "main.js.map": "/couponsmania/static/js/main.fd671e3d.chunk.js.map",
-    "runtime-main.js": "/couponsmania/static/js/runtime-main.53c314b5.js",
-    "runtime-main.js.map": "/couponsmania/static/js/runtime-main.53c314b5.js.map",
-    "static/js/2.6dbd252e.chunk.js": "/couponsmania/static/js/2.6dbd252e.chunk.js",
-    "static/js/2.6dbd252e.chunk.js.map": "/couponsmania/static/js/2.6dbd252e.chunk.js.map",
-    "static/js/3.2b52c600.chunk.js": "/couponsmania/static/js/3.2b52c600.chunk.js",
-    "static/js/3.2b52c600.chunk.js.map": "/couponsmania/static/js/3.2b52c600.chunk.js.map",
+    "main.css": "/couponsmania/static/css/main.1635e87c.chunk.css",
+    "main.js": "/couponsmania/static/js/main.691aee45.chunk.js",
+    "main.js.map": "/couponsmania/static/js/main.691aee45.chunk.js.map",
+    "runtime-main.js": "/couponsmania/static/js/runtime-main.2cfe15e6.js",
+    "runtime-main.js.map": "/couponsmania/static/js/runtime-main.2cfe15e6.js.map",
+    "static/js/2.dfbd4ce7.chunk.js": "/couponsmania/static/js/2.dfbd4ce7.chunk.js",
+    "static/js/2.dfbd4ce7.chunk.js.map": "/couponsmania/static/js/2.dfbd4ce7.chunk.js.map",
+    "static/js/3.a432f61b.chunk.js": "/couponsmania/static/js/3.a432f61b.chunk.js",
+    "static/js/3.a432f61b.chunk.js.map": "/couponsmania/static/js/3.a432f61b.chunk.js.map",
     "index.html": "/couponsmania/index.html",
-    "static/css/main.9d5b29c0.chunk.css.map": "/couponsmania/static/css/main.9d5b29c0.chunk.css.map",
-    "static/js/2.6dbd252e.chunk.js.LICENSE.txt": "/couponsmania/static/js/2.6dbd252e.chunk.js.LICENSE.txt",
+    "static/css/main.1635e87c.chunk.css.map": "/couponsmania/static/css/main.1635e87c.chunk.css.map",
+    "static/js/2.dfbd4ce7.chunk.js.LICENSE.txt": "/couponsmania/static/js/2.dfbd4ce7.chunk.js.LICENSE.txt",
     "static/media/amazonlogo.ea2d90b4.jpg": "/couponsmania/static/media/amazonlogo.ea2d90b4.jpg",
     "static/media/flipartlogo.a9488c59.png": "/couponsmania/static/media/flipartlogo.a9488c59.png",
     "static/media/freechargelogo.ff9a62b0.png": "/couponsmania/static/media/freechargelogo.ff9a62b0.png",
     "static/media/jiologo.a4d80437.png": "/couponsmania/static/media/jiologo.a4d80437.png",
     "static/media/logo.9cb8cbcf.gif": "/couponsmania/static/media/logo.9cb8cbcf.gif",
-    "static/media/logo.dad734dc.png": "/couponsmania/static/media/logo.dad734dc.png"
+    "static/media/logo.dad734dc.png": "/couponsmania/static/media/logo.dad734dc.png",
+    "static/media/uploadcouponback.9a4669ba.png": "/couponsmania/static/media/uploadcouponback.9a4669ba.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.53c314b5.js",
-    "static/js/2.6dbd252e.chunk.js",
-    "static/css/main.9d5b29c0.chunk.css",
-    "static/js/main.fd671e3d.chunk.js"
+    "static/js/runtime-main.2cfe15e6.js",
+    "static/js/2.dfbd4ce7.chunk.js",
+    "static/css/main.1635e87c.chunk.css",
+    "static/js/main.691aee45.chunk.js"
   ]
 }
