@@ -29,6 +29,8 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import Amazon from '../../images/amazonlogo.jpg'
 import Flipkart from '../../images/flipartlogo.png'
 import { get, post, serverImageUrl } from "../../api/serverRequest";
+import Copyright from "../copyrights/Copyright";
+import WhatWeHave from "../wehave/WhatWeHave";
 const drawerWidth = 240;
 function Layout(props) {
   const classes = LayoutStyles(props);
@@ -127,7 +129,8 @@ function Layout(props) {
 
 
   return (
-    <Grid>
+    <div>
+          <Grid>
       <Grid xs={12} sm={12} md={12} lg={12} xl={12}>
         <Header />
       </Grid>
@@ -328,14 +331,20 @@ function Layout(props) {
           })}
         >
           <div className={classes.drawerHeader} />
-          <main style={{background:"#b8fdff"}}>{props.children}</main>
+          <main style={{background:"#b8fdff",marginBottom:'8px'}}>{props.children}</main>
         </main>
       </div>
 
       {/* <Navigation style={{backgroundColor: "#cafaf8"}} /> */}
-
-      <Footer />
+      
+     
     </Grid>
+    <Grid xs={12} sm={12} md={12} lg={12} xl={12}>
+      <WhatWeHave />
+        <Footer />
+        <Copyright/>
+      </Grid>
+    </div>
   );
 }
 

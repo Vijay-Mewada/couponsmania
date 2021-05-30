@@ -47,11 +47,11 @@ function GetCoupon(props) {
 
         </DialogTitle>
         <DialogContent dividers>
-          <Typography variant='h4' className={classes.companyname1}>et Google help apps determine location. This means sending anonymouet Google help apps determine location. This means sending anonymoue 350</Typography><br />
+          <Typography variant='h4' className={classes.companyname1}>{selectedCoupon.description}</Typography><br />
           <div className={classes.dialog}>
             <div className={classes.codebordr}>
               <Grid xs={6} style={{ display: 'flex' }}>
-                <Typography variant='tile' className={classes.couponcode}>flat</Typography>
+                <Typography variant='tile' className={classes.couponcode}>{selectedCoupon.code}</Typography>
               </Grid>
               <Grid xs={6} className={classes.dialog}>
                 <Button variant='primary' className={classes.codebtn}>Copy Code</Button>

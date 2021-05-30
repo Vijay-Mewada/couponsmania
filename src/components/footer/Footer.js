@@ -40,11 +40,7 @@ function Footer(props) {
           <Link className={classes.footlink} to='/couponsmania/uploadcoupon'>Contact Us</Link><br/>
           <Link className={classes.footlink} to='/couponsmania/uploadcoupon'>Contact Us</Link><br/>
             </Grid>
-            <Grid lg={12} xl={12} sm={12} md={12}>
-            <hr/>
-              <Typography variant='subtitle2' style={{textAlign:"center"}}>All rights reserved. &copy; Couponsmania.in</Typography>
-
-            </Grid>
+           
         </Grid>
     )
 }

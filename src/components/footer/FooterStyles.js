@@ -5,6 +5,7 @@ const FooterStyles = makeStyles((theme) => ({
   root:{
     background:"#635b5b",
     padding:"25px",
+    position:'relative',
   },
   title: {
     display: 'none',

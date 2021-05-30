@@ -77,7 +77,7 @@ function Main(props) {
             : Amazon;
         return (
           // <Grid container>
-          <Grid xs={12} sm={6} md={6} lg={4} xl={2}>
+          <Grid xs={12} sm={6} md={6} lg={4} xl={2} style={{margin:'0px'}}>
             <Card className={classes.card}>
               <CardActionArea>
                 <Grid style={{ display: "flex" }}>
