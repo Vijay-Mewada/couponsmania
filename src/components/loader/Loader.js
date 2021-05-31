@@ -7,13 +7,26 @@ import { LoaderStyles } from "./LoaderStyles";
 function Loader(props) {
     const classes = LoaderStyles(props);
     return (
-        <Grid Style={{display:"flex"}}>
+        // <Grid Style={{display:"flex",opacity:'0.9'}}>
             <Paper className={classes.main}  >
-                <CircularProgress style={{ height: "150px", width: '140px', margin: 'auto', backgroundImage: `url(${Background})`, backgroundRepeat: "no-repeat", transform: `rotate(${361}deg)`, backgroundPosition: "center" }}>
+                <Paper
+                style={{
+                    height:"160px", 
+     margin:"auto",  
+     width: "170px", 
+     display:'flex',
+     background: "rgba(255, 255, 255)",
+     padding:'20px'
+                }}
+                >
+                <CircularProgress className={classes.progress} style={{height:"auto",width:'140px'}}>
+               
                 </CircularProgress>
+              
+                </Paper>
             </Paper>
             
-        </Grid>
+
     )
 }
 

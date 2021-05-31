@@ -2,8 +2,9 @@ import { makeStyles } from '@material-ui/core'
 
 const WhatWeHaveStyle = makeStyles({
     main:{
-        background:"#a2a4a6",
-        padding:'20px'
+        background:"#6e6e6e",
+        padding:'20px',
+        position:'relative'
     },
     title:{
         textAlign:"center",

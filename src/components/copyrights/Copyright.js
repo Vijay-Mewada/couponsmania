@@ -11,7 +11,7 @@ const CopyrightStyle = makeStyles({
 function Copyright(props) {
     const  classes = CopyrightStyle(props)
     return (
-        <div>
+        <div style={{position:"relative"}}>
              <Grid lg={12} xl={12} sm={12} md={12} style={{background:'#454545'}}>
             {/* <hr/> */}
               <Typography variant='subtitle2' className={classes.copyrightstxt} >All rights reserved. &copy; Couponsmania.in</Typography>
