@@ -62,7 +62,10 @@ function Sidebar(props) {
         // set global state to set coupons list for global use
         globalDispatch({ type: 'ADD_COUPONS', payload: data })
         globalDispatch({ type: 'SET_LOADER_STATE', payload: false })
-
+        
+      }
+      else if(response && response.data && response.data.is_success === false){
+        globalDispatch({ type: 'SET_LOADER_STATE', payload: false })
       }
     }
 
@@ -77,7 +80,9 @@ function Sidebar(props) {
         // set global state to set coupons list for global use
         globalDispatch({ type: 'ADD_COUPONS', payload: data })
         globalDispatch({ type: 'SET_LOADER_STATE', payload: false })
-
+      }
+      else if(response && response.data && response.data.is_success === false){
+        globalDispatch({ type: 'SET_LOADER_STATE', payload: false })
       }
     }
     //  get all coupons in case none of the category checkbox selected
@@ -90,7 +95,9 @@ function Sidebar(props) {
         // set global state to set coupons list for global use
         globalDispatch({ type: 'ADD_COUPONS', payload: data })
         globalDispatch({ type: 'SET_LOADER_STATE', payload: false })
-
+      }
+      else if(response && response.data && response.data.is_success === false){
+        globalDispatch({ type: 'SET_LOADER_STATE', payload: false })
       }
     }
   }, [categoryIds, subcategoryIds])
@@ -108,7 +115,6 @@ function Sidebar(props) {
     let subCatRes = await get("/coupon/getAllsubcategory");
     if (subCatRes.data && subCatRes.data.content && subCatRes.data.content.length) {
       setSubcategoryList(subCatRes.data.content)
-
     }
   }, [])
 
