@@ -1,6 +1,7 @@
 import { makeStyles, useTheme } from "@material-ui/core";
 
 const drawerWidth = 240;
+const smdrawerWidth = 330;
 const LayoutStyles = makeStyles((theme) =>({
 layout:{
     height:"100vh",
@@ -34,9 +35,12 @@ root: {
     marginLeft: drawerWidth,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    
+      duration: theme.transitions.duration.enteringScreen,    
     }),
+    [theme.breakpoints.down('sm')]: {
+      width: `calc(100% - ${smdrawerWidth}px)`,
+      marginLeft: smdrawerWidth,
+    },
   },
   menuButton: {
     margin:"auto 5px",
@@ -53,7 +57,12 @@ root: {
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    overflow:"scroll"
+    overflow:"scroll",
+
+    [theme.breakpoints.down('sm')]: {
+      width: smdrawerWidth,
+    },
+  
     
   },
   drawerPaper: {
@@ -61,6 +70,10 @@ root: {
     width: drawerWidth,
     height:"100vh",
     zIndex:'0',
+
+    [theme.breakpoints.down('sm')]: {
+      width: smdrawerWidth,
+    },
   },
   drawerHeader: {
     
@@ -83,6 +96,9 @@ root: {
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: -drawerWidth,
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: -smdrawerWidth,
+    },
   },
   contentShift: {
     marginTop:"4.8rem",
@@ -317,7 +333,16 @@ offerpaper:{
  
   }
 },
-
+offerpaper1:{
+  color:'red',
+  marginTop:'auto',
+  marginLeft:"auto",
+  marginRight:'auto',
+  "&:hover":{
+    transform: "scale(1.1)",
+ 
+  }
+}
 
 }));
 export { LayoutStyles }

@@ -60,7 +60,7 @@ function PopularStore(props) {
 
         return (
           
-            <Grid xl={2} lg={4}>
+            <Grid xl={2} lg={4} className={classes.popularmain} >
               <Paper
                 className={classes.paper}
                 onClick={() => handlePopularStoreClick(item)}
@@ -85,6 +85,7 @@ function PopularStore(props) {
      
         {/* render popular company list */}
         <div style={{margin:'auto',display:'flex',flexWrap:"wrap"}}>
+          
           {renderPopularCompanyList()}
          </div>
      

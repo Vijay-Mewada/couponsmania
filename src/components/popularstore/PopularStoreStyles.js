@@ -13,7 +13,7 @@ const PopularStoreStyles = makeStyles((theme) => ({
   },
   paper: {
       zIndex:"10",
-      margin:"10px",
+      margin:"10px auto",
     display: "flex",
     height: 200,
     width:220,
@@ -62,6 +62,11 @@ const PopularStoreStyles = makeStyles((theme) => ({
     margin: "auto",
     zIndex:"100",
   },
+  popularmain:{
+    [theme.breakpoints.down('sm')]: {
+      margin: 'auto',
+    },
+  }
  
 }));
 export { PopularStoreStyles };

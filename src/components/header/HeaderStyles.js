@@ -8,6 +8,12 @@ const HeaderStyles = makeStyles((theme) => ({
     menuButton: {
       marginRight: theme.spacing(2),
     },
+    logo:{
+      [theme.breakpoints.down('sm')]: {
+        height: 90,
+        width: 90,
+      },
+    },
     title: {
       display: 'none',
       margin: '-28px 0px 0px -12px',
@@ -36,6 +42,10 @@ const HeaderStyles = makeStyles((theme) => ({
       padding:'3.7px',
       width: 110,
       backgroundColor:'lightgray',
+
+      [theme.breakpoints.down('sm')]: {
+        display: 'none',
+      },
       
     },
     search: {
@@ -53,6 +63,12 @@ const HeaderStyles = makeStyles((theme) => ({
       [theme.breakpoints.up('sm')]: {
         // marginLeft: theme.spacing(3),
         width: 'auto',
+      },
+    },
+    social:{
+      [theme.breakpoints.down('sm')]: {
+     
+        display: 'none',
       },
     },
     searchIcon: {

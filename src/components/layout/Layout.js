@@ -31,6 +31,8 @@ import Flipkart from '../../images/flipartlogo.png'
 import { get, post, serverImageUrl } from "../../api/serverRequest";
 import Copyright from "../copyrights/Copyright";
 import WhatWeHave from "../wehave/WhatWeHave";
+import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
+
 const drawerWidth = 240;
 function Layout(props) {
   const classes = LayoutStyles(props);
@@ -122,6 +124,7 @@ function Layout(props) {
               </Typography>
           </div>
         </Paper>
+        
       </Grid>
     })
 
@@ -264,6 +267,19 @@ function Layout(props) {
                       {/* <div className={classes.category}> */}
                       <Grid container>
                         {renderTopCompanies()}
+
+
+                        <Grid  xl={4} style={{display:'flex'}}>
+        {/* <Paper className={classes.offerpaper1}> */}
+          <div className={classes.li}>
+           
+            <Typography variant='h6'  style={{margin:'auto'}}>View More <DoubleArrowIcon/></Typography>
+          </div>
+        {/* </Paper> */}
+        
+      </Grid>
+
+
                       </Grid>
                       
 
@@ -273,20 +289,9 @@ function Layout(props) {
 
                   </Paper>
 
+                 
 
-                  <Paper style={{ width: "40rem", padding: "20px" }}>
-                    <ul className={classes.ul}>
-                      {/* <div className={classes.category}> */}
-                      <Grid container style={{marginRight:'auto'}}>
-                        View More
-                      </Grid>
-
-                      {/* </div> */}
-
-                    </ul>
-
-                  </Paper>
-
+                 
                 </div>
               </div>
             </div>

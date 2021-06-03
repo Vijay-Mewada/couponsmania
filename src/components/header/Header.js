@@ -62,7 +62,7 @@ function Header(props) {
             aria-label="open drawer"
           > */}
                {/* <MenuIcon /> */}
-               <img src={Logo} alt='logo'/>
+               <img className={classes.logo} src={Logo} alt='logo'/>
           {/* </IconButton> */}
           <Typography className={classes.title} variant="h6" noWrap>
             oupon
@@ -102,7 +102,7 @@ function Header(props) {
               <SearchIcon/>
             </Grid>
           </Grid>          
-          <Grid >
+          <Grid className={classes.social}>
           <Typography className={classes.socialicon} variant="subtitle" noWrap>
             Follow us on :
           </Typography>

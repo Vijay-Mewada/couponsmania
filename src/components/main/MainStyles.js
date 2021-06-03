@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
   const MainStyles = makeStyles ({
     card: {
         margin:'20px auto',
-        maxWidth: 294,
+        maxWidth: 250,
        
         border:"1px solid rgba(0, 0, 0, 0.1);",
         '&:hover' :{
