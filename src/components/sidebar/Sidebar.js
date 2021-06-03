@@ -64,7 +64,7 @@ function Sidebar(props) {
         globalDispatch({ type: 'SET_LOADER_STATE', payload: false })
         
       }
-      else if(response && response.data && response.data.is_success === false){
+      else if(response && response.data){
         globalDispatch({ type: 'SET_LOADER_STATE', payload: false })
       }
     }
@@ -81,7 +81,7 @@ function Sidebar(props) {
         globalDispatch({ type: 'ADD_COUPONS', payload: data })
         globalDispatch({ type: 'SET_LOADER_STATE', payload: false })
       }
-      else if(response && response.data && response.data.is_success === false){
+      else if(response && response.data){
         globalDispatch({ type: 'SET_LOADER_STATE', payload: false })
       }
     }
@@ -96,7 +96,7 @@ function Sidebar(props) {
         globalDispatch({ type: 'ADD_COUPONS', payload: data })
         globalDispatch({ type: 'SET_LOADER_STATE', payload: false })
       }
-      else if(response && response.data && response.data.is_success === false){
+      else if(response && response.data){
         globalDispatch({ type: 'SET_LOADER_STATE', payload: false })
       }
     }

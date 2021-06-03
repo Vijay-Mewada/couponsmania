@@ -23,12 +23,11 @@ import { serverImageUrl } from '../../api/serverRequest';
 
 function GetCoupon(props) {
   const classes = GetCouponStyles(props);
-  const { handleClose, isCouponsPopupOpen, selectedCoupon } = props;
+  const { handleClose, isCouponsPopupOpen, selectedCoupon,handleCopyClick, copyMsg} = props;
   let imagePath =
   selectedCoupon.image && selectedCoupon.image !== ""
     ? `${serverImageUrl}/${selectedCoupon.image}`
     : img;
-
 
   return (
     <div>
@@ -43,6 +42,10 @@ function GetCoupon(props) {
           </div>
           <div className={classes.dialog}>
 
+            <Typography variant='title' className={classes.companyname1}>{selectedCoupon.company_name}</Typography><br />
+          </div>
+          <div className={classes.dialog}>
+
             <Typography variant='title' className={classes.companyname1}>{selectedCoupon.title}</Typography><br />
           </div>
           {/* <div className={classes.dialog}>
@@ -52,20 +55,21 @@ function GetCoupon(props) {
 
         </DialogTitle>
         <DialogContent dividers>
-          <Typography variant='h4' className={classes.companyname1}>{selectedCoupon.description}</Typography><br />
+          <Typography variant='h4' className={classes.desc}>{selectedCoupon.description}</Typography><br />
           <div className={classes.dialog}>
             <div className={classes.codebordr}>
               <Grid xs={6} style={{ display: 'flex' }}>
                 <Typography variant='tile' className={classes.couponcode}>{selectedCoupon.code}</Typography>
               </Grid>
               <Grid xs={6} className={classes.dialog}>
-                <Button variant='primary' className={classes.codebtn}>Copy Code</Button>
+                <Button variant='primary' className={classes.codebtn} onClick = {()=>handleCopyClick(selectedCoupon.code)}>Copy Code</Button>
 
               </Grid>
 
             </div>&emsp;&emsp;
               <Button className={classes.redirectbtn}>GO</Button>
           </div>
+                <Typography variant='h4' className={classes.copyCodeMsg}>{copyMsg}</Typography>
           {/* </div>
           <div className={classes.codebordr}><Typography title='copy code' className={classes.couponcode}>{itm.code}&emsp;&nbsp;
             <Button variant='primary' className={classes.codebtn}>Copy</Button>
