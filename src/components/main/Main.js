@@ -56,18 +56,23 @@ function Main(props) {
   // componentdidmountto
   useEffect(async () => {
     let res = await get("/coupon/getAllCoupon");
-    if (res.data && res.data.content && res.data.content.length) {
+    if (res && res.data && res.data.content && res.data.content.length) {
       setCouponsList(res.data.content);
       let data = res.data.content;
       // set global state to set coupons list for global use
       globalDispatch({ type: "ADD_COUPONS", payload: data });
       globalDispatch({ type: "SET_LOADER_STATE", payload: false });
     }
+    else if( res && res.data && res.data.is_success == false){
+      globalDispatch({ type: "ADD_COUPONS", payload: [] });
+      globalDispatch({ type: "SET_LOADER_STATE", payload: false });
+
+    }
   }, []);
 
   const renderCouponsList = () => {
     return (
-      globalState.couponsList &&
+      globalState && globalState.couponsList && globalState.couponsList.length ?
       globalState.couponsList.map((itm, ind) => {
         // return couponsList && couponsList.map((itm, ind) => {
         // append image with server image url to show or show default url
@@ -142,7 +147,9 @@ function Main(props) {
             </Card>
           </Grid>
         );
-      })
+      }) : <Grid xs={12} sm={12} md={12} lg={12} xl={12} style={{textAlign : 'center'}}>
+      <h3>{'No Coupons Available'}</h3>
+    </Grid>
     );
   };
   return (

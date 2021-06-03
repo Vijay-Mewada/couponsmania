@@ -19,10 +19,15 @@ import Typography from '@material-ui/core/Typography';
 import { blue } from '@material-ui/core/colors';
 import { Grid } from '@material-ui/core';
 import img from '../../images/amazonlogo.jpg'
+import { serverImageUrl } from '../../api/serverRequest';
 
 function GetCoupon(props) {
   const classes = GetCouponStyles(props);
   const { handleClose, isCouponsPopupOpen, selectedCoupon } = props;
+  let imagePath =
+  selectedCoupon.image && selectedCoupon.image !== ""
+    ? `${serverImageUrl}/${selectedCoupon.image}`
+    : img;
 
 
   return (
@@ -33,7 +38,7 @@ function GetCoupon(props) {
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={isCouponsPopupOpen} fullWidth={true} >
         <DialogTitle id="customized-dialog-title" onClose={handleClose} >
           <div className={classes.dialog}>
-            <img src={img} alt='Coupon Code' className={classes.couponcodeimage} /><br />
+            <img src={imagePath} alt='Coupon Code' className={classes.couponcodeimage} /><br />
             <CloseIcon className={classes.closeicon} onClick={handleClose} />
           </div>
           <div className={classes.dialog}>

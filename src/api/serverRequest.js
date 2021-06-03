@@ -1,11 +1,12 @@
 import axios from "axios";
-// const baseUrl = "https://oninecoponsapp.herokuapp.com/api";// live url
-// export const serverImageUrl = 'http://52.15.186.222:8000/images'
-export const serverImageUrl = 'http://127.0.0.1:8000/images'
-// export const serverImageUrl = 'https://oninecoponsapp.herokuapp.com/images'
-// export const serverUrl = 'https://oninecoponsapp.herokuapp.com'
+// *** Live ***//
 // const serverUrl = "http://52.15.186.222:8000";
+// export const serverImageUrl = 'http://52.15.186.222:8000/images'
+
+// *** Local Testing ***//
+export const serverImageUrl = 'http://127.0.0.1:8000/images'
 const serverUrl = "http://127.0.0.1:8000";
+
 export const baseUrl = `${serverUrl}/api`;
 
 export const get = async (url) => {

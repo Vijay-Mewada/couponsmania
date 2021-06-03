@@ -23,23 +23,31 @@ function Header(props) {
   useEffect(async () => {
     // get coupons on based on category checked
     if (searchInput && searchInput.length) {
+      // globalDispatch({ type: 'SET_LOADER_STATE', payload: true })
       let res = await post("/coupon/getCouponsBySearch", { searchParams: searchInput });
       if (res && res.data && res.data.content) {
         let data = res.data.content
-      // set global state to set coupons list for global use
-      globalDispatch({ type: 'ADD_COUPONS', payload: data })
+        // set global state to set coupons list for global use
+        globalDispatch({ type: 'ADD_COUPONS', payload: data })
+        globalDispatch({ type: 'SET_LOADER_STATE', payload: false })
+      }
+      else{
+        globalDispatch({ type: 'SET_LOADER_STATE', payload: false })
       }
     }
     //  get all coupons in case none of the category checkbox selected
     else if(searchInput.length == 0){
       globalDispatch({ type: 'SET_LOADER_STATE', payload: true })
       let res = await get("/coupon/getAllCoupon");
-    if (res.data && res.data.content && res.data.content.length) {
-      let data = res.data.content
-      // set global state to set coupons list for global use
-      globalDispatch({ type: 'ADD_COUPONS', payload: data })
-      globalDispatch({ type: 'SET_LOADER_STATE', payload: false })
-    }
+      if (res && res.data && res.data.content && res.data.content.length) {
+        let data = res.data.content
+        // set global state to set coupons list for global use
+        globalDispatch({ type: 'ADD_COUPONS', payload: data })
+        globalDispatch({ type: 'SET_LOADER_STATE', payload: false })
+      }
+      else {
+        globalDispatch({ type: 'SET_LOADER_STATE', payload: false })
+      }
     }
   }, [searchInput])
 
