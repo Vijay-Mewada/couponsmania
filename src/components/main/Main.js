@@ -32,14 +32,12 @@ function Main(props) {
   const { globalState, globalDispatch } = useContext(Context);
   const [isCouponsPopupOpen, setIsCouponsPopupOpen] = React.useState(false);
   const [selectedCoupon, setSelectedCoupon] = useState({});
-  const [open, setOpen] = React.useState(false);
-  // const [selectedDesc, setSelectedDesc] = useState('');
-  // const [selectedCode, setSelectedCode] = useState('');
-  // const [selectedImage, setSelectedImage] = useState('');
+  const [copyMsg, setCopyMsg] = useState('')
 
 
   const handleClickOpen = (item) => {
     if (item && item.id) {
+      setCopyMsg('')
       setSelectedCoupon(item)
       setIsCouponsPopupOpen(true);
     }
@@ -49,6 +47,7 @@ function Main(props) {
   const handleClose = () => {
     setIsCouponsPopupOpen(false);
     setSelectedCoupon({})
+    setCopyMsg('')
   };
 
 
@@ -152,6 +151,12 @@ function Main(props) {
     </Grid>
     );
   };
+
+  const handleCopyClick = (code)=>{
+    navigator &&  navigator.clipboard && navigator.clipboard.writeText(code)
+    setCopyMsg('code copied to clickboard')
+  }
+
   return (
     <Grid container spacing={2}>
       {/*  render all coupons list */}
@@ -165,6 +170,8 @@ function Main(props) {
             handleClose={()=>handleClose()}
              className={classes.cardpaper} 
              selectedCoupon = {selectedCoupon}
+             handleCopyClick = {(code)=>handleCopyClick(code)}
+             copyMsg = {copyMsg}
              />
     </Grid>
   );

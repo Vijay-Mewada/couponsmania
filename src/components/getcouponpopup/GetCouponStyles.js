@@ -18,6 +18,17 @@ const GetCouponStyles = makeStyles({
         margin:"auto",
         fontSize:'1.8rem'
       },
+      desc:{
+        textAlign:"center",
+        margin:"auto",
+        fontSize:'1.2rem'
+      },
+      copyCodeMsg:{
+        textAlign:"center",
+        margin:"auto",
+        fontSize:'1rem',
+        color:'green'
+      },
       codebordr:{
         display:'flex',
         border:"1px solid lightgray",

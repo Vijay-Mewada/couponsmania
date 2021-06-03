@@ -17,6 +17,7 @@ function Header(props) {
     const classes = HeaderStyles(props);
     const { globalState, globalDispatch } = useContext(Context)
     const [searchInput, setSearchInput] = useState([]);
+    const [searchBy, setSearchBy] = useState('all');
 
 
       // call every time the checkbox change (cgecked or not checked)
@@ -24,7 +25,7 @@ function Header(props) {
     // get coupons on based on category checked
     if (searchInput && searchInput.length) {
       // globalDispatch({ type: 'SET_LOADER_STATE', payload: true })
-      let res = await post("/coupon/getCouponsBySearch", { searchParams: searchInput });
+      let res = await post("/coupon/getCouponsBySearch", { searchParams: searchInput, searchBy });
       if (res && res.data && res.data.content) {
         let data = res.data.content
         // set global state to set coupons list for global use
@@ -51,6 +52,12 @@ function Header(props) {
     }
   }, [searchInput])
 
+
+  // handle search by click 
+  const handleSearchByCLick = (e)=>{
+    setSearchBy(e.target.value)
+
+  }
     return (
         <Grid>
             <AppBar position="fixed" style={{background:"#635b5b"}}>
@@ -75,15 +82,16 @@ function Header(props) {
           <FormControl className={classes.formControl}>
         <NativeSelect
           defaultValue={30}
+          onChange = {(e)=>handleSearchByCLick(e)}
           inputProps={{
             name: 'name',
             id: 'uncontrolled-native',
           }}
         >
-          <option value="">All</option>
-          <option value="">Stores</option>
-          <option value="">Offers</option>
-          <option value="">Categories</option>
+          <option value="all">All</option>
+          <option value="store">Store</option>
+          <option value="category">Category</option>
+          <option value="subcategory">Subcategory</option>
         </NativeSelect>
       </FormControl>
 

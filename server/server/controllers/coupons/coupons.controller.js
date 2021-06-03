@@ -339,10 +339,15 @@ get_coupons_by_search = (req, res) => {
         INNER JOIN companies on coupons.companyId = companies.id 
         INNER JOIN category on coupons.categoryId = category.id
         INNER JOIN subcategory on coupons.subcategoryId = subcategory.id
-        WHERE coupons.title LIKE '${req.body.searchParams}' OR 
+        ${ req.body.searchBy == 'all' ? `WHERE coupons.title LIKE '${req.body.searchParams}' OR 
         companies.name LIKE '%${req.body.searchParams}%' OR 
         category.name LIKE '%${req.body.searchParams}%' OR
-        subcategory.name LIKE '%${req.body.searchParams}%'`,
+        subcategory.name LIKE '%${req.body.searchParams}%'` :
+         req.body.searchBy == 'category' ? `WHERE category.name LIKE '%${req.body.searchParams}%'`:
+         req.body.searchBy == 'store' ? `WHERE companies.name LIKE '%${req.body.searchParams}%'` : 
+         req.body.searchBy == 'subcategory' ? `WHERE subcategory.name LIKE '%${req.body.searchParams}%'` :
+          `WHERE companies.name LIKE '%${req.body.searchParams}%'`}
+        `,
                 (err, result) => {
                     // user does not exists
                     if (err) {
