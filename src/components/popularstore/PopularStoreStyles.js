@@ -41,7 +41,7 @@ const PopularStoreStyles = makeStyles((theme) => ({
           color:"white",
           textAlign:"center",
           display:'flex',
-          margin:"auto"
+          margin:"auto 11px"
           
         
         }

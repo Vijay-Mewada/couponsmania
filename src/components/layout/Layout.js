@@ -265,6 +265,21 @@ function Layout(props) {
                       <Grid container>
                         {renderTopCompanies()}
                       </Grid>
+                      
+
+                      {/* </div> */}
+
+                    </ul>
+
+                  </Paper>
+
+
+                  <Paper style={{ width: "40rem", padding: "20px" }}>
+                    <ul className={classes.ul}>
+                      {/* <div className={classes.category}> */}
+                      <Grid container style={{marginRight:'auto'}}>
+                        View More
+                      </Grid>
 
                       {/* </div> */}
 

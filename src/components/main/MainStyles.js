@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 
   const MainStyles = makeStyles ({
     card: {
-        margin:'20px',
-        maxWidth: 345,
+        margin:'20px auto',
+        maxWidth: 294,
        
         border:"1px solid rgba(0, 0, 0, 0.1);",
         '&:hover' :{

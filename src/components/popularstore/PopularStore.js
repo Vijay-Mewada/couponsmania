@@ -59,8 +59,8 @@ function PopularStore(props) {
             : Amazon;
 
         return (
-          <Grid container>
-            <Grid item xl={12}>
+          
+            <Grid xl={2} lg={4}>
               <Paper
                 className={classes.paper}
                 onClick={() => handlePopularStoreClick(item)}
@@ -70,7 +70,7 @@ function PopularStore(props) {
                 </Typography>
                 <img src={imagePath} className={classes.brand} alt="brand" />
               </Paper>
-            </Grid>
+         
           </Grid>
         );
       })
@@ -82,10 +82,12 @@ function PopularStore(props) {
         <span className={classes.headingtitle}>POPULAR</span> STORE
       </Typography>
 
-      <Grid xl={2} style={{display:"flex"}}>
+     
         {/* render popular company list */}
-        {renderPopularCompanyList()}
-      </Grid>
+        <div style={{margin:'auto',display:'flex',flexWrap:"wrap"}}>
+          {renderPopularCompanyList()}
+         </div>
+     
     </Grid>
   );
 }
