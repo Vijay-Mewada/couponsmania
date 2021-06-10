@@ -49,6 +49,7 @@ function UploadCoupon(props) {
   const [subcategoryName, setSubcategoryName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [popupType, setPopupType] = useState("");
+  const [couponUrl, setCouponUrl] = useState("");
 
   //  component didmount to get all category and companylist
   useEffect(async () => {
@@ -99,6 +100,7 @@ function UploadCoupon(props) {
     }
   };
 
+  // handle popup open on form plus (+) button on consition based
   const handleClickOpen = (type) => {
     setPopupType(type)
     setOpen(true);
@@ -119,9 +121,8 @@ function UploadCoupon(props) {
     }
   };
 
-  // handle company form submit
+  // handle popup form submit (company, category and subcategory)
   const handlePopupFormSubmit = async (type) => {
-
     switch (type) {
       case 'company':
         var form_data = new FormData();
@@ -183,10 +184,13 @@ function UploadCoupon(props) {
     }
   };
 
+  // handle full coupon form submit 
   const handleFormSubmit = async () => {
     var validityDate = Moment(selectedDate).format("YYYY-MM-DD");
-    if (selectedDate && categoryId && companyId && subcategoryId && selectedDate !=='' && 
-    categoryId !=='' && companyId  !=='' && subcategoryId !=='') {
+    if (selectedDate && categoryId && companyId && couponUrl && subcategoryId && selectedDate !=='' && 
+    categoryId !=='' && companyId  !=='' && subcategoryId !=='' && couponUrl !=='') {
+      setErrorMessage("");
+
       var data = {
         title: title,
         code,
@@ -194,7 +198,8 @@ function UploadCoupon(props) {
         companyId: companyId,
         categoryId: categoryId,
         validity: validityDate,
-        subcategoryId
+        subcategoryId,
+        couponUrl
       };
       let response = await post("/coupon/addCoupon", data);
       if (response && response.data && response.data.is_success) {
@@ -211,7 +216,14 @@ function UploadCoupon(props) {
         setCategoryName("");
         setSubcategoryName("");
         setSubcategoryId("");
+        setCouponUrl("");
+      }else{
+        setErrorMessage("Form not submitted, Try again!");
+        alert("Form not submitted, Try again!");
       }
+    }else{
+      alert("All form details must be filled !");
+      setErrorMessage("All form details must be filled !");
     }
   };
 
@@ -323,6 +335,23 @@ function UploadCoupon(props) {
               </FormHelperText>
             </FormControl>
             <br />
+
+            <FormControl>
+              <TextField
+                id="outlined-Discount Title-input"
+                label="Coupon Url"
+                type="coupon url"
+                variant="outlined"
+                value={couponUrl}
+                onChange={(e) => setCouponUrl(e.target.value)}
+              />
+              <FormHelperText id="my-helper-text">
+                Ex. https://www.amazon.in/
+              </FormHelperText>
+            </FormControl>
+            <br />
+
+
 
             <FormControl>
               <TextField

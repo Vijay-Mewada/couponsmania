@@ -13,8 +13,8 @@ add_category = (req, res, next) => {
             }
             else {
                 connection.query(
-                    `INSERT INTO category (name) SELECT * FROM (SELECT '${req.body.category}') AS tmp
-            WHERE NOT EXISTS ( SELECT name FROM category WHERE name = '${req.body.category}') LIMIT 1`,
+                    `INSERT INTO category (name) SELECT * FROM (SELECT "${req.body.category}") AS tmp
+            WHERE NOT EXISTS ( SELECT name FROM category WHERE name = "${req.body.category}") LIMIT 1`,
                     (err, result) => {
                         if (err) {
                             res.status(200).send({

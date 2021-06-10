@@ -17,8 +17,8 @@ add_company = (req, res) => {
       }
       else {
         connection.query(
-          `INSERT INTO companies (name, image) SELECT * FROM (SELECT '${req.body.company}', '${image_filename}') AS tmp
-            WHERE NOT EXISTS ( SELECT name FROM companies WHERE name = '${req.body.company}') LIMIT 1`,
+          `INSERT INTO companies (name, image) SELECT * FROM (SELECT "${req.body.company}", "${image_filename}") AS tmp
+            WHERE NOT EXISTS ( SELECT name FROM companies WHERE name = "${req.body.company}") LIMIT 1`,
           (err, result) => {
             if (err) {
               res.status(200).send({
