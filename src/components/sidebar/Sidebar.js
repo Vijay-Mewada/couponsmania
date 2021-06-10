@@ -152,11 +152,16 @@ function Sidebar(props) {
     })
   }
 
+  // handle clear all filters
+  const handleClearFilter = ()=>{
+    window.location.reload();
+  } 
+
   return (
     <Grid>
       <Grid xs={12} sm={12} md={12} lg={12} xl={12} >
         <Card className={classes.card} >
-          <Typography variant="h6" >Categories <span className={classes.spanclear}>Clear All</span></Typography>
+          <Typography variant="h6" >Categories <span className={classes.spanclear} onClick = {()=>handleClearFilter()}>Clear All</span></Typography>
 
           {/*  render category filter on side bar */}
           {renderCategoryFilter()}
