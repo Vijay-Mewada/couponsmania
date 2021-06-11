@@ -161,11 +161,7 @@ function Sidebar(props) {
     <Grid>
       <Grid xs={12} sm={12} md={12} lg={12} xl={12} >
         <Card className={classes.card} >
-<<<<<<< HEAD
-          <Typography variant="h6" >Categories </Typography>
-=======
           <Typography variant="h6" >Categories <span className={classes.spanclear} onClick = {()=>handleClearFilter()}>Clear All</span></Typography>
->>>>>>> 1abcd2e18659bb0e1b8f57b8652d7ff53c810a22
 
           {/*  render category filter on side bar */}
           {renderCategoryFilter()}
