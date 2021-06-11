@@ -1,3 +1,4 @@
+const mysqlCommonData = require("../../config/commonMysql");
 var pool = require("../../config/dbConnection");
 
 // controller to add new coupons
@@ -10,13 +11,9 @@ add_coupons = (req, res) => {
         var description = req.body.description ? req.body.description : ''
         var validity = req.body.validity ? req.body.validity : ''
         var subcategoryId = req.body.subcategoryId ? req.body.subcategoryId : 0
-    }
-    // var image_filename = ''
-    // if (req.file) {
-    //     var image_filename = req.file.filename ? req.file.filename : ''
-    // }
-    //  check for comapny name if already present then get id or inset new company name and get new id
-    //  insert all data into coupons table 
+        var couponUrl = req.body.couponUrl ? req.body.couponUrl : ''
+        console.log(req.body)
+    
     pool.getConnection(function (err, connection) {
         if (err) {
             res.status(200).send({
@@ -27,7 +24,7 @@ add_coupons = (req, res) => {
         }
         else {
             connection.query(
-                `INSERT INTO coupons (title,code,description,validity,categoryId,companyId, subcategoryId) VALUES ("${title}",'${code}',"${description}",'${validity}',${categoryId},${companyId}, ${subcategoryId})`,
+                `INSERT INTO coupons (title,code,description,validity,categoryId,companyId, subcategoryId,couponUrl) VALUES ("${title}",'${code}',"${description}","${validity}",${categoryId},${companyId}, ${subcategoryId},"${couponUrl}")`,
                 (err, result) => {
                     if (err) {
                         res.status(200).send({
@@ -50,6 +47,14 @@ add_coupons = (req, res) => {
             );
         }
     })
+}
+else {
+    res.status(200).send({
+        message: 'Invalid request',
+        content: [],
+        is_success: false
+    })
+}
 };
 
 // controller to update new coupons
@@ -70,256 +75,263 @@ get_coupons_by_id = (req, res) => {
 
 // controller to get coupons by category
 get_coupons_by_category = (req, res) => {
-    pool.getConnection(function (err, connection) {
-        if (err) {
-            res.status(200).send({
-                message: err,
-                content: [],
-                is_success: false
-            })
-        }
-        else {
+    if (mysqlCommonData && mysqlCommonData.selectDataFromAllTables && req.body && req.body.categoryIds) {
+        pool.getConnection(function (err, connection) {
+            if (err) {
+                res.status(200).send({
+                    message: err,
+                    content: [],
+                    is_success: false
+                })
+            }
+            else {
 
-            connection.query(
-                `SELECT coupons.id, coupons.title, coupons.code, 
-                coupons.description, coupons.validity, 
-                companies.image, category.id as category_id, 
-                category.name as category_name, 
-                companies.id as company_id, 
-                companies.name as company_name,
-                subcategory.id as subcategory_id,
-                subcategory.name as subcategory_name
-                FROM coupons INNER JOIN 
-                companies on coupons.companyId = companies.id 
-                INNER JOIN category on coupons.categoryId = category.id 
-                INNER JOIN subcategory on coupons.subcategoryId = subcategory.id 
-                WHERE coupons.categoryId IN (${req.body.categoryIds})`,
-                (err, result) => {
-                    // user does not exists
-                    if (err) {
-                        res.status(200).send({
-                            message: err,
-                            content: [],
-                            is_success: false,
-                        });
-                        // throw err;
-                    } else {
-                        let coupon = [result];
+                connection.query(
+                    `SELECT ${mysqlCommonData.selectDataFromAllTables}
+                    FROM coupons INNER JOIN 
+                    companies on coupons.companyId = companies.id 
+                    INNER JOIN category on coupons.categoryId = category.id 
+                    INNER JOIN subcategory on coupons.subcategoryId = subcategory.id 
+                    WHERE coupons.categoryId IN (${req.body.categoryIds})`,
+                    (err, result) => {
+                        // user does not exists
+                        if (err) {
+                            res.status(200).send({
+                                message: err,
+                                content: [],
+                                is_success: false,
+                            });
+                            // throw err;
+                        } else {
+                            let coupon = [result];
 
-                        res.status(200).json({
-                            message: "filtered coupon list",
-                            content: coupon[0],
-                            is_success: true,
-                        });
-                        connection.release();
+                            res.status(200).json({
+                                message: "filtered coupon list",
+                                content: coupon[0],
+                                is_success: true,
+                            });
+                            connection.release();
+                        }
                     }
-                }
-            );
-        }
-    });
+                );
+            }
+        });
+    } else {
+        res.status(200).send({
+            message: 'Invalid request',
+            content: [],
+            is_success: false
+        })
+    }
 };
 // controller to get coupons by sub-category
 get_coupons_by_subcategory = (req, res) => {
-    pool.getConnection(function (err, connection) {
-        if (err) {
-            res.status(200).send({
-                message: err,
-                content: [],
-                is_success: false
-            })
-        }
-        else {
-            connection.query(
-                `SELECT coupons.id, coupons.title, coupons.code, 
-                coupons.description, coupons.validity, 
-                companies.image, category.id as category_id, 
-                category.name as category_name, 
-                companies.id as company_id, 
-                companies.name as company_name,
-                subcategory.id as subcategory_id,
-                subcategory.name as subcategory_name
+    if (mysqlCommonData && mysqlCommonData.selectDataFromAllTables && req.body && req.body.subcategoryIds) {
+        pool.getConnection(function (err, connection) {
+            if (err) {
+                res.status(200).send({
+                    message: err,
+                    content: [],
+                    is_success: false
+                })
+            }
+            else {
+                connection.query(
+                    `SELECT ${mysqlCommonData.selectDataFromAllTables}
                 FROM coupons INNER JOIN 
                 companies on coupons.companyId = companies.id 
                 INNER JOIN category on coupons.categoryId = category.id 
                 INNER JOIN subcategory on coupons.subcategoryId = subcategory.id 
                 WHERE coupons.subcategoryId IN (${req.body.subcategoryIds})`,
-                (err, result) => {
-                    // user does not exists
-                    if (err) {
-                        res.status(200).send({
-                            message: err,
-                            content: [],
-                            is_success: false,
-                        });
-                        // throw err;
-                    } else {
-                        let coupon = [result];
+                    (err, result) => {
+                        // user does not exists
+                        if (err) {
+                            res.status(200).send({
+                                message: err,
+                                content: [],
+                                is_success: false,
+                            });
+                            // throw err;
+                        } else {
+                            let coupon = [result];
 
-                        res.status(200).json({
-                            message: "filtered coupon list",
-                            content: coupon[0],
-                            is_success: true,
-                        });
-                        connection.release();
+                            res.status(200).json({
+                                message: "filtered coupon list",
+                                content: coupon[0],
+                                is_success: true,
+                            });
+                            connection.release();
+                        }
                     }
-                }
-            );
-        }
-    });
+                );
+            }
+        });
+    } else {
+        res.status(200).send({
+            message: 'Invalid request',
+            content: [],
+            is_success: false
+        })
+    }
 };
 // controller to get coupons by cat and subcat
 get_coupons_by_cat_and_subcat = (req, res) => {
     var catId = req.body.categoryIds && req.body.categoryIds.length ? req.body.categoryIds : 0
     var subCatId = req.body.subcategoryIds && req.body.subcategoryIds.length ? req.body.subcategoryIds : 0
-    pool.getConnection(function (err, connection) {
-        if (err) {
-            res.status(200).send({
-                message: err,
-                content: [],
-                is_success: false
-            })
-        }
-        else {
-            connection.query(
-                `SELECT coupons.id, coupons.title, coupons.code, 
-                coupons.description, coupons.validity, 
-                companies.image, category.id as category_id, 
-                category.name as category_name, 
-                companies.id as company_id, 
-                companies.name as company_name,
-                subcategory.id as subcategory_id,
-                subcategory.name as subcategory_name
+    if (mysqlCommonData && mysqlCommonData.selectDataFromAllTables && req.body && catId && subCatId) {
+        pool.getConnection(function (err, connection) {
+            if (err) {
+                res.status(200).send({
+                    message: err,
+                    content: [],
+                    is_success: false
+                })
+            }
+            else {
+                connection.query(
+                    `SELECT ${mysqlCommonData.selectDataFromAllTables}
                 FROM coupons INNER JOIN 
                 companies on coupons.companyId = companies.id 
                 INNER JOIN category on coupons.categoryId = category.id 
                 INNER JOIN subcategory on coupons.subcategoryId = subcategory.id 
                 WHERE coupons.subcategoryId IN (${subCatId}) 
                 AND coupons.categoryId in (${catId})`,
-                (err, result) => {
-                    // user does not exists
-                    if (err) {
-                        res.status(200).send({
-                            message: err,
-                            content: [],
-                            is_success: false,
-                        });
-                        // throw err;
-                    } else {
-                        let coupon = [result];
+                    (err, result) => {
+                        // user does not exists
+                        if (err) {
+                            res.status(200).send({
+                                message: err,
+                                content: [],
+                                is_success: false,
+                            });
+                            // throw err;
+                        } else {
+                            let coupon = [result];
 
-                        res.status(200).json({
-                            message: "filtered coupon list",
-                            content: coupon[0],
-                            is_success: true,
-                        });
-                        connection.release();
+                            res.status(200).json({
+                                message: "filtered coupon list",
+                                content: coupon[0],
+                                is_success: true,
+                            });
+                            connection.release();
+                        }
                     }
-                }
-            );
-        }
-    });
+                );
+            }
+        });
+    } else {
+        res.status(200).send({
+            message: 'Invalid request',
+            content: [],
+            is_success: false
+        })
+    }
 };
 
 // controller to get coupons by company
 get_coupons_by_company = (req, res) => {
-    pool.getConnection(function (err, connection) {
-        if (err) {
-            res.status(200).send({
-                message: err,
-                content: [],
-                is_success: false
-            })
-        }
-        else {
-            connection.query(
-                `SELECT coupons.id, coupons.title, coupons.code, 
-                coupons.description, coupons.validity, 
-                companies.image, category.id as category_id, 
-                category.name as category_name, 
-                companies.id as company_id, 
-                companies.name as company_name,
-                subcategory.id as subcategory_id,
-                subcategory.name as subcategory_name
+    if (mysqlCommonData && mysqlCommonData.selectDataFromAllTables && req.body && req.body.companyId) {
+        pool.getConnection(function (err, connection) {
+            if (err) {
+                res.status(200).send({
+                    message: err,
+                    content: [],
+                    is_success: false
+                })
+            }
+            else {
+                connection.query(
+                    `SELECT ${mysqlCommonData.selectDataFromAllTables}
                 FROM coupons INNER JOIN 
                 companies on coupons.companyId = companies.id 
                 INNER JOIN category on coupons.categoryId = category.id 
                 INNER JOIN subcategory on coupons.subcategoryId = subcategory.id 
                 WHERE coupons.companyId = ${req.body.companyId}`,
-                (err, result) => {
-                    // user does not exists
-                    if (err) {
-                        res.status(200).send({
-                            message: err,
-                            content: [],
-                            is_success: false,
-                        });
-                        // throw err;
-                    } else {
-                        let coupon = [result];
+                    (err, result) => {
+                        // user does not exists
+                        if (err) {
+                            res.status(200).send({
+                                message: err,
+                                content: [],
+                                is_success: false,
+                            });
+                            // throw err;
+                        } else {
+                            let coupon = [result];
 
-                        res.status(200).json({
-                            message: "filtered coupon list",
-                            content: coupon[0],
-                            is_success: true,
-                        });
-                        connection.release();
+                            res.status(200).json({
+                                message: "filtered coupon list",
+                                content: coupon[0],
+                                is_success: true,
+                            });
+                            connection.release();
+                        }
                     }
-                }
-            );
-        }
-    });
+                );
+            }
+        });
+    } else {
+        res.status(200).send({
+            message: 'Invalid request',
+            content: [],
+            is_success: false
+        })
+    }
 };
 
 // controller to get ALl coupons
 get_all_coupons = (req, res) => {
-    pool.getConnection(function (err, connection) {
-        if (err) {
-            res.status(200).send({
-                message: err,
-                content: [],
-                is_success: false
-            })
-        }
-        else {
-            connection.query(
-                `SELECT coupons.id, coupons.title, coupons.code, 
-                coupons.description, coupons.validity, 
-                companies.image, category.id as category_id, 
-                category.name as category_name,
-                companies.id as company_id, 
-                companies.name as company_name,
-                subcategory.id as subcategory_id,
-                subcategory.name as subcategory_name  
+    if (mysqlCommonData && mysqlCommonData.selectDataFromAllTables) {
+        pool.getConnection(function (err, connection) {
+            if (err) {
+                res.status(200).send({
+                    message: err,
+                    content: [],
+                    is_success: false
+                })
+            }
+            else {
+                connection.query(
+                    `SELECT ${mysqlCommonData.selectDataFromAllTables}  
                 FROM coupons
                 INNER JOIN category ON coupons.categoryId=category.id 
                 INNER JOIN subcategory ON coupons.subcategoryId=subcategory.id 
                 INNER JOIN companies on coupons.companyId = companies.id;`,
-                (err, result) => {
-                    // user does not exists
-                    if (err) {
-                        res.status(200).send({
-                            message: err,
-                            content: [],
-                            is_success: false,
-                        });
-                        // throw err;
-                    } else {
-                        let coupon = [result];
+                    (err, result) => {
+                        // user does not exists
+                        if (err) {
+                            res.status(200).send({
+                                message: err,
+                                content: [],
+                                is_success: false,
+                            });
+                            // throw err;
+                        } else {
+                            let coupon = [result];
 
-                        res.status(200).json({
-                            message: "coupon list",
-                            content: coupon[0],
-                            is_success: true,
-                        });
-                        connection.release();
+                            res.status(200).json({
+                                message: "coupon list",
+                                content: coupon[0],
+                                is_success: true,
+                            });
+                            connection.release();
+                        }
                     }
-                }
-            );
-        }
-    })
+                );
+            }
+        })
+    } else {
+        res.status(200).send({
+            message: 'Invalid request',
+            content: [],
+            is_success: false
+        })
+    }
 };
 
 get_coupons_by_search = (req, res) => {
+    if (mysqlCommonData && mysqlCommonData.selectDataFromAllTables && req.body && req.body.searchParams) {
+
     pool.getConnection(function (err, connection) {
         if (err) {
             res.status(200).send({
@@ -330,23 +342,19 @@ get_coupons_by_search = (req, res) => {
         }
         else {
             connection.query(
-                `SELECT coupons.id, coupons.title, coupons.code, 
-        coupons.description, coupons.validity, companies.image, 
-        category.id as category_id, category.name as category_name, 
-        subcategory.id as subcategory_id,subcategory.name as subcategory_name,
-         companies.id as company_id, companies.name as company_name
+                `SELECT ${mysqlCommonData.selectDataFromAllTables}
         FROM coupons
         INNER JOIN companies on coupons.companyId = companies.id 
         INNER JOIN category on coupons.categoryId = category.id
         INNER JOIN subcategory on coupons.subcategoryId = subcategory.id
-        ${ req.body.searchBy == 'all' ? `WHERE coupons.title LIKE '${req.body.searchParams}' OR 
+        ${req.body.searchBy == 'all' ? `WHERE coupons.title LIKE '${req.body.searchParams}' OR 
         companies.name LIKE '%${req.body.searchParams}%' OR 
         category.name LIKE '%${req.body.searchParams}%' OR
         subcategory.name LIKE '%${req.body.searchParams}%'` :
-         req.body.searchBy == 'category' ? `WHERE category.name LIKE '%${req.body.searchParams}%'`:
-         req.body.searchBy == 'store' ? `WHERE companies.name LIKE '%${req.body.searchParams}%'` : 
-         req.body.searchBy == 'subcategory' ? `WHERE subcategory.name LIKE '%${req.body.searchParams}%'` :
-          `WHERE companies.name LIKE '%${req.body.searchParams}%'`}
+                    req.body.searchBy == 'category' ? `WHERE category.name LIKE '%${req.body.searchParams}%'` :
+                        req.body.searchBy == 'store' ? `WHERE companies.name LIKE '%${req.body.searchParams}%'` :
+                            req.body.searchBy == 'subcategory' ? `WHERE subcategory.name LIKE '%${req.body.searchParams}%'` :
+                                `WHERE companies.name LIKE '%${req.body.searchParams}%'`}
         `,
                 (err, result) => {
                     // user does not exists
@@ -371,6 +379,13 @@ get_coupons_by_search = (req, res) => {
             );
         }
     })
+} else {
+    res.status(200).send({
+        message: 'Invalid request',
+        content: [],
+        is_success: false
+    })
+}
 }
 
 

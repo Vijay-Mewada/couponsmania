@@ -29,6 +29,13 @@ function GetCoupon(props) {
     ? `${serverImageUrl}/${selectedCoupon.image}`
     : img;
 
+    const handleCouponRedirectButton = (item)=>{
+      console.log('item.couponUrl',item.couponUrl);
+      if(item && item.couponUrl && item.couponUrl !== ''){
+        window.open(item.couponUrl, "_blank", "");
+      }
+    }
+
   return (
     <div>
       {/* {
@@ -67,7 +74,7 @@ function GetCoupon(props) {
               </Grid>
 
             </div>&emsp;&emsp;
-              <Button className={classes.redirectbtn}>GO</Button>
+              <Button className={classes.redirectbtn} onClick = {()=>handleCouponRedirectButton(selectedCoupon)}>GO</Button>
           </div>
                 <Typography variant='h4' className={classes.copyCodeMsg}>{copyMsg}</Typography>
           {/* </div>

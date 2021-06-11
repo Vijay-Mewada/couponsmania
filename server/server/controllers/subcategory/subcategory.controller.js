@@ -13,8 +13,8 @@ add_subcategory = (req, res, next) => {
             }
             else {
                 connection.query(
-                    `INSERT INTO subcategory (name,categoryId) SELECT * FROM (SELECT '${req.body.subcategory}', ${req.body.categoryId}) AS tmp
-            WHERE NOT EXISTS ( SELECT name FROM category WHERE name = '${req.body.subcategory}') LIMIT 1`,
+                    `INSERT INTO subcategory (name,categoryId) SELECT * FROM (SELECT "${req.body.subcategory}", ${req.body.categoryId}) AS tmp
+            WHERE NOT EXISTS ( SELECT name FROM category WHERE name = "${req.body.subcategory}") LIMIT 1`,
                     (err, result) => {
                         if (err) {
                             res.status(200).send({
