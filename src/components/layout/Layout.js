@@ -1,4 +1,4 @@
-import { Grid, Paper } from "@material-ui/core";
+import { Button, Grid, Paper } from "@material-ui/core";
 import React, { useState, useContext, useEffect } from "react";
 import Footer from "../footer/Footer";
 import Header from "../header/Header";
@@ -119,7 +119,7 @@ function Layout(props) {
         <Paper className={classes.offerpaper} onClick = {()=>{handlePopularStoreClick(item)}}>
           <div className={classes.li}>
             <img src={imagePath} alt="amazon offer store" className={classes.companyimg} />&emsp;
-            <Typography variant='h6'>{item.name} <br />
+            <Typography variant='h6' className={classes.cmpnm}>{item.name} <br />
                 <span className={classes.offeravailable} >{item.coupons_counter} Offers Available</span>
               </Typography>
           </div>
@@ -271,9 +271,12 @@ function Layout(props) {
 
                         <Grid  xl={4} style={{display:'flex'}}>
         {/* <Paper className={classes.offerpaper1}> */}
-          <div className={classes.li}>
-           
-            <Typography variant='h6'  style={{margin:'auto'}}>View More <DoubleArrowIcon/></Typography>
+          <div className={classes.li} style={{margin:'auto',display:'flex'}}>
+
+           <Link to='/TopStore' className={classes.viewmore}>
+            <Typography variant='h6'   >View More </Typography><DoubleArrowIcon  className={classes.viewmoreicon}/>
+            </Link>
+
           </div>
         {/* </Paper> */}
         
@@ -315,6 +318,7 @@ function Layout(props) {
           }}
         >
           <div className={classes.drawerHeader}>
+          <Button variant="title" style={{marginRight:"auto"}}>Clear All</Button>
             <Typography variant="h6">Filter</Typography>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === "ltr" ? (
@@ -351,7 +355,7 @@ function Layout(props) {
           })}
         >
           <div className={classes.drawerHeader} />
-          <main style={{background:"#b8fdff",marginBottom:'8px'}}>{props.children}</main>
+          <main style={{background:"#b8fdff",marginBottom:'8px'}}><Button variant='button'>Clear All</Button>{props.children}</main>
         </main>
       </div>
 

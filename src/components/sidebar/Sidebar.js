@@ -156,7 +156,7 @@ function Sidebar(props) {
     <Grid>
       <Grid xs={12} sm={12} md={12} lg={12} xl={12} >
         <Card className={classes.card} >
-          <Typography variant="h6" >Categories <span className={classes.spanclear}>Clear All</span></Typography>
+          <Typography variant="h6" >Categories </Typography>
 
           {/*  render category filter on side bar */}
           {renderCategoryFilter()}
@@ -165,7 +165,7 @@ function Sidebar(props) {
 
       <Grid xs={12} sm={12} md={12} lg={12} xl={12} >
         <Card className={classes.card} >
-          <Typography variant="h6" >Sub Categories  <span className={classes.spanclear}>Clear All</span></Typography>
+          <Typography variant="h6" >Sub Categories  </Typography>
 
           {/*  render sub category filter on side bar */}
           {renderSubcategoryFilter()}

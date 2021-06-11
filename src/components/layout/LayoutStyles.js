@@ -342,6 +342,24 @@ offerpaper1:{
     transform: "scale(1.1)",
  
   }
+},
+cmpnm:{
+  overflow: "hidden",
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    textAlign:"center"
+},
+viewmore:{
+  display:'flex',
+  textDecoration:'none',
+  color:"black",
+  "&:hover":{
+    color:'red',
+    transform: "scale(1.1)",
+  }
+},
+viewmoreicon:{
+  margin:'auto'
 }
 
 }));

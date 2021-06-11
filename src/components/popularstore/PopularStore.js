@@ -60,7 +60,7 @@ function PopularStore(props) {
 
         return (
           
-            <Grid xl={2} lg={4} className={classes.popularmain} >
+            <Grid xl={2} lg={2} md={3} className={classes.popularmain} >
               <Paper
                 className={classes.paper}
                 onClick={() => handlePopularStoreClick(item)}
