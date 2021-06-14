@@ -355,7 +355,7 @@ function Layout(props) {
           })}
         >
           <div className={classes.drawerHeader} />
-          <main style={{background:"#b8fdff",marginBottom:'8px'}}><Button variant='button'>Clear All</Button>{props.children}</main>
+          <main style={{background:"#b8fdff",marginBottom:'8px'}}>{props.children}</main>
         </main>
       </div>
 
