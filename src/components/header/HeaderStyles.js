@@ -110,5 +110,11 @@ const HeaderStyles = makeStyles((theme) => ({
         display: 'none',
       },
     },
+    socialicon:{
+     
+      "&:hover":{
+        cursor:'pointer'
+      }
+    },
   }));
   export { HeaderStyles };

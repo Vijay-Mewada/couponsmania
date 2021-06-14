@@ -113,11 +113,11 @@ function Header(props) {
           <Grid className={classes.social}>
           <Typography className={classes.socialicon} variant="subtitle" noWrap>
             Follow us on :
-          </Typography>
+          </Typography><br/>
             
-              <FacebookIcon/>&nbsp;
-              <InstagramIcon/>&nbsp;
-              <TwitterIcon />&nbsp;
+              <FacebookIcon  className={classes.socialicon}/>&nbsp;
+              <InstagramIcon className={classes.socialicon}/>&nbsp;
+              <TwitterIcon  className={classes.socialicon}/>&nbsp;
            
           </Grid>
         </Toolbar>

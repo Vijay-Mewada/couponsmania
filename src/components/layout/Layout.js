@@ -273,7 +273,7 @@ function Layout(props) {
         {/* <Paper className={classes.offerpaper1}> */}
           <div className={classes.li} style={{margin:'auto',display:'flex'}}>
 
-           <Link to='/TopStore' className={classes.viewmore}>
+           <Link to='/couponsmania/AllStores' className={classes.viewmore}>
             <Typography variant='h6'   >View More </Typography><DoubleArrowIcon  className={classes.viewmoreicon}/>
             </Link>
 
