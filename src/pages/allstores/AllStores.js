@@ -179,7 +179,7 @@ export const AllStores = (props) => {
                   className={classes.alphabet}
                   onClick={handleAlphaClick(i)}
                 >
-                  {i}{" "}
+                  {i}
                 </Link>
               </div>
             );
