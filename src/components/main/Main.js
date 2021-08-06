@@ -28,8 +28,8 @@ import GetCoupon from "../getcouponpopup/GetCoupon";
 
 function Main(props) {
   const classes = MainStyles(props);
-  const [couponsList, setCouponsList] = useState([]);
-  const { globalState, globalDispatch } = useContext(Context);
+    const [couponsList, setCouponsList] = useState([]);
+    const { globalState, globalDispatch } = useContext(Context);
   const [isCouponsPopupOpen, setIsCouponsPopupOpen] = React.useState(false);
   const [selectedCoupon, setSelectedCoupon] = useState({});
   const [copyMsg, setCopyMsg] = useState('')
