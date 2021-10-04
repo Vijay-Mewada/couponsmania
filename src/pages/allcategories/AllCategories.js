@@ -25,6 +25,9 @@ import Back from "../../../src/images/category.png";
     }
 
   }, [])
+  const hundleClickCategory = async (category) => {
+    console.log(category)
+  }
 
   
  
@@ -32,7 +35,7 @@ import Back from "../../../src/images/category.png";
     const categoryKey = Object.keys(navKeyList)
     return categoryKey && categoryKey.map((cateKey, index) => {
       return <Grid key={index} xl={4}>
-        <li className={classes.categoryli}>{cateKey} </li>
+        <li className={classes.categoryli} onClick={ () => hundleClickCategory(cateKey)}>{cateKey} </li>
         {navKeyList && navKeyList[cateKey].map((subcat, ind) => {
           return <li key = {ind} className={classes.subcategoryli} > {subcat.subcategory_name}</li>
         })}

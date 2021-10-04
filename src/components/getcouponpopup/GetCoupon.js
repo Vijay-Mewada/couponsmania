@@ -20,6 +20,7 @@ import { blue } from '@material-ui/core/colors';
 import { Grid } from '@material-ui/core';
 import img from '../../images/amazonlogo.jpg'
 import { serverImageUrl } from '../../api/serverRequest';
+import { post } from '../../api/serverRequest';
 
 function GetCoupon(props) {
   const classes = GetCouponStyles(props);
@@ -29,12 +30,15 @@ function GetCoupon(props) {
     ? `${serverImageUrl}/${selectedCoupon.image}`
     : img;
 
-    const handleCouponRedirectButton = (item)=>{
+    const handleCouponRedirectButton = async  (item)=>{
       if(item && item.couponUrl && item.couponUrl !== ''){
         window.open(item.couponUrl);
         console.log('item.couponUrl',item.couponUrl);
-      }
+      const data = {id: item.id}
+        let isUsedResponse = await post("/coupon/updateIsUsedCoupon", data);
+            }
     }
+
 
   return (
     <div>

@@ -50,6 +50,10 @@ function Main(props) {
     setCopyMsg('')
   };
 
+  const hundleClearAll = () => {
+    window.location.reload();
+  }
+
 
 
   // componentdidmountto
@@ -159,7 +163,7 @@ function Main(props) {
 
   return (
     <Grid>
-      <Button varient='button' style={{margin:'5px'}}>Clear All</Button>
+      <Button varient='button' style={{margin:'5px'}} onClick={hundleClearAll}>Clear All</Button>
       <Grid container spacing={2}>
       {/*  render all coupons list */}
       {renderCouponsList()}

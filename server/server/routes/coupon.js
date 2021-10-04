@@ -55,6 +55,8 @@ router.get("/getAllCompany",companyController.get_all_company);
 router.get("/getpopularCompany",companyController.get_popular_companies);
 // get most 10 used company list
 router.post("/deleteCompanyById",companyController.delete_company_by_id);
+// To get company by alphabet in allstore page
+router.post("/getCompanyByAlphabet",companyController.get_company_by_alphabet);
 // ****************** company routes******************//
 
 
@@ -73,6 +75,10 @@ router.post("/getCouponsBySearch", couponController.get_coupons_by_search)
 router.post("/getCouponsByCatAndSubCat", couponController.get_coupons_by_cat_and_subcat)
 // get coupons by company
 router.post("/getCouponsByCompany", couponController.get_coupons_by_company) 
+// get all couponstype
+router.get("/getAllCouponType", couponController.get_all_coupons_type)
+// get all isused coupon
+router.post("/updateIsUsedCoupon", couponController.updateIsUsedCoupon)
 // ****************** coupons routes******************//
 
 module.exports = router;

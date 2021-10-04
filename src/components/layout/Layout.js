@@ -51,6 +51,7 @@ function Layout(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+ 
 
 
   useEffect(async () => {
@@ -323,8 +324,8 @@ function Layout(props) {
 
 
 
-            <Link className={classes.link} to="/">
-              Best offer
+            <Link className={classes.link} to="/couponsmania/ContactUs">
+              Contact US
             </Link>
             
             
@@ -354,7 +355,7 @@ function Layout(props) {
           }}
         >
           <div className={classes.drawerHeader}>
-          <Button variant="title" style={{marginRight:"auto"}} >Clear All</Button>
+          
             <Typography variant="h6">Filter</Typography>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === "ltr" ? (

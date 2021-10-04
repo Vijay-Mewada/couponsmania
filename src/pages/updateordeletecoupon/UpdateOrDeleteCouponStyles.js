@@ -27,6 +27,9 @@ const UpdateOrDeleteCouponStyles = makeStyles((theme) =>({
           height: "98px",
         }, 
       },
+      // table:{
+      
+      // },
       paprcntr:{
         [theme.breakpoints.down('sm')]: {
           margin: "auto",
@@ -35,16 +38,17 @@ const UpdateOrDeleteCouponStyles = makeStyles((theme) =>({
       offerpaper:{
         margin:"10px 25px",
         padding:'5px',
+        overflow:'scroll',
         // "&:hover":{
         //   transform: "scale(1.1)",
         //   cursor:'pointer'
        
         // },
-        [theme.breakpoints.down('lg')]: {
-            margin:"10px ",
-            width:'250px',
-            maxWidth: '250px'
-          },
+        // [theme.breakpoints.down('lg')]: {
+        //     margin:"10px ",
+        //     width:'250px',
+        //     maxWidth: '250px'
+        //   },
           // [theme.breakpoints.down('sm')]: {
           //   margin:"auto ",
           // },

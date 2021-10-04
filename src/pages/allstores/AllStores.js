@@ -9,7 +9,6 @@ import { get, post, serverImageUrl } from "../../api/serverRequest";
 
 const alpha = [
   "All",
-  "#",
   "A",
   "B",
   "C",
@@ -75,21 +74,26 @@ export const AllStores = (props) => {
     }
   };
 
-  const handleAlphaClick = async (item) => {
-    if (item && item.id) {
-      globalDispatch({ type: "SET_LOADER_STATE", payload: true });
-      let response = await post("/coupon/getCouponsByCompany", {
-        companyId: item.id,
-      });
-      if (
-        response.data &&
-        response.data.content &&
-        response.data.content.length
-      ) {
-        globalDispatch({ type: "ADD_COUPONS", payload: response.data.content });
-        globalDispatch({ type: "SET_LOADER_STATE", payload: false });
+  const handleAlphaClick = async (alphabet) => {
+   
+    if (alphabet) {
+      // globalDispatch({ type: 'SET_LOADER_STATE', payload: true })
+      // alphabet = alphabet == 'All' ? "" : alphabet
+      let res = await post("/coupon/getCompanyByAlphabet", { alphabet  });
+      if (res && res.data && res.data.content) {
+        let data = res.data.content
+        // set global state to set coupons list for global use
+        globalDispatch({
+          type: "GET_ALL_COMPANIES",
+          payload : data,
+        });
+        globalDispatch({ type: 'SET_LOADER_STATE', payload: false })
+      }
+      else{
+        globalDispatch({ type: 'SET_LOADER_STATE', payload: false })
       }
     }
+
   };
 
   const renderAllCompanies = () => {
@@ -119,7 +123,8 @@ export const AllStores = (props) => {
                 <Typography variant="h6" className={classes.cmpnm}>
                   {item.name} <br />
                   <span className={classes.offeravailable}>
-                    {console.log(item.coupons_counter)} Offers Available
+                    Offers Available  
+                    {/* {console.log(item.coupons_counter)} */}
                   </span>
                 </Typography>
               </div>
@@ -159,6 +164,7 @@ export const AllStores = (props) => {
             variant="contained"
             color="primary"
             style={{ margin: "5px auto" }}
+            onClick={ () => handleAlphaClick("All")}
           >
             Clear
           </Button>
@@ -171,13 +177,14 @@ export const AllStores = (props) => {
           xs={12}
           style={{ display: "flex" }}
         >
+        
           {alpha.map((i, key) => {
             return (
               <div style={{ margin: "auto 0px" }} key={key}>
                 &emsp;
                 <Link
                   className={classes.alphabet}
-                  onClick={handleAlphaClick(i)}
+                  onClick={ () => handleAlphaClick(i)}
                 >
                   {i}
                 </Link>

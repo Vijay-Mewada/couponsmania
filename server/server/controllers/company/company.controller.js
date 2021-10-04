@@ -145,6 +145,7 @@ get_popular_companies = (req, res) => {
       connection.query(
         `SELECT companies.id, companies.name, companies.image ,COUNT(*) AS coupons_counter 
         FROM coupons
+        INNER JOIN coupontype on coupons.type = coupontype.id
         INNER JOIN companies on coupons.companyId = companies.id  
         GROUP BY companyId 
         ORDER BY coupons_counter DESC
@@ -174,9 +175,59 @@ get_popular_companies = (req, res) => {
   });
 }
 
+get_company_by_alphabet = (req, res) => {
+  console.log(req.body);
+  if (req.body && req.body.alphabet) {
+
+  pool.getConnection(function (err, connection) {
+      if (err) {
+          res.status(200).send({
+              message: err,
+              content: [],
+              is_success: false
+          })
+      }
+      else {
+          connection.query(
+              `SELECT * FROM companies
+                 WHERE name LIKE "${req.body.alphabet === "All" ? "" : req.body.alphabet}%" `,
+              (err, result) => {
+                  // user does not exists
+                  if (err) {
+                      res.status(200).send({
+                          message: err,
+                          content: [],
+                          is_success: false,
+                      });
+                      // throw err;
+                  } else {
+                      let coupon = [result];
+
+                      res.status(200).json({
+                          message: "filtered Company list",
+                          content: coupon[0],
+                          is_success: true,
+                      });
+                      connection.release();
+                  }
+              }
+          );
+      }
+  })
+} else {
+  res.status(200).send({
+      message: 'Invalid request',
+      content: [],
+      is_success: false
+  })
+}
+}
+
+
 module.exports = {
   add_company,
   get_all_company,
   get_popular_companies,
-  delete_company_by_id
+  delete_company_by_id,
+  get_company_by_alphabet
 }

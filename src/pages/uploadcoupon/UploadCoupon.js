@@ -50,6 +50,8 @@ function UploadCoupon(props) {
   const [errorMessage, setErrorMessage] = useState("");
   const [popupType, setPopupType] = useState("");
   const [couponUrl, setCouponUrl] = useState("");
+  const [couponType, setCouponType] = useState();
+  const [couponTypeList, setCouponTypeList] = useState([]);
 
   //  component didmount to get all category and companylist
   useEffect(async () => {
@@ -61,6 +63,9 @@ function UploadCoupon(props) {
 
     //  set sub-category list to state
     getAllSubcategoryList();
+
+     //  set Coupon-type list to state
+     getAllCouponTypeList();
 
   }, []);
 
@@ -97,6 +102,17 @@ function UploadCoupon(props) {
       subcategoryListResponse.data.content
     ) {
       setsubcategoryList(subcategoryListResponse.data.content);
+    }
+  };
+  // get Coupon type from db
+  const getAllCouponTypeList = async () => {
+    let couponTypeResponce = await get("/coupon/getAllCouponType");
+    if (
+      couponTypeResponce &&
+      couponTypeResponce.data &&
+      couponTypeResponce.data.content
+    ) {
+      setCouponTypeList(couponTypeResponce.data.content);
     }
   };
 
@@ -188,7 +204,7 @@ function UploadCoupon(props) {
   const handleFormSubmit = async () => {
     var validityDate = Moment(selectedDate).format("YYYY-MM-DD");
     if (selectedDate && categoryId && companyId && couponUrl && subcategoryId && selectedDate !=='' && 
-    categoryId !=='' && companyId  !=='' && subcategoryId !=='' && couponUrl !=='') {
+    categoryId !=='' && companyId  !=='' && subcategoryId !=='' && couponUrl !=='' && couponType !=='') {
       setErrorMessage("");
 
       var data = {
@@ -199,7 +215,8 @@ function UploadCoupon(props) {
         categoryId: categoryId,
         validity: validityDate,
         subcategoryId,
-        couponUrl
+        couponUrl,
+        couponType
       };
       let response = await post("/coupon/addCoupon", data);
       if (response && response.data && response.data.is_success) {
@@ -217,6 +234,7 @@ function UploadCoupon(props) {
         setSubcategoryName("");
         setSubcategoryId("");
         setCouponUrl("");
+        setCouponType("");
       }else{
         setErrorMessage("Form not submitted, Try again!");
         alert("Form not submitted, Try again!");
@@ -504,6 +522,29 @@ function UploadCoupon(props) {
               </Grid>
             </Grid>
             <br />
+
+            <FormControl variant="outlined" style={{ width: "95%" }}>
+                  <InputLabel htmlFor="outlined-age-native-simple">
+                    Coupon Type
+              </InputLabel>
+                  <Select
+                    native
+                    value={couponType}
+                    onChange={(e) => setCouponType(e.target.value)}
+                    label="coupontype"
+                  >
+                    <option aria-label="None" value="" />
+                    {couponTypeList &&
+                      couponTypeList.map((item, ind) => {
+                        return (
+                          <option id={ind} value={item.id}>
+                            {item.type}
+                          </option>
+                        );
+                      })}
+
+                  </Select>
+                </FormControl>
 
 
             <FormControl variant="outlined">

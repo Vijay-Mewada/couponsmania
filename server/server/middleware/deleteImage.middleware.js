@@ -3,7 +3,8 @@ const fs = require("fs");
 const moment = require('moment');
 
 // delete expire image fro node server (/upload/images folder)
-const deleFileMiddleware = (req, res, next) => {
+const 
+deleFileMiddleware = (req, res, next) => {
     try {
         var today = moment(new Date()).format("YYYY-MM-DD");
         db.query(

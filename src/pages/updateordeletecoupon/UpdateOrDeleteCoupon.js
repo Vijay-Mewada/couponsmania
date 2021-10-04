@@ -61,6 +61,8 @@ const UpdateOrDeleteCoupon = (props) => {
               <TableCell align="center">{itm.title}</TableCell>
               <TableCell align="center">{itm.description}</TableCell>
               <TableCell align="center">{itm.code}</TableCell>{console.log(itm)}
+              <TableCell align="center">{itm.category_name}</TableCell>
+              <TableCell align="center">{itm.subcategory_name}</TableCell>
               <TableCell align="center">{itm.couponUrl}</TableCell>
               <TableCell align="center"><Button><EditIcon/></Button> &nbsp; <Button><DeleteIcon/></Button></TableCell>
             </TableRow>
@@ -97,7 +99,7 @@ const UpdateOrDeleteCoupon = (props) => {
       </Grid>
 
 
-      <Grid xl={12} className={classes.paprcntr}>
+      <Grid xl={12} sm={12} lg={12} xs={6} className={classes.paprcntr}>
             <Paper
               className={classes.offerpaper}
               
@@ -125,50 +127,17 @@ const UpdateOrDeleteCoupon = (props) => {
             <TableCell className={classes.theading} align="center">Coupon Tittle</TableCell>
             <TableCell className={classes.theading} align="center">Coupon Discription</TableCell>
             <TableCell className={classes.theading} align="center">Coupon Code</TableCell>
+            <TableCell className={classes.theading} align="center">Category</TableCell>
+            <TableCell className={classes.theading} align="center">Sub Category</TableCell>
             <TableCell className={classes.theading} align="center">Redirecting URL</TableCell>
             <TableCell className={classes.theading} align='center'>Actions</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-         
-            {/* <TableRow>
-              <TableCell component="th" scope="row">
-             
-                <img
-                  src={imagePath}
-                  alt="amazon offer store"
-                  className={classes.companyimg}
-                />              
-              </TableCell>
-              <TableCell align="center"><b>Amazon</b></TableCell>
-              <TableCell align="center">Tittle</TableCell>
-              <TableCell align="center">Discription</TableCell>
-              <TableCell align="center">Code</TableCell>
-              <TableCell align="center">www.amazon.in/yrggr/54rggfcd/mkjifgh/9psv</TableCell>
-              <TableCell align="center"><Button><EditIcon/></Button> &nbsp; <Button><DeleteIcon/></Button></TableCell>
-            </TableRow> */}
-        
-              
-           
-            {renderCouponsList()}
-           
-        
-
-
+        <TableBody> 
+            {renderCouponsList()}  
         </TableBody>
         </Table>
             </Paper>
-
-            {/* <Paper
-              className={classes.offerpaper}
-              
-            >
-              <Table>
-
-
-        </Table>
-            </Paper> */}
-
             
           </Grid>
         </div>

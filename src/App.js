@@ -8,6 +8,7 @@ import GlobalStateProvider from "./store/GlobalStateProvider";
 import AllStores from "./pages/allstores/AllStores"
 import AllCategories from './pages/allcategories/AllCategories'
 import UpdateOrDeleteCoupon from './pages/updateordeletecoupon/UpdateOrDeleteCoupon'
+import ContactUs from './pages/contactus/ContactUs'
 
 function App(props) {
   return (
@@ -20,6 +21,7 @@ function App(props) {
             <Route exact path="/couponsmania/AllStores" component={AllStores} />
             <Route exact path="/couponsmania/AllCategories" component={AllCategories} />
             <Route exact path="/couponsmania/UpdateOrDeleteCoupon" component={UpdateOrDeleteCoupon} />
+            <Route exact path="/couponsmania/ContactUs" component={ContactUs} />
           </Switch>
         </Layout>
       </Router> 
